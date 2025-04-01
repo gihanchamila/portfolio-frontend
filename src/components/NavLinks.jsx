@@ -9,7 +9,7 @@ const NavLinks = React.memo(({ links }) => {
                     key={link.to}
                     to={link.to}
                     className={({ isActive }) =>
-                        isActive ? "lg:text-sky-300" : "lg:text-white hover:text-surface-dim"
+                        isActive ? "lg:text-sky-500" : "lg:text-gray-700 hover:text-gray-800"
                     }
                 >
                     {link.name}

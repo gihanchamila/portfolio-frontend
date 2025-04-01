@@ -15,7 +15,7 @@
 
 /* Variants */
 .btn-primary {
-    @apply bg-primary text-white ;
+    @apply bg-primary text-white rounded-lg ;
 }
 
 .btn-secondary {
