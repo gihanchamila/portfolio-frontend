@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const NavLinks = React.memo(({ links }) => {
     return (
-        <div className="lg:flex lg:gap-5 font-primary text-xl font-bold">
+        <div className="flex flex-col gap-y-10 lg:flex-row lg:gap-5 font-primary text-xl font-bold w-full">
             {links.map((link) => (
                 <NavLink
                     key={link.to}
