@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ProjectImage } from "../../assets";
 
-const ProjectCard = ({ projectName, organization, description, buttonText, imageUrl, github, live }) => {
+const ProjectCard = ({ projectName, description, imageUrl, github, live }) => {
   const defaultImage = ProjectImage;
 
   return (
