@@ -1,5 +1,6 @@
 import GridContainer from "../components/GridContainer";
 import { Outlet } from "react-router-dom";
+import Skills from "../components/Skills";
 
 const Main = ({ children}) => {
   return (

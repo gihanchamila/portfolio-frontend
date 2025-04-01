@@ -1,6 +1,6 @@
 import React from "react";
-import { motion } from "framer-motion";
 import clsx from "clsx";
+import { motion } from "motion/react"
 
 export const BackgroundLines = ({ children, className, svgOptions }) => {
   return (

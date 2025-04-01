@@ -1,6 +1,6 @@
 import React from 'react';
-import { BackgroundLines } from './utils/AnimatedBackground';
-import SplitText from './utils/SplitText';
+import { BackgroundLines } from '../utils/AnimatedBackground';
+import SplitText from '../utils/SplitText';
 
 const HeroSection = () => {
   const handleAnimationComplete = () => {
@@ -16,7 +16,7 @@ const HeroSection = () => {
             <div className="lg:flex lg:flex-col space-y-3 justify-evenly">
               <SplitText
                 text="Hi, I'm Gihan Chamila"
-                className="text-4xl font-bold"
+                className="text-6xl font-bold font-primary"
                 delay={150}
                 animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
                 animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
