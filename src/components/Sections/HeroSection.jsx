@@ -25,7 +25,7 @@ const HeroSection = () => {
                 rootMargin="-50px"
                 onLetterAnimationComplete={handleAnimationComplete}
               />
-              <h2 className="text-2xl font-semibold">
+              <h2 className="text-2xl font-semibold font-primary">
                 A <span className="text-sky-500">Full Stack Developer</span> with a passion for building
                 <span className="text-emerald-500"> scalable</span>,
                 <span className="text-purple-500"> efficient</span>, and
