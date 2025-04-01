@@ -54,14 +54,14 @@ const MobileMenu = ({ navLinks }) => {
                             exit={{ x: '100%', }}
                             transition={{ type: 'spring', stiffness: 200, damping: 30 }}
                             ref={ref}
-                            className="fixed top-0 right-0 z-50 w-[20rem] h-screen bg-white rounded-l-2xl flex flex-col px-5 py-5 overflow-hidden"
+                            className="fixed top-0 right-0 z-50 w-[20rem] h-screen bg-white rounded-l-2xl flex flex-col px-10 py-5 overflow-hidden"
                         >
                             <div className="absolute top-8 right-7">
                                 <X onClick={toggleMenu} className="cursor-pointer" />
                             </div>
                             <div className='mt-20'>
                                 <NavLinks links={navLinks} />
-                                <Button variant="primary" className="px-4 py-2 font-semibold w-[8rem] mt-10" aria-label="View Resume">
+                                <Button variant="primary" className="px-4 py-2 font-semibold  mt-10" aria-label="View Resume">
                                     <NavLink to="/resume">Resume</NavLink>
                                 </Button>
                             </div>
