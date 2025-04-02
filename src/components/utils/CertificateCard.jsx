@@ -1,19 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Button from './Button';
 
 const CertificateCard = ({ certificateName, organization, credentialUrl }) => {
   return (
-    <div className='bg-sky-500 rounded-xl lg:p-10 sm:p-4 lg:h-[250px] sm:h-[200px]'>
-      <h2 className='text-xl font-bold text-white'>{certificateName}</h2>
-      <p className='text-white opacity-80'>{organization}</p>
+    <div className=' border hover:bg-gray-50 transition-all duration-100 border-gray-300 rounded-xl lg:p-10 sm:p-4 lg:h-[250px] sm:h-[200px] flex flex-col justify-between'>
+      <div>
+        <h2 className='lg:text-2xl sm:text-base font-semibold text-gray-800 drop-shadow-[0_0_10px_rgba(255,255,255,0.5]'>{certificateName}</h2>
+        <p className='text-gray-800 font-base pt-2 line-clamp-2'>{organization}</p>
+      </div>
+      
       {credentialUrl && (
-        <a
+        <Link
           href={credentialUrl}
           target='_blank'
           rel='noopener noreferrer'
-          className='mt-3 inline-block bg-white text-sky-500 px-4 py-2 rounded-lg font-medium transition hover:bg-gray-200'
         >
-          Show Credentials
-        </a>
+          <Button variant='primary' className='sm:px-1 sm:py' >Show Credentials</Button>
+        </Link>
       )}
     </div>
   );

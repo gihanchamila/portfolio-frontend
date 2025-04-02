@@ -5,19 +5,22 @@ const certifications = [
   {
     certificateName: "Meta Frontend Developer Professional Certificate",
     organization: "Meta",
-    credentialUrl : "w"
+    credentialUrl: "www."
   },
   {
     certificateName: "Google UX Design Professional Certificate",
     organization: "Google",
+    credentialUrl: "www."
   },
   {
     certificateName: "AWS Certified Solutions Architect",
     organization: "Amazon AWS",
+    credentialUrl: "www."
   },
   {
     certificateName: "Microsoft Certified: Azure Fundamentals",
     organization: "Microsoft",
+    credentialUrl: "www."
   },
 ];
 
@@ -35,6 +38,7 @@ const Certificate = () => {
             key={index} 
             certificateName={cert.certificateName} 
             organization={cert.organization} 
+            credentialUrl={cert.credentialUrl}
           />
         ))}
       </div>

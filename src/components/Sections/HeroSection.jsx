@@ -1,12 +1,10 @@
 import React from 'react';
+import { useRef } from 'react';
 import { BackgroundLines } from '../utils/AnimatedBackground';
 import SplitText from '../utils/SplitText';
 import { ProjectImage } from '../../assets';
 
 const HeroSection = () => {
-  const handleAnimationComplete = () => {
-    console.log('All letters have animated!');
-  };
 
   return (
     <div className="relative">
@@ -24,7 +22,6 @@ const HeroSection = () => {
                 easing="easeOutCubic"
                 threshold={0.2}
                 rootMargin="-50px"
-                onLetterAnimationComplete={handleAnimationComplete}
               />
               <h2 className="lg:text-2xl sm:text-xl text-center lg:text-left font-semibold font-primary">
                 A <span className="text-sky-500">Full Stack Developer</span> with a passion for building
