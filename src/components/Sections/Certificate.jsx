@@ -27,7 +27,7 @@ const certifications = [
 const Certificate = () => {
 
   return (
-        <section className="pb-12 sm:col-start-1 sm:col-end-5 sm-col-span-4">
+        <section id='certification' className="pb-20 sm:col-start-1 sm:col-end-5 sm-col-span-4 scroll-mt-14">
           <header className="pb-8">
             <h2 className="text-4xl font-bold font-primary">
               <span className="text-sky-500">Certifications</span> and Achievements

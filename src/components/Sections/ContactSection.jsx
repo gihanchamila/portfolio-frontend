@@ -3,7 +3,7 @@ import ContactForm from '../utils/ContactForm'
 
 const ContactSection = () => {
   return (
-    <section className='pb-12'>
+    <section id='contact' className='pb-20'>
       <header className='pb-8'>
           <h2 className="text-4xl text-center font-bold font-primary">
               Let's connect and explore how we can work together.

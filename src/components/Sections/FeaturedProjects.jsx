@@ -33,7 +33,7 @@ const FeaturedProjects = () => {
   const ref = useRef(null)
 
   return (
-    <section className="pb-12 sm:col-start-1 sm:col-end-5 sm-col-span-4" ref={ref}>
+    <section id='projects' className="pb-20 sm:col-start-1 sm:col-end-5 sm-col-span-4 scroll-mt-14" ref={ref}>
       <header  className="pb-8">
         <h2 className="text-4xl font-bold font-primary">
           Featured <span className="text-sky-500">Projects</span>

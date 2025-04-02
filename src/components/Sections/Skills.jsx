@@ -3,7 +3,7 @@ import ScrollVelocity from '../utils/ScrollVelocity'
 
 const Skills = () => {
   return (
-      <section className='pb-12'>
+      <section className='pb-20'>
           <ScrollVelocity
               texts={["Great things are done by a series of small things brought together!"]}
               className="text-blue-500 font-primary"
