@@ -11,7 +11,7 @@ const HeroSection = () => {
       <BackgroundLines svgOptions={{ duration: 10 }}>
         <section className="sm:grid sm:grid-cols-4 sm:col-start-1 sm:col-end-5 sm:col-span-4 gap-5 sm:items-center pb-12 lg:grid-cols-10">
           
-          <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 flex flex-col sm:items-center lg:col-span-4 lg:col-start-1 lg:col-end-4">
+          <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 flex flex-col sm:items-center lg:col-span-5 lg:col-start-1 lg:col-end-6">
             <div className="sm:flex sm:flex-col space-y-4 justify-evenly">
               <SplitText
                 text="Hi, I'm Gihan Chamila"

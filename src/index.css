@@ -29,3 +29,15 @@
 .cardSubTitle {
     @apply text-base font-primary line-clamp-3 min-h-[4rem];
 }
+
+.formInput {
+    @apply w-full py-2 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-primary text-base
+}
+
+.formLable {
+    @apply block text-sm font-semibold text-gray-700 mb-2 font-primary
+}
+
+.formError {
+    @apply text-red-500 text-sm mt-1 font-primary
+}
