@@ -3,6 +3,7 @@ import HeroSection from '../components/Sections/HeroSection'
 import Skills from '../components/Skills'
 import FeaturedProjects from '../components/Sections/FeaturedProjects'
 import GridContainer from '../components/GridContainer'
+import Certificate from '../components/Sections/Certificate'
 
 const LandingPage = () => {
   return (
@@ -10,6 +11,7 @@ const LandingPage = () => {
         <HeroSection />
         <Skills />
         <FeaturedProjects />
+        <Certificate />
     </>
     
   )

@@ -26,8 +26,8 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live }) => {
       </motion.div>
 
       <div className="absolute bottom-0 p-4 text-white w-full flex flex-col space-y-3">
-        <h2 className="text-2xl font-bold line-clamp-2 min-h-[2.5rem] font-primary">{projectName}</h2>
-        <p className="text-md font-primary line-clamp-3 min-h-[4rem]">{description}</p>
+        <h2 className="cardTitle">{projectName}</h2>
+        <p className="cardSubTitle">{description}</p>
         <AnimatedButton live={live} github={github} />
       </div>
       
