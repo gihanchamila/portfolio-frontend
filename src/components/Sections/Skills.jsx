@@ -1,11 +1,11 @@
 import React from 'react'
-import ScrollVelocity from './utils/ScrollVelocity'
+import ScrollVelocity from '../utils/ScrollVelocity'
 
 const Skills = () => {
   return (
       <section className='pb-12'>
           <ScrollVelocity
-              texts={["Hey there! Let's connect", "Let's create something amazing together!"]}
+              texts={["Great things are done by a series of small things brought together!"]}
               className="text-blue-500 font-primary"
           />
       </section>
