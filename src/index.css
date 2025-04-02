@@ -41,3 +41,7 @@
 .formError {
     @apply text-red-500 text-sm mt-1 font-primary
 }
+
+.icon {
+    @apply w-6 h-6 cursor-pointer hover:text-gray-700
+}

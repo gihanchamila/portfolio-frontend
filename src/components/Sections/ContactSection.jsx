@@ -10,6 +10,8 @@ const ContactSection = () => {
           </h2>
       </header>
       <main className='lg:flex gap-5'>
+        <div className='flex justify-center items-center w-1/2'>
+        </div>
         <ContactForm />
       </main>
     </section>

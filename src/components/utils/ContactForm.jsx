@@ -108,7 +108,7 @@ const ContactForm = () => {
               <ErrorMessage name="email" component="div" className="formError" />
               <div className="mt-2 absolute -top-2 right-0">
                 {!isEmailVerified && (
-                  <span type="pop-up" onClick={handleVerifyEmail} className="text-sky-500 text-sm font-primary">
+                  <span type="pop-up"  onClick={handleVerifyEmail} className="text-sky-500 text-sm font-primary hover:underline cursor-pointer">
                     Verify Email
                   </span>
                 )}
@@ -125,6 +125,7 @@ const ContactForm = () => {
                 name="message"
                 className="formInput"
                 placeholder="Your Message"
+                rows="5"
               />
               <ErrorMessage
                 name="message"
@@ -141,7 +142,7 @@ const ContactForm = () => {
 
             <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
               <h2 className="cardTitle pb-5">Verify Your Email</h2>
-              <p className="font-primary">A verification code has been sent to your email. Please enter the code below:</p>
+              <p className="font-primary text-gray-800">A verification code has been sent to your email. Please enter the code below:</p>
 
               <div className="flex justify-center space-x-2 py-6">
                 {verificationCode.map((digit, index) => (
@@ -153,7 +154,7 @@ const ContactForm = () => {
                     onChange={(e) => handleInputChange(e, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                     ref={(el) => (inputRefs.current[index] = el)}
-                    className="h-12 w-10 text-center border-2 border-gray-900 rounded-lg focus:ring focus:ring-primary"
+                    className="h-12 w-10 text-center border-2 border-gray-500 rounded-lg"
                   />
                 ))}
               </div>
