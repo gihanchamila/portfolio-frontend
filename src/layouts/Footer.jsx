@@ -15,7 +15,7 @@ const Footer = () => {
                 <p className="text-sm text-gray-400">algihanchamila@gmail.com</p>
                 <div className="flex gap-4 mt-2">
                     {socialLinks.map((link, index) => (
-                        <a key={index} href={link.to} target="_blank" rel="noopener noreferrer" className="hover:text-gray-500 transition">
+                        <a key={index} href={link.to} role="link" target="_blank" rel="noopener noreferrer" className="hover:text-gray-500 transition">
                             {link.icon}
                         </a>
                     ))}
