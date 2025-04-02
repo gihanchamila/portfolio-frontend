@@ -144,7 +144,7 @@ const ContactForm = () => {
               <h2 className="cardTitle pb-5">Verify Your Email</h2>
               <p className="font-primary text-gray-800">A verification code has been sent to your email. Please enter the code below:</p>
 
-              <div className="flex justify-center space-x-2 py-6">
+              <div className="flex justify-center w-full space-x-4 py-6">
                 {verificationCode.map((digit, index) => (
                   <input
                     key={index}
