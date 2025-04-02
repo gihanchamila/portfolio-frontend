@@ -12,7 +12,7 @@ const AnimatedButton = ({ github, live}) => {
           className="button bg-white text-black "
 
         >
-          <motion.span>GitHub Repo</motion.span>
+          <motion.span role="link">GitHub Repo</motion.span>
         </Link>
       )}
       {live && (
@@ -20,9 +20,9 @@ const AnimatedButton = ({ github, live}) => {
           to={live}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-sky-500 text-white button"
+          className="bg-sky-700 text-white button"
         >
-          <span>Live Demo</span>
+          <span role="link">Live Demo</span>
         </Link>
       )}
     </div>
