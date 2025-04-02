@@ -6,7 +6,7 @@ export const BackgroundLines = ({ children, className, svgOptions }) => {
   return (
     <div
       className={clsx(
-        "h-[20rem] lg:min-h-[60vh] sm:min-h-fit w-full bg-white col-start-1 col-end-5 col-span-4",
+        "h-[20rem] lg:min-h-[60vh] sm:min-h-fit w-full bg-white",
         className
       )}
     >
@@ -70,7 +70,7 @@ const SVG = ({ svgOptions = { duration: 10 } }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full sm:w-full"
+      className="absolute -top-20 lg:left-10 inset-0 w-full h-full sm:w-full"
     >
       {paths.map((path, idx) => (
         <React.Fragment key={idx}>
