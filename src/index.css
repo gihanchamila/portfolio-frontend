@@ -9,10 +9,16 @@
     --color-text-default: #0A1528;
     --color-surface-dim: #D5DBDC;
 
+    --breakpoint-sm: 25.75rem;
+
     --font-primary: 'Space Grotesk', sans-serif;
 }
 
+::-webkit-scrollbar {
+    display: none;
+  }
 
+  
 /* Variants */
 .btn-primary {
     @apply bg-primary text-white rounded-lg ;

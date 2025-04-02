@@ -1,7 +1,8 @@
 import React from 'react';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import ProjectCard from '../utils/Card';
-import { useInView } from "motion/react"
+import { useInView, motion, useScroll, useTransform } from "motion/react"
+import { cubicBezier, circOut } from "motion"
 
 const projects = [
   {
@@ -25,24 +26,24 @@ const projects = [
     live : "https://github.com/gihanchamila/omni-frontend",
     github : "https://github.com/gihanchamila/omni-frontend"
   }
-];
+]
+
 
 const FeaturedProjects = () => {
   const ref = useRef(null)
-  const isInView = useInView(ref)
 
   return (
-    <section className="pb-12" ref={ref}>
-      <header className="pb-8">
+    <section className="pb-12 sm:col-start-1 sm:col-end-5 sm-col-span-4" ref={ref}>
+      <header  className="pb-8">
         <h2 className="text-4xl font-bold font-primary">
           Featured <span className="text-sky-500">Projects</span>
         </h2>
       </header>
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <motion.div  className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project, index) => (
           <ProjectCard key={index} {...project} />
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -30,7 +30,7 @@ const MobileMenu = ({ navLinks }) => {
 
     return (
         <GridContainer>
-            <header className='lg:hidden sm:grid sm:col-start-1 sm:col-end-5 sm:col-span-4 mt-5 mb-5'>
+            <header className='lg:hidden sm:grid sm:col-start-1 sm:col-end-5 sm:col-span-4 mt-5 mb-16'>
                 <div className='flex items-center justify-between w-full'>
                     <img src={ProjectImage} alt="profile" className='rounded-full h-12 w-12 bg-black' role='image'/>
                     <motion.div transition={{ duration: 0.2 }}>
