@@ -23,7 +23,7 @@
 }
 
 .cardTitle {
-    @apply text-2xl font-bold line-clamp-2 min-h-[2.5rem] font-primary;
+    @apply text-2xl font-bold line-clamp-2 min-h-[2.5rem] font-primary drop-shadow-[0_0_10px_rgba(255,255,255,0.9)];
 }
 
 .cardSubTitle {
