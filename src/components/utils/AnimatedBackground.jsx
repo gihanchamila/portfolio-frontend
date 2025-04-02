@@ -70,7 +70,7 @@ const SVG = ({ svgOptions = { duration: 10 } }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="absolute -top-20 lg:left-10 inset-0 w-full h-full sm:w-full"
+      className="absolute -top-20 inset-0 w-full h-full sm:w-full"
     >
       {paths.map((path, idx) => (
         <React.Fragment key={idx}>
