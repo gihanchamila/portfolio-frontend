@@ -3,13 +3,15 @@ import ContactForm from '../utils/ContactForm'
 
 const ContactSection = () => {
   return (
-    <section>
+    <section className='pb-12'>
       <header className='pb-8'>
           <h2 className="text-4xl text-center font-bold font-primary">
               Let's connect and explore how we can work together.
           </h2>
       </header>
-      <ContactForm />
+      <main className='lg:flex gap-5'>
+        <ContactForm />
+      </main>
     </section>
     
   )

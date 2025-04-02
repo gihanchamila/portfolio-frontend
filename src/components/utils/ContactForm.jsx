@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Button from "./Button";
@@ -6,11 +6,13 @@ import { Asterisk } from "lucide-react";
 import Popup from "./Popup";
 import useDisableBackgroundScroll from "../../hooks/useDisableBackgroundScroll";
 
+
 const ContactForm = () => {
+    const inputRefs = useRef([]);
     const [isEmailVerified, setIsEmailVerified] = useState(false);
     const [showVerification, setShowVerification] = useState(false);
-    const [verificationCode, setVerificationCode] = useState('');
-    const [isPopupOpen, setIsPopupOpen] = useState(false); 
+    const [isPopupOpen, setIsPopupOpen] = useState(false);   
+    const [verificationCode, setVerificationCode] = useState(Array(6).fill(""));
 
     useDisableBackgroundScroll(isPopupOpen)
 
@@ -22,7 +24,8 @@ const ContactForm = () => {
       };
     
     const handleVerifyCode = () => {
-    if (verificationCode === '123456') {
+      console.log(verificationCode)
+    if (verificationCode.join("") === '123456') {
         setIsEmailVerified(true);
         alert('Email Verified!');
         setIsPopupOpen(false);
@@ -34,6 +37,27 @@ const ContactForm = () => {
     const handleClosePopup = () => {
         setIsPopupOpen(false)
     }
+
+    const handleInputChange = (e, index) => {
+      const value = e.target.value;
+      if (!/^\d?$/.test(value)) return; 
+    
+      const newCode = [...verificationCode];
+      newCode[index] = value;
+      console.log=(newCode)
+      const code = newCode.split("")
+      setVerificationCode(code.join(''));
+    
+      if (value && index < 5) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    };
+    
+    const handleKeyDown = (e, index) => {
+      if (e.key === "Backspace" && !verificationCode[index] && index > 0) {
+        inputRefs.current[index - 1]?.focus();
+      }
+    };
 
     const validationSchema = Yup.object({
     fullName: Yup.string()
@@ -48,7 +72,7 @@ const ContactForm = () => {
     });
 
   return (
-    <React.Fragment>
+    <>
       <Formik
         initialValues={{ fullName: "", email: "", message: "" }}
         validationSchema={validationSchema}
@@ -57,7 +81,7 @@ const ContactForm = () => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form>
+          <Form className="lg:w-1/2 sm:w-full">
             <div className="mb-4">
               <label htmlFor="fullName" className="formLable">
                 Full Name <Asterisk className="text-red-500 inline-block align-super" size={10} />
@@ -76,20 +100,20 @@ const ContactForm = () => {
               />
             </div>
 
-            <div className="mb-4">
-            <label htmlFor="email" className="formLable">
-              Email <Asterisk className="text-red-500 inline-block align-super" size={10} />
-            </label>
-            <Field type="email" id="email" name="email" className="formInput" placeholder="Your Email" />
-            <ErrorMessage name="email" component="div" className="formError" />
-            <div className="mt-2">
-              {!isEmailVerified && (
-                <button type="button" onClick={handleVerifyEmail} className="text-blue-500">
-                  Verify Email
-                </button>
-              )}
+            <div className="mb-4 relative">
+              <label htmlFor="email" className="formLable">
+                Email <Asterisk className="text-red-500 inline-block align-super" size={10} />
+              </label>
+              <Field type="email" id="email" name="email" className="formInput " placeholder="Your Email" />
+              <ErrorMessage name="email" component="div" className="formError" />
+              <div className="mt-2 absolute -top-2 right-0">
+                {!isEmailVerified && (
+                  <span type="pop-up" onClick={handleVerifyEmail} className="text-sky-500 text-sm font-primary">
+                    Verify Email
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
 
             <div className="mb-4">
               <label htmlFor="message" className="formLable">
@@ -116,32 +140,32 @@ const ContactForm = () => {
             </div>
 
             <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
-                <h2 className="cardTitle pb-5">Verify Your Email</h2>
-                <p className="font-primary">A verification code has been sent to your email. Please enter the code below:</p>
-                <div className="flex justify-center space-x-4 py-10">
-                {[...Array(6)].map((_, index) => (
-                    <input
+              <h2 className="cardTitle pb-5">Verify Your Email</h2>
+              <p className="font-primary">A verification code has been sent to your email. Please enter the code below:</p>
+
+              <div className="flex justify-center space-x-2 py-6">
+                {verificationCode.map((digit, index) => (
+                  <input
                     key={index}
                     type="text"
                     maxLength="1"
-                    value={verificationCode[index] || ''}
-                    onChange={(e) => {
-                        const newCode = verificationCode.split('');
-                        newCode[index] = e.target.value;
-                        setVerificationCode(newCode.join(''));
-                    }}
-                    className="h-12 w-10 text-center border-2 border-gray-900 rounded-lg "
-                    />
+                    value={digit}
+                    onChange={(e) => handleInputChange(e, index)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                    className="h-12 w-10 text-center border-2 border-gray-900 rounded-lg focus:ring focus:ring-primary"
+                  />
                 ))}
-                </div>
-                <Button onClick={handleVerifyCode} variant={'primary'} className="mt-2">
-                    Verify Code
-                </Button>
-          </Popup>
+              </div>
+
+              <Button onClick={handleVerifyCode} variant="primary" className="mt-2">
+                Verify Code
+              </Button>
+            </Popup>
           </Form>
         )}
       </Formik>
-    </React.Fragment>
+    </>
   );
 };
 
