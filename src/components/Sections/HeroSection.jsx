@@ -1,8 +1,8 @@
 import React from 'react';
-import { useRef } from 'react';
 import { BackgroundLines } from '../utils/AnimatedBackground';
 import SplitText from '../utils/SplitText';
 import { ProjectImage } from '../../assets';
+import Skills from './Skills'
 
 const HeroSection = () => {
 
@@ -10,7 +10,6 @@ const HeroSection = () => {
     <div className="relative">
       <BackgroundLines svgOptions={{ duration: 10 }}>
         <section className="sm:grid sm:grid-cols-4 sm:col-start-1 sm:col-end-5 sm:col-span-4 gap-5 sm:items-center pb-12 lg:grid-cols-10">
-          
           <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 flex flex-col sm:items-center lg:col-span-5 lg:col-start-1 lg:col-end-6">
             <div className="sm:flex sm:flex-col space-y-4 justify-evenly">
               <SplitText
@@ -42,6 +41,7 @@ const HeroSection = () => {
 
         </section>
       </BackgroundLines>
+      <Skills />
     </div>
   );
 };
