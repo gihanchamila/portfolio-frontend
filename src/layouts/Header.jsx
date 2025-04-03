@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Profiler } from "react";
 import DesktopMenu from "../components/DesktopMenu";
 import MobileMenu from "../components/MobileMenu";
 
@@ -15,7 +15,7 @@ const Header = () => {
     ];
 
     return (
-        <>
+        <>  
             <DesktopMenu navLinks={navLinks} />
             <MobileMenu navLinks={navLinks} />
         </>

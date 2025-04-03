@@ -39,7 +39,7 @@ const FeaturedProjects = () => {
           Featured <span className="text-sky-500">Projects</span>
         </h2>
       </header>
-      <motion.div  className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <motion.div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project, index) => (
           <ProjectCard key={index} {...project} />
         ))}
