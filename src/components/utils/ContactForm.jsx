@@ -134,7 +134,7 @@ const ContactForm = () => {
               />
             </div>
 
-            <div className="flex flex-end">
+            <div className="flex justify-end">
               <Button variant={'primary'} type="submit" disabled={isSubmitting}>
                 {isSubmitting ? "Submitting..." : "Submit"}
               </Button>
