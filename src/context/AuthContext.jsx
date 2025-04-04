@@ -15,14 +15,14 @@ export const AuthProvider = ({ children }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "api_key": enteredApiKey, // Send API key in header
+          "api_key": enteredApiKey,
         },
       });
 
       if (response.ok) {
         setApiKey(enteredApiKey);
         setIsAuthenticated(true);
-        localStorage.setItem("apiKey", enteredApiKey); // Save API key
+        localStorage.setItem("apiKey", enteredApiKey); 
         return { success: true, message: "Login successful!" };
       } else {
         return { success: false, message: "Invalid API Key." };
