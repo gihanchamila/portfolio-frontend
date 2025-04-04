@@ -10,7 +10,6 @@ import useDisableBackgroundScroll from "../../hooks/useDisableBackgroundScroll";
 const ContactForm = () => {
     const inputRefs = useRef([]);
     const [isEmailVerified, setIsEmailVerified] = useState(false);
-    const [showVerification, setShowVerification] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);   
     const [verificationCode, setVerificationCode] = useState(Array(6).fill(""));
 
