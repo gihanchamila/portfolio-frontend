@@ -3,14 +3,14 @@ import ContactForm from '../utils/ContactForm';
 import { Mail, Phone } from 'lucide-react';
 import { motion } from 'motion/react';
 
-const ContactDetailCard = ({ icon: Icon, text }) => {
+const ContactDetailCard = React.memo(({ icon: Icon, text }) => {
   return (
     <div className="flex items-center gap-4 bg-sky-50 text-sky-700 p-4 rounded-lg w-full max-w-sm sm:my-5 lg:my-0">
       <a target='_blank' href={`mailto:algihanchamila@gmail.com`}><Icon className="text-primary font-primary" size={24} /></a>
       <span className="text-lg font-medium font-primary">{text}</span>
     </div>
   );
-};
+})
 
 const ContactSection = () => {
   return (
