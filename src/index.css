@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --color-on-surface: #171D1E;
+    --color-on-background: #181C1F;
+    --color-primary: oklch(0.685 0.169 237.323);
+    --color-on-secondary-fixed: #0A1528;
+    --color-text-default: #0A1528;
+    --color-surface-dim: #D5DBDC;
+
+    --breakpoint-sm: 25.75rem;
+
+    --font-primary: 'Space Grotesk', sans-serif;
+}
+
+::-webkit-scrollbar {
+    display: none;
+  }
+
+.button {
+    @apply w-auto text-center lg:px-4 lg:py-2 sm:py-2 sm:px-3 lg:text-lg sm:text-sm rounded-lg font-primary flex items-center space-x-2 hover:cursor-pointer
+}
+
+.cardTitle {
+    @apply text-2xl font-bold line-clamp-2 min-h-[2.5rem] font-primary drop-shadow-[0_0_10px_rgba(255,255,255,0.9)];
+}
+
+.cardSubTitle {
+    @apply text-base font-primary line-clamp-3 min-h-[4rem];
+}
+
+.formInput {
+    @apply w-full py-2 px-4 border border-gray-300 rounded-lg focus:outline-gray-300 focus:outline-1 font-primary text-base
+}
+
+.formLable {
+    @apply block text-sm font-semibold text-gray-700 mb-2 font-primary dark:text-gray-50
+}
+
+.formError {
+    @apply text-red-500 text-sm mt-1 font-primary dark:text-red-300
+}
+
+.icon {
+    @apply w-6 h-6 cursor-pointer hover:text-gray-700
+}
