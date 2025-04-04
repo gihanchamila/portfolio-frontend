@@ -36,7 +36,7 @@ const FeaturedProjects = () => {
     <section id='projects' className="pb-20 sm:col-start-1 sm:col-end-5 sm-col-span-4 scroll-mt-14" ref={ref}>
       <header  className="pb-8">
         <h2 className="text-4xl font-bold font-primary">
-          Featured <span className="text-sky-500">Projects</span>
+          Featured <span className="text-sky-500 dark:text-sky-300">Projects</span>
         </h2>
       </header>
       <motion.div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

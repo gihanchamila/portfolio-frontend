@@ -141,7 +141,7 @@ const ContactForm = () => {
             </div>
 
             <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
-              <h2 className="cardTitle pb-5">Verify Your Email</h2>
+              <h2 className="cardTitle drop-shadow-none pb-5">Verify Your Email</h2>
               <p className="font-primary text-gray-800">A verification code has been sent to your email. Please enter the code below:</p>
 
               <div className="flex justify-center w-full space-x-4 py-6">

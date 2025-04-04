@@ -30,7 +30,7 @@ const Certificate = () => {
         <section id='certification' className="pb-20 sm:col-start-1 sm:col-end-5 sm-col-span-4 scroll-mt-14">
           <header className="pb-8">
             <h2 className="text-4xl font-bold font-primary">
-              <span className="text-sky-500">Certifications</span> and Achievements
+              <span className="text-sky-500 dark:text-sky-300">Certifications</span> and Achievements
             </h2>
           </header>
           <div className='sm:grid sm:grid-cols-2 sm:col-span-2 gap-5'>
