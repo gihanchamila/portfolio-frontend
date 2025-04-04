@@ -1,18 +1,16 @@
-import { useState, Profiler } from "react";
+import { useState, Profiler, useMemo } from "react";
 import DesktopMenu from "../components/DesktopMenu";
 import MobileMenu from "../components/MobileMenu";
 
 
 const Header = () => {
 
-    const [menuOpen, setMenuOpen] = useState(true)
-
-    const navLinks = [
+    const navLinks = useMemo(() => [
         { name: "Home", to: "/" },
         { name: "Featured Projects", to: "#projects" },
         { name: "Certification", to: "#certification" },
         { name: "Contact me", to: "#contact" },
-    ];
+    ], []) ;
 
     return (
         <>  
