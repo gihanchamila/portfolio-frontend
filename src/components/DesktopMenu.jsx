@@ -11,7 +11,7 @@ const DesktopMenu = ({navLinks}) => {
                 <div className="lg:flex lg:flex-row lg:justify-between lg:items-center lg:gap-5">
                     <NavLinks links={navLinks} />
                     <Button variant='primary' aria-label="View Resume">
-                        <NavLink to="/resume">Resume</NavLink>
+                        Resume
                     </Button>
                 </div>
             </header>

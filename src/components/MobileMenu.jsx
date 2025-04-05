@@ -62,7 +62,7 @@ const MobileMenu = ({ navLinks }) => {
                             <div className='mt-20'>
                                 <NavLinks links={navLinks} />
                                 <Button variant="primary" className="px-4 py-2 font-semibold  mt-10" aria-label="View Resume">
-                                    <NavLink to="/resume">Resume</NavLink>
+                                    Resume
                                 </Button>
                             </div>
                         </motion.div>
