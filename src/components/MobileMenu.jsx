@@ -7,7 +7,7 @@ import { ProjectImage } from '../assets'
 import NavLinks from './NavLinks'
 import { motion } from 'motion/react'
 import { AnimatePresence } from 'motion/react'
-import Button from './utils/Button'
+import ResumeDownload from './utils/ResumeDownload'
 
 const MobileMenu = ({ navLinks }) => {
     const ref = useRef(null)
@@ -61,9 +61,7 @@ const MobileMenu = ({ navLinks }) => {
                             </div>
                             <div className='mt-20'>
                                 <NavLinks links={navLinks} />
-                                <Button variant="primary" className="px-4 py-2 font-semibold  mt-10" aria-label="View Resume">
-                                    Resume
-                                </Button>
+                                <ResumeDownload />
                             </div>
                         </motion.div>
                     )}

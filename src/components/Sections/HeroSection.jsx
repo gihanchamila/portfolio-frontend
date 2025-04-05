@@ -23,7 +23,7 @@ const HeroSection = () => {
                 rootMargin="-50px"
               />
               <h2 className="lg:text-2xl sm:text-xl text-center lg:text-left font-semibold font-primary">
-                A <span className="text-sky-500 dark:text-sky-300">Full Stack Developer</span> with a passion for building
+                A <span className="dark:text-sky-300 text-sky-500 ">Full Stack Developer</span> with a passion for building
                 <span className="text-emerald-500 dark:text-emerald-300"> scalable</span>,
                 <span className="text-purple-500 dark:text-purple-300"> efficient</span>, and
                 <span className="text-orange-500 dark:text-red-300"> user-friendly</span> web applications.
