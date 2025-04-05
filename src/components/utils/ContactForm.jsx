@@ -105,13 +105,13 @@ const ContactForm = () => {
               </label>
               <Field type="email" id="email" name="email" className="formInput " placeholder="Your Email" />
               <ErrorMessage name="email" component="div" className="formError" />
-              <div className="mt-2 absolute -top-2 right-0">
+              {/* <div className="mt-2 absolute -top-2 right-0">
                 {!isEmailVerified && (
                   <span type="pop-up"  onClick={handleVerifyEmail} className="text-sky-500 text-sm font-primary hover:underline cursor-pointer">
                     Verify Email
                   </span>
                 )}
-              </div>
+              </div> */}
             </div>
 
             <div className="mb-4">
