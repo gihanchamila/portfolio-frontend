@@ -5,6 +5,7 @@ import Button from "./Button";
 import { Asterisk } from "lucide-react";
 import Popup from "./Popup";
 import useDisableBackgroundScroll from "../../hooks/useDisableBackgroundScroll";
+import axios from "../../axios/axios";
 
 
 const ContactForm = () => {
@@ -75,8 +76,21 @@ const ContactForm = () => {
       <Formik
         initialValues={{ fullName: "", email: "", message: "" }}
         validationSchema={validationSchema}
-        onSubmit={(values, { resetForm }) => {
-          resetForm(); 
+        onSubmit={async(values, { resetForm }) => {
+          try{
+            const contactData = {
+              name : values.fullName,
+              email : values.email,
+              message : values.message
+            }
+
+            const response = await axios.post("/connect/make-connection", contactData)
+            const data = response.data;
+            console.log(data)
+            resetForm(); 
+          }catch(error){
+            console.log(error)
+          }
         }}
       >
         {({ isSubmitting }) => (
