@@ -19,7 +19,7 @@
   }
 
 .button {
-    @apply w-auto text-center lg:px-4 lg:py-2 sm:py-2 sm:px-3 lg:text-lg sm:text-sm rounded-lg font-primary flex items-center space-x-2 hover:cursor-pointer
+    @apply w-auto text-center lg:px-4 lg:py-2 sm:py-2 sm:px-3 lg:text-lg sm:text-sm rounded-lg font-primary flex items-center space-x-2 disabled:hover:cursor-not-allowed hover:cursor-pointer
 }
 
 .cardTitle {
