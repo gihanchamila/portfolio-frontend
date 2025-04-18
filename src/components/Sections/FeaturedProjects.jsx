@@ -35,7 +35,7 @@ const FeaturedProjects = () => {
   return (
     <section id='projects' className="pb-20 sm:col-start-1 sm:col-end-5 sm-col-span-4 scroll-mt-14" ref={ref}>
       <header  className="pb-8">
-        <h2 className="text-4xl font-bold font-primary">
+        <h2 className="xs:text-4xl font-bold font-primary">
           Featured <span className="text-sky-500 dark:text-sky-300">Projects</span>
         </h2>
       </header>

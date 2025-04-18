@@ -8,7 +8,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live }) => {
   const defaultImage = ProjectImage;
 
   return (
-    <motion.div initial={{opacity : 0}}  whileInView={{opacity : 1}} className="lg:w-[25rem] lg:h-[30rem] sm:w-auto sm:h-[30rem] bg-white border border-gray-300 rounded-2xl relative overflow-hidden group">
+    <motion.div initial={{opacity : 0}}  whileInView={{opacity : 1}} className="lg:w-[25rem] lg:h-[30rem] sm:w-auto sm:h-[30rem] xs:h-[20rem] bg-white border border-gray-300 rounded-2xl relative overflow-hidden group">
 
       <motion.div 
         whileHover={{ scale: 1.1 }} 

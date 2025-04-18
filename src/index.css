@@ -20,15 +20,15 @@
   }
 
 .button {
-    @apply w-auto text-center lg:px-4 lg:py-2 sm:py-2 sm:px-3 lg:text-lg sm:text-sm rounded-lg font-primary flex items-center space-x-2 disabled:hover:cursor-not-allowed hover:cursor-pointer
+    @apply w-auto text-center lg:px-4 lg:py-2 xs:py-2 xs:px-3 lg:text-lg xs:text-sm rounded-lg font-primary flex items-center space-x-2 disabled:hover:cursor-not-allowed hover:cursor-pointer
 }
 
 .cardTitle {
-    @apply text-2xl font-bold line-clamp-2 min-h-[2.5rem] font-primary drop-shadow-[0_0_10px_rgba(255,255,255,0.9)];
+    @apply sm:text-2xl xs:text-xl xs:font-bold line-clamp-2 min-h-[2.5rem] xs:font-primary drop-shadow-[0_0_10px_rgba(255,255,255,0.9)];
 }
 
 .cardSubTitle {
-    @apply text-base font-primary line-clamp-3 min-h-[4rem];
+    @apply sm:text-base xs:text-sm xs:font-primary line-clamp-3 min-h-[4rem];
 }
 
 .formInput {
