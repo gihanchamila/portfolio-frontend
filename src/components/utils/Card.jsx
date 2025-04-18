@@ -26,7 +26,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live }) => {
         <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100"></div>
       </motion.div>
 
-      <div className="absolute bottom-0 p-4 text-white w-full flex flex-col space-y-3">
+      <div className="absolute bottom-0 p-4 text-white w-full flex flex-col sm:space-y-3 xs:space-y-2">
         <h2 className="cardTitle">{projectName}</h2>
         <p className="cardSubTitle">{description}</p>
         <AnimatedButton live={live} github={github} />
