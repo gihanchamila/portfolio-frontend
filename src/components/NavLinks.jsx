@@ -18,14 +18,14 @@ const NavLinks = React.memo(({ links }) => {
     };
     
     return (
-        <div className="flex flex-col gap-y-10 lg:flex-row lg:gap-5 font-primary text-xl font-bold w-full">
+        <div className="flex flex-col gap-y-10 lg:flex-row lg:gap-5 font-primary md:text-xl xs:text-base font-bold w-full">
             {links.map((link) =>
                 link.to.startsWith("#") ? (
                     <a
                         key={link.to}
                         href={link.to}
                         onClick={(e) => handleNavigation(e, link.to)}
-                        className="lg:text-gray-700 hover:text-gray-800"
+                        className="navLink"
                     >
                         {link.name}
                     </a>
@@ -34,7 +34,7 @@ const NavLinks = React.memo(({ links }) => {
                         key={link.to}
                         to={link.to}
                         className={({ isActive }) =>
-                            isActive ? "lg:text-sky-500" : "lg:text-gray-700 hover:text-gray-800"
+                            isActive ? "xs:text-sky-500 dark:text-sky-300" : "navLink"
                         }
                     >
                         {link.name}

@@ -4,16 +4,16 @@ const SectionLabel = ({ icon, label, className = "" }) => {
     return (
         <div
             className={`
-                inline-flex items-center gap-2 px-4 py-1 rounded-full 
-                text-sm font-semibold tracking-wide uppercase 
-                bg-gradient-to-r from-purple-500 to-indigo-500 
-                text-white dark:from-purple-400 dark:to-indigo-400
-                shadow-md
-                xs:text-xs sm:text-sm md:text-base 
+                relative inline-flex items-center gap-1 md:px-3 md:py-2 xs:p-2 rounded-lg
+                font-semibold tracking-wide 
+                text-white dark:text-white
+                bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%
+                overflow-hidden
+                xs:text-xs mb-2
                 ${className}
             `}
         >
-            <span className="w-4 h-4">{icon}</span>
+            <span className="">{icon}</span>
             <span>{label}</span>
         </div>
     );

@@ -26,7 +26,7 @@ const ResumeDownload = () => {
     }
 
   return (
-    <Button variant="primary" className="sm:mt-10 lg:mt-0 font-semibold" aria-label="View Resume" onClick={handleDownload}>
+    <Button variant="primary" className="lg:mt-0 font-semibold" aria-label="View Resume" onClick={handleDownload}>
         Resume
     </Button>
   )

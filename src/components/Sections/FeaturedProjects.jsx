@@ -1,8 +1,9 @@
 import React from 'react';
-import { useRef, useEffect, useState } from 'react';
+import { useRef} from 'react';
 import ProjectCard from '../utils/Card';
-import { useInView, motion, useScroll, useTransform } from "motion/react"
-import { cubicBezier, circOut } from "motion"
+import SectionLabel from '../utils/SectionLabel';
+import {Sparkle} from 'lucide-react';
+import { motion } from 'motion/react';
 
 const projects = [
   {
@@ -35,7 +36,8 @@ const FeaturedProjects = () => {
   return (
     <section id='projects' className="pb-20 sm:col-start-1 sm:col-end-5 sm-col-span-4 scroll-mt-14" ref={ref}>
       <header  className="pb-8">
-        <h2 className="xs:text-4xl font-bold font-primary">
+      <SectionLabel icon={<Sparkle size={12} />} label="Highlight" />
+        <h2 className="sm:text-4xl xs:text-3xl font-bold font-primary">
           Featured <span className="text-sky-500 dark:text-sky-300">Projects</span>
         </h2>
       </header>

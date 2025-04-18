@@ -16,7 +16,7 @@ const ContactSection = () => {
   return (
     <section id="contact" className="pb-20">
       <header className="pb-8">
-        <h2 className="text-4xl text-center font-bold font-primary">
+        <h2 className="sm:text-4xl xs:xs:text-3xl text-center font-bold font-primary">
           Let's connect and explore how we can work together.
         </h2>
       </header>

@@ -52,7 +52,7 @@ const Certificate = () => {
   return (
         <section id='certification' className="pb-20 sm:col-start-1 sm:col-end-5 sm-col-span-4 scroll-mt-14">
           <header className="pb-8">
-            <h2 className="text-4xl font-bold font-primary">
+            <h2 className="sm:text-4xl xs:text-3xl font-bold font-primary">
               <span className="text-sky-500 dark:text-sky-300">Certifications</span> and Achievements
             </h2>
           </header>
