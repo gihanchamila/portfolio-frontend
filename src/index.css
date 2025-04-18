@@ -46,3 +46,8 @@
 .icon {
     @apply w-6 h-6 cursor-pointer hover:text-gray-700
 }
+
+
+.footerIconSize {
+    @apply lg:size-6 sm:size-5 xs:size-4
+}
