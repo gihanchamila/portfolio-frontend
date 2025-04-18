@@ -6,10 +6,13 @@ import { Asterisk } from "lucide-react";
 import Popup from "./Popup";
 import useDisableBackgroundScroll from "../../hooks/useDisableBackgroundScroll";
 import axios from "../../axios/axios";
+import debounce from "lodash.debounce";
+import { useToast } from "../../context/ToastContext";
 
 
 const ContactForm = () => {
     const inputRefs = useRef([]);
+    const { addToast } = useToast();
     const [isEmailVerified, setIsEmailVerified] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);   
     const [lastCodeSentTime, setLastCodeSentTime] = useState(null);
@@ -40,28 +43,29 @@ const ContactForm = () => {
           .min(10, "Message must be at least 10 characters long"),
     });
 
-    const handleVerifyEmail = (email) => {
-        const now = new Date().getTime();
-    
-        if (lastCodeSentTime && now - lastCodeSentTime < 10 * 60 * 1000) {
+    const handleVerifyEmail = debounce(async (email) => {
+      const now = new Date().getTime();
+  
+      if (lastCodeSentTime && now - lastCodeSentTime < 10 * 60 * 1000) {
           const minutesLeft = Math.ceil((10 * 60 * 1000 - (now - lastCodeSentTime)) / 60000);
-          alert(`Please wait ${minutesLeft} more minute(s) before requesting another code.`);
+          addToast("Please wait 10 minutes before requesting another code", "error", 3000);
           return;
-        }
-
-        try{
-          const response = axios.post("/user/send-verification-code", {
-            email
-          });
+      }
+  
+      try {
+          const response = await axios.post("/user/send-verification-code", { email });
           const data = response.data;
-          setIsPopupOpen(true); 
+          addToast(data.message, "success", 3000, "top-right");
+          setIsPopupOpen(true);
           setCount(10);
-        }catch(error){
-          const response = error.response
-          const data = response.data.message
-          console.log(data)
-        }
-    };
+          setLastCodeSentTime(now); // Update the last code sent time
+      } catch (error) {
+          const response = error.response;
+          const data = response?.data?.message || "An error occurred";
+          addToast(data);
+          console.error(data);
+      }
+  }, 500)
     
     const handleVerifyCode = async(email, verificationCode) => {
       try{
@@ -75,13 +79,12 @@ const ContactForm = () => {
           setIsEmailVerified(true);
           setIsPopupOpen(false);
         }
+        addToast(data.message, "success", 3000, "top-right")
       }catch(error){
         const response = error.response
         const data = response.data
         console.error(data.message)
-        if(data.status === "fail"){
-          alert("Invalid verification code. Please try again.")
-        }
+        addToast(data.message, "error", 3000, "top-right")
       }
     }
       

@@ -1,5 +1,8 @@
+import { useCallback, useEffect, useState } from 'react';
 import React from 'react';
 import CertificateCard from '../utils/CertificateCard';
+import axios from '../../axios/axios';
+import { useToast } from '../../context/ToastContext';
 
 const certifications = [
   {
@@ -25,6 +28,26 @@ const certifications = [
 ];
 
 const Certificate = () => {
+
+  const { addToast } = useToast();
+
+  const [certificate, setCertificate] = useState([]);
+
+  const getCertificateDetails = useCallback(async () => {
+    try {
+      const response = await axios.get('/certificate/get-certificates');
+      const data = response.data.data;
+      setCertificate(data);
+      addToast(response.data.message, "success", 3000, "bottom-right");
+    } catch (error) {
+      console.error("Error fetching certificate details:", error);
+      addToast("Error fetching certificates");
+    }
+  }, [addToast]);
+  
+  useEffect(() => {
+    getCertificateDetails();
+  }, [getCertificateDetails]);
 
   return (
         <section id='certification' className="pb-20 sm:col-start-1 sm:col-end-5 sm-col-span-4 scroll-mt-14">

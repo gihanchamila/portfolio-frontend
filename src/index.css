@@ -10,6 +10,7 @@
     --color-surface-dim: #D5DBDC;
 
     --breakpoint-sm: 25.75rem;
+    --breakpoint-xs: 20rem;
 
     --font-primary: 'Space Grotesk', sans-serif;
 }
