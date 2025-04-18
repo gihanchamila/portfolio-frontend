@@ -32,7 +32,7 @@ const MobileMenu = ({ navLinks }) => {
         <GridContainer>
             <header className='lg:hidden sm:grid sm:col-start-1 sm:col-end-5 sm:col-span-4 mt-5 mb-16'>
                 <div className='flex items-center justify-between w-full'>
-                    <img src={ProjectImage} alt="profile" className='rounded-full sm:h-12 sm:w-12 xs:h-8 xs:w-8 bg-black' role='image'/>
+                    <img src={ProjectImage} alt="profile" className='rounded-full sm:h-10 sm:w-10 xs:h-8 xs:w-8 bg-black' role='image'/>
                     <motion.div transition={{ duration: 0.2 }}>
                         {!isOpen && (
                             <Menu onClick={toggleMenu} aria-label="Toggle menu" className="cursor-pointer" />
@@ -54,7 +54,7 @@ const MobileMenu = ({ navLinks }) => {
                             exit={{ x: '100%', }}
                             transition={{ type: 'spring', stiffness: 200, damping: 30 }}
                             ref={ref}
-                            className="fixed top-0 right-0 z-50 w-[20rem] h-screen bg-white rounded-l-2xl flex flex-col px-10 py-5 overflow-hidden"
+                            className="fixed top-0 right-0 z-50 sm:w-[20rem] xs:w-1-2 h-screen bg-white rounded-l-2xl flex flex-col px-10 py-5 overflow-hidden"
                         >
                             <div className="absolute top-8 right-7">
                                 <X onClick={toggleMenu} className="cursor-pointer" />
