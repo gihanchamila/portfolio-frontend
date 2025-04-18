@@ -32,7 +32,7 @@
 }
 
 .formInput {
-    @apply w-full py-2 px-4 xs:pl-2 sm:pl-0 border border-gray-300 rounded-lg focus:outline-gray-300 focus:outline-1 xs:font-primary sm:text-sm xs:text-xs
+    @apply w-full py-2 px-4 xs:pl-2 sm:pl-4 border border-gray-300 rounded-lg focus:outline-gray-300 focus:outline-1 xs:font-primary sm:text-sm xs:text-xs
 }
 
 .formLable {
