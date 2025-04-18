@@ -56,7 +56,7 @@ const Certificate = () => {
               <span className="text-sky-500 dark:text-sky-300">Certifications</span> and Achievements
             </h2>
           </header>
-          <div className='sm:grid sm:grid-cols-2 sm:col-span-2 gap-5'>
+          <div className='sm:grid sm:grid-cols-2 sm:col-span-2 xs:gap-6 xs:flex xs:flex-col'>
             {certifications.map((cert, index) => (
               <CertificateCard 
                 key={index} 
