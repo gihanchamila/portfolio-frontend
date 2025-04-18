@@ -140,7 +140,7 @@ const ContactForm = () => {
                 id="fullName"
                 name="fullName"
                 className="formInput"
-                placeholder="Your Full Name"
+                placeholder="e.g., Jane Doe"
               />
               <ErrorMessage
                 name="fullName"
@@ -153,7 +153,7 @@ const ContactForm = () => {
               <label htmlFor="email" className="formLable">
                 Email <Asterisk className="text-red-500 inline-block align-super" size={10} />
               </label>
-              <Field type="email" id="email" disabled={isEmailVerified} name="email" className="formInput " placeholder="Your Email" />
+              <Field type="email" id="email" disabled={isEmailVerified} name="email" className="formInput " placeholder="e.g., jane.doe@example.com" />
               <ErrorMessage name="email" component="div" className="formError" />
               <div className="mt-2 absolute -top-2 right-0">
                 {!isEmailVerified && values.email && (
@@ -188,7 +188,7 @@ const ContactForm = () => {
                 id="message"
                 name="message"
                 className="formInput"
-                placeholder="Your Message"
+                placeholder="Tell me a bit about your project or how I can help…"
                 rows="5"
               />
               <ErrorMessage

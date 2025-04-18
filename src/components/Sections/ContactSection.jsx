@@ -7,7 +7,7 @@ const ContactDetailCard = React.memo(({ icon: Icon, text }) => {
   return (
     <div className="flex items-center gap-4 bg-sky-50 text-sky-700 p-4 rounded-lg w-full max-w-sm sm:my-5 lg:my-0">
       <a target='_blank' href={`mailto:algihanchamila@gmail.com`}><Icon className="text-primary font-primary" size={24} /></a>
-      <span className="text-lg font-medium font-primary">{text}</span>
+      <span className="sm:text-lg xs:text-sm font-medium font-primary">{text}</span>
     </div>
   );
 })
@@ -22,7 +22,7 @@ const ContactSection = () => {
       </header>
       <main className="lg:flex gap-5">
         <div className="lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-1/2 sm:w-full sm:text-lg space-y-6">
-        <p className="sm:text-center lg:text-left text-xl font-primary text-gray-800 dark:text-gray-50 max-w-sm font-bold">
+        <p className="xs:text-center lg:text-left sm:text-xl xs:text-base xs:font-primary text-gray-800 dark:text-gray-50 max-w-sm font-bold">
           Feel free to reach out to me! Whether it's a 
           <span className="text-purple-500 dark:text-purple-300"> project collaboration</span>, a question, 
           or just a <span className="text-orange-500 dark:text-red-300">friendly hello</span>  
