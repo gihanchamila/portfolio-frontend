@@ -9,6 +9,7 @@
     --color-text-default: #0A1528;
     --color-surface-dim: #D5DBDC;
 
+
     --breakpoint-sm: 25.75rem;
     --breakpoint-xs: 20rem;
 
@@ -51,7 +52,10 @@
     @apply w-6 h-6 cursor-pointer hover:text-gray-700
 }
 
-
 .footerIconSize {
     @apply lg:size-6 sm:size-5 xs:size-4
+}
+
+.toastIcon {
+    @apply sm:size-4 xs:size-3 mt-0.5
 }

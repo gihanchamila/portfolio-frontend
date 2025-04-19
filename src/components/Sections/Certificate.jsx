@@ -41,7 +41,7 @@ const Certificate = () => {
       addToast(response.data.message, "success", 3000, "bottom-right");
     } catch (error) {
       console.error("Error fetching certificate details:", error);
-      addToast("Error fetching certificates");
+      addToast("Error fetching certificates", "error", 3000, "bottom-right");
     }
   }, [addToast]);
   

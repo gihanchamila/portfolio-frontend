@@ -1,6 +1,7 @@
 import React from 'react';
 import ContactForm from '../utils/ContactForm';
 import { Mail, Phone } from 'lucide-react';
+import SectionLabel from '../utils/SectionLabel';
 import { motion } from 'motion/react';
 
 const ContactDetailCard = React.memo(({ icon: Icon, text }) => {

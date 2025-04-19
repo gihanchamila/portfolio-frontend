@@ -9,19 +9,19 @@ import {
 
 const typeStyles = {
   success: {
-    icon: <CheckCircle className="text-teal-500 size-4 mt-0.5" />,
+    icon: <CheckCircle className="xs:text-teal-500 toastIcon" />,
     color: "border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700",
   },
   error: {
-    icon: <XCircle className="text-red-500 size-4 mt-0.5" />,
+    icon: <XCircle className="xs:text-red-500 toastIcon" />,
     color: "border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700",
   },
   warning: {
-    icon: <AlertTriangle className="text-yellow-500 size-4 mt-0.5" />,
+    icon: <AlertTriangle className="xs:text-yellow-500 toastIcon" />,
     color: "border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700",
   },
   info: {
-    icon: <Info className="text-blue-500 size-4 mt-0.5" />,
+    icon: <Info className="xs:text-blue-500 toastIcon" />,
     color: "border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700",
   },
 };
@@ -37,7 +37,7 @@ const positionClasses = {
 
 const Toast = ({ message, type = "info", position = "bottom-right" }) => {
   const { icon, color } = typeStyles[type] || typeStyles.info;
-  const pos = positionClasses[position] || positionClasses["top-right"];
+  const pos = positionClasses[position] || positionClasses["bottom-right"];
 
   return (
     <div className={`fixed z-50 ${pos}`}>
@@ -47,12 +47,12 @@ const Toast = ({ message, type = "info", position = "bottom-right" }) => {
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.3 }}
         role="alert"
-        className={`max-w-md rounded-xl shadow-lg ${color}`}
+        className={`w-full max-w-xs sm:max-w-sm md:max-w-md rounded-lg ${color}`}
       >
-        <div className="flex p-4">
+        <div className="flex px-3 py-2">
           <div className="shrink-0">{icon}</div>
           <div className="ms-3">
-            <p className="text-sm text-gray-700 dark:text-neutral-400 font-primary">{message}</p>
+            <p className="sm:text-sm xs:text-xs text-gray-700 dark:text-neutral-400 font-primary">{message}</p>
           </div>
         </div>
       </motion.div>
