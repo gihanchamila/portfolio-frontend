@@ -8,12 +8,32 @@
     --color-on-secondary-fixed: #0A1528;
     --color-text-default: #0A1528;
     --color-surface-dim: #D5DBDC;
+    --color-surface: #1D1616;
 
 
     --breakpoint-sm: 25.75rem;
     --breakpoint-xs: 20rem;
 
     --font-primary: 'Space Grotesk', sans-serif;
+        
+}
+
+@layer base {
+    html {
+        @apply bg-gray-50 dark:bg-surface;
+    }
+
+    body {
+        @apply font-primary text-gray-800 dark:text-gray-200;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-primary;
+    }
+
+    a {
+        @apply text-gray-800 dark:text-gray-200;
+    }
 }
 
 ::-webkit-scrollbar {
@@ -25,7 +45,7 @@
 }
 
 .navLink {
-    @apply xs:text-gray-700 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-50
+    @apply xs:text-gray-700 hover:text-gray-800 dark:text-gray-100 dark:hover:text-white
 }
 
 .cardTitle {

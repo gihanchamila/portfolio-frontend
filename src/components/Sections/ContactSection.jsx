@@ -17,12 +17,16 @@ const ContactSection = () => {
   return (
     <section id="contact" className="pb-20">
       <header className="pb-8">
-        <h2 className="sm:text-4xl xs:xs:text-3xl text-center font-bold font-primary">
+        <motion.h2 
+          className="sm:text-4xl xs:xs:text-3xl text-center font-bold font-primary"
+        >
           Let's connect and explore how we can work together.
-        </h2>
+        </motion.h2>
       </header>
-      <main className="lg:flex gap-5">
-        <div className="lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-1/2 sm:w-full sm:text-lg xs:space-y-6 xs:mb-5 sm:mb-0">
+      <motion.main 
+        className="lg:flex gap-5">
+        <motion.div 
+            className="lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-1/2 sm:w-full sm:text-lg xs:space-y-6 xs:mb-5 sm:mb-0">
           <p className="xs:text-center lg:text-left sm:text-xl xs:text-base xs:font-primary text-gray-800 dark:text-gray-50 max-w-sm font-bold">
             Feel free to reach out to me! Whether it's a 
             <span className="text-purple-500 dark:text-purple-300"> project collaboration</span>, a question, 
@@ -30,7 +34,7 @@ const ContactSection = () => {
             <motion.span
               className="inline-block"
               whileHover={{
-                rotate: [0, 10, -10, 10, -10, 0], // Smooth waving motion
+                rotate: [0, 10, -10, 10, -10, 0],
                 transition: { duration: 0.6, ease: "easeInOut" },
               }}
             >
@@ -39,9 +43,9 @@ const ContactSection = () => {
             <span className="text-green-500 dark:text-green-300">I'm always happy to connect.</span> 
           </p>
           <ContactDetailCard icon={Mail} text={'algihanchamila@gmail.com'} />
-        </div>
+        </motion.div>
         <ContactForm />
-      </main>
+      </motion.main>
     </section>
   );
 };

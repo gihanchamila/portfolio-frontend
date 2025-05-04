@@ -8,8 +8,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live }) => {
   const defaultImage = ProjectImage;
 
   return (
-    <motion.div initial={{opacity : 0}}  whileInView={{opacity : 1}} className="lg:w-[25rem] lg:h-[30rem] sm:w-auto sm:h-[30rem] xs:h-[20rem] bg-white border border-gray-300 rounded-2xl relative overflow-hidden group">
-
+    <motion.div initial={{ opacity: 0, y:0, x:-100, scale: 0.8 }}  whileInView={{ opacity: 1, y: 0, x:0, scale: 1 }} transition={{type: "spring",stiffness: 80,damping: 15,duration: 0.5,}} viewport={{  amount: 0.5 }} className="lg:w-[25rem] lg:h-[30rem] sm:w-auto sm:h-[30rem] xs:h-[20rem] bg-white border border-gray-300 dark:border-none rounded-2xl relative overflow-hidden group">
       <motion.div 
         whileHover={{ scale: 1.1 }} 
         whileTap={{ scale: 1.1 }}
@@ -31,7 +30,6 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live }) => {
         <p className="cardSubTitle">{description}</p>
         <AnimatedButton live={live} github={github} />
       </div>
-      
     </motion.div>
   );
 };

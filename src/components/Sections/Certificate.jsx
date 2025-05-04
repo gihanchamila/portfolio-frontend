@@ -3,6 +3,7 @@ import React from 'react';
 import CertificateCard from '../utils/CertificateCard';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
+import { motion } from 'motion/react';
 
 const certifications = [
   {
@@ -50,23 +51,35 @@ const Certificate = () => {
   }, [getCertificateDetails]);
 
   return (
-        <section id='certification' className="pb-20 sm:col-start-1 sm:col-end-5 sm-col-span-4 scroll-mt-14">
-          <header className="pb-8">
-            <h2 className="sm:text-4xl xs:text-3xl font-bold font-primary">
-              <span className="text-sky-500 dark:text-sky-300">Certifications</span> and Achievements
-            </h2>
-          </header>
-          <div className='sm:grid sm:grid-cols-2 sm:col-span-2 xs:gap-6 xs:flex xs:flex-col'>
-            {certifications.map((cert, index) => (
-              <CertificateCard 
-                key={index} 
-                certificateName={cert.certificateName} 
-                organization={cert.organization} 
-                credentialUrl={cert.credentialUrl}
-              />
-            ))}
-          </div>
-        </section>
+
+
+    <section
+      id="certification"
+      className="pb-20 sm:col-start-1 sm:col-end-5 sm-col-span-4 scroll-mt-14"
+    >
+      <header className="pb-8">
+        <motion.h2
+          className="sm:text-4xl xs:text-3xl font-bold font-primary"
+        >
+          <span className="text-sky-500 dark:text-sky-300">Certifications</span> and Achievements
+        </motion.h2>
+      </header>
+    
+      <motion.div
+        className="sm:grid sm:grid-cols-2 sm:col-span-2 xs:gap-6 xs:flex xs:flex-col"
+      >
+        {certifications.map((cert) => (
+          <motion.div
+          >
+            <CertificateCard
+              certificateName={cert.certificateName}
+              organization={cert.organization}
+              credentialUrl={cert.credentialUrl}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
   );
 };
 

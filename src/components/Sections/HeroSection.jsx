@@ -1,5 +1,4 @@
 import React from 'react';
-import { BackgroundLines } from '../utils/AnimatedBackground';
 import SplitText from '../utils/SplitText';
 import { ProjectImage } from '../../assets';
 import Skills from './Skills'
@@ -8,8 +7,7 @@ const HeroSection = () => {
 
   return (
     <div className="relative">
-      <BackgroundLines svgOptions={{ duration: 10 }}>
-        <section className="sm:grid sm:grid-cols-4 sm:col-start-1 sm:col-end-5 sm:col-span-4 gap-5 sm:items-center pb-12 lg:grid-cols-10">
+        <section className="sm:grid sm:grid-cols-4 sm:col-start-1 sm:col-end-5 sm:col-span-4 gap-5 sm:items-center pb-12 lg:grid-cols-12">
           <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 flex flex-col sm:items-center lg:col-span-5 lg:col-start-1 lg:col-end-6">
             <div className="xs:flex xs:flex-col lg:space-y-4 xs:space-y-6 justify-evenly">
               <SplitText
@@ -31,7 +29,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 flex justify-center lg:col-span-5 lg:col-start-8 lg:col-end-13 xs:mt-5">
+          <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 sm:flex sm:justify-center lg:block lg:col-span-6 lg:col-start-9 lg:col-end-13 xs:mt-5">
             <img
               src={ProjectImage}
               alt="Hero Section Illustration"
@@ -39,7 +37,6 @@ const HeroSection = () => {
             />
           </div>
         </section>
-      </BackgroundLines>
       <Skills />
     </div>
   );
