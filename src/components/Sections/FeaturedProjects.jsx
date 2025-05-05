@@ -42,7 +42,7 @@ const FeaturedProjects = () => {
         <motion.h2
           className="sm:text-4xl xs:text-3xl font-bold font-primary"
         >
-          Featured <span className="text-sky-500 dark:text-sky-300">Projects</span>
+          Featured <span  className="text-sky-500 dark:text-sky-300">Projects</span>
         </motion.h2>
       </header>
 
