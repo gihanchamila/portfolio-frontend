@@ -24,9 +24,9 @@ const ContactSection = () => {
         </motion.h2>
       </header>
       <motion.main 
-        className="lg:flex lg:justify-center lg:items-center gap-5">
+        className="lg:flex lg:justify-between lg:items-center">
         <motion.div 
-            className="lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-1/2 sm:w-full sm:text-lg xs:space-y-6 xs:mb-5 sm:mb-0">
+            className="sm:text-lg xs:space-y-6 xs:mb-5 sm:mb-0">
           <p className="xs:text-center lg:text-left sm:text-xl xs:text-base xs:font-primary text-gray-800 dark:text-gray-50 max-w-sm font-bold">
             Feel free to reach out to me! Whether it's a 
             <span className="text-purple-500 dark:text-purple-300"> project collaboration</span>, a question, 
