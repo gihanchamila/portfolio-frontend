@@ -6,7 +6,7 @@ import { motion } from 'motion/react';
 
 const ContactDetailCard = React.memo(({ icon: Icon, text }) => {
   return (
-    <div className="flex items-center gap-4 bg-sky-50 text-sky-700 p-4 rounded-lg w-full max-w-sm sm:my-5 lg:my-0">
+    <div className="flex items-center gap-5 bg-sky-50 text-sky-700 p-4 rounded-lg w-full max-w-sm sm:my-5 lg:my-0">
       <a target='_blank' href={`mailto:algihanchamila@gmail.com`}><Icon className="text-primary font-primary" size={24} /></a>
       <span className="sm:text-lg xs:text-sm font-medium font-primary">{text}</span>
     </div>
@@ -24,7 +24,7 @@ const ContactSection = () => {
         </motion.h2>
       </header>
       <motion.main 
-        className="lg:flex gap-5">
+        className="lg:flex lg:justify-center lg:items-center gap-5">
         <motion.div 
             className="lg:flex lg:flex-col lg:justify-center lg:items-center lg:w-1/2 sm:w-full sm:text-lg xs:space-y-6 xs:mb-5 sm:mb-0">
           <p className="xs:text-center lg:text-left sm:text-xl xs:text-base xs:font-primary text-gray-800 dark:text-gray-50 max-w-sm font-bold">

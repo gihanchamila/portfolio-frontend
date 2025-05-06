@@ -29,7 +29,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 sm:flex sm:justify-center lg:block lg:col-span-6 lg:col-start-9 lg:col-end-13 xs:mt-5">
+          <div className="xs:col-span-4 xs:col-start-1 xs:col-end-5 xs:flex xs:justify-center lg:block lg:col-span-6 lg:col-start-9 lg:col-end-13 xs:mt-5">
             <img
               src={ProjectImage}
               alt="Hero Section Illustration"
