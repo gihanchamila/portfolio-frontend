@@ -10,6 +10,7 @@ const Certificate = () => {
   const { toast } = useToast();
 
   const [certificates, setCertificates] = useState([]);
+  const [totalCount, setTotalCount] = useState([]);
 
   // Get certification details
   const getCertificateDetails = useCallback(async () => {
@@ -17,6 +18,9 @@ const Certificate = () => {
     try {
       const response = await axios.get('/certificate/get-certificates');
       const data = response.data.data.certifications;
+      const total = response.data.data.total;
+      console.log(total)
+      setTotalCount(total)
       setCertificates(data);
       toast(`${response.data.message}`)
     } catch (error) {
@@ -57,6 +61,9 @@ const Certificate = () => {
               credentialUrl={cert.credentialURL}
             />
         ))}
+        {totalCount > 4 && (
+          <div>Show more</div>
+        )}
       </motion.div>
     </section>
   );
