@@ -44,27 +44,27 @@ const ContactForm = () => {
     });
 
     const handleVerifyEmail = debounce(async (email) => {
-      const now = new Date().getTime();
-      const cooldownPeriod = 10 * 60 * 1000; // 10 minutes
+      /* const now = new Date().getTime();
+      const cooldownPeriod = 1 * 60 * 1000; // 1 minutes */
 
       // Check from the client-side (or frontend trigger)
-      if (lastCodeSentTime && now - lastCodeSentTime < cooldownPeriod) {
+      /* if (lastCodeSentTime && now - lastCodeSentTime < cooldownPeriod) {
           const minutesLeft = Math.ceil((cooldownPeriod - (now - lastCodeSentTime)) / 60000);
           toast(`Please wait ${minutesLeft} minute(s) before requesting another code.`, "error", 3000);
           return;
-      }
+      } */
   
       try {
+          setIsPopupOpen(true);
           const response = await axios.post("/user/send-verification-code", { email });
           const data = response.data;
-          toast(data.message, "success", 3000, "top-right");
-          setIsPopupOpen(true);
-          setCount(10);
-          setLastCodeSentTime(now); // Update the last code sent time
+          toast(data.message, "success", 3000, "bottom-right");
+          setCount(1);
+          // setLastCodeSentTime(now); // Update the last code sent time
       } catch (error) {
           const response = error.response;
           const data = response?.data?.message || "An error occurred";
-          toast(data);
+          toast(data, "bottom-right");
           console.error(data);
       }
   }, 500)
@@ -81,12 +81,12 @@ const ContactForm = () => {
           setIsEmailVerified(true);
           setIsPopupOpen(false);
         }
-        toast(data.message, "success", 3000, "top-right")
+        toast(data.message, "success", 3000, "bottom-right")
       }catch(error){
         const response = error.response
         const data = response.data
         console.error(data.message)
-        toast(data.message, "error", 3000, "top-right")
+        toast(data.message, "error", 3000, "bottom-right")
       }
     }
       
@@ -207,8 +207,8 @@ const ContactForm = () => {
             </div>
 
             <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
-              <h2 className="cardTitle drop-shadow-none pb-5">Verify Your Email</h2>
-              <p className="font-primary text-gray-800">A verification code has been sent to your email. Please enter the code below:</p>
+              <h2 className="cardTitle drop-shadow-none pb-5 ">Verify Your Email</h2>
+              <p className="font-primary text-gray-800 dark:text-white">A verification code has been sent to your email. Please enter the code below:</p>
 
               <div className="flex justify-center w-full py-6">
                 <input
