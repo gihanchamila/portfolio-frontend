@@ -12,7 +12,7 @@ import { useToast } from "../../context/ToastContext";
 
 const ContactForm = () => {
     const inputRefs = useRef([]);
-    const { addToast } = useToast();
+    const { toast } = useToast();
     const [isEmailVerified, setIsEmailVerified] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);   
     const [lastCodeSentTime, setLastCodeSentTime] = useState(null);
@@ -45,24 +45,26 @@ const ContactForm = () => {
 
     const handleVerifyEmail = debounce(async (email) => {
       const now = new Date().getTime();
-  
-      if (lastCodeSentTime && now - lastCodeSentTime < 10 * 60 * 1000) {
-          const minutesLeft = Math.ceil((10 * 60 * 1000 - (now - lastCodeSentTime)) / 60000);
-          addToast("Please wait 10 minutes before requesting another code", "error", 3000);
+      const cooldownPeriod = 10 * 60 * 1000; // 10 minutes
+
+      // Check from the client-side (or frontend trigger)
+      if (lastCodeSentTime && now - lastCodeSentTime < cooldownPeriod) {
+          const minutesLeft = Math.ceil((cooldownPeriod - (now - lastCodeSentTime)) / 60000);
+          toast(`Please wait ${minutesLeft} minute(s) before requesting another code.`, "error", 3000);
           return;
       }
   
       try {
           const response = await axios.post("/user/send-verification-code", { email });
           const data = response.data;
-          addToast(data.message, "success", 3000, "top-right");
+          toast(data.message, "success", 3000, "top-right");
           setIsPopupOpen(true);
           setCount(10);
           setLastCodeSentTime(now); // Update the last code sent time
       } catch (error) {
           const response = error.response;
           const data = response?.data?.message || "An error occurred";
-          addToast(data);
+          toast(data);
           console.error(data);
       }
   }, 500)
@@ -79,12 +81,12 @@ const ContactForm = () => {
           setIsEmailVerified(true);
           setIsPopupOpen(false);
         }
-        addToast(data.message, "success", 3000, "top-right")
+        toast(data.message, "success", 3000, "top-right")
       }catch(error){
         const response = error.response
         const data = response.data
         console.error(data.message)
-        addToast(data.message, "error", 3000, "top-right")
+        toast(data.message, "error", 3000, "top-right")
       }
     }
       
