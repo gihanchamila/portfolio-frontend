@@ -11,7 +11,7 @@ let toastId = 0;
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  const addToast = useCallback((message, type = "info", duration = 3000, position = "top-right") => {
+  const toast = useCallback((message, type = "info", duration = 3000, position = "bottom-right") => {
     const id = toastId++;
     const newToast = { id, message, type, position };
 
@@ -23,7 +23,7 @@ export const ToastProvider = ({ children }) => {
   }, []);
 
   return (
-    <ToastContext.Provider value={{ addToast }}>
+    <ToastContext.Provider value={{ toast }}>
       {children}
       <div className="fixed z-50 pointer-events-none w-full">
         <AnimatePresence>

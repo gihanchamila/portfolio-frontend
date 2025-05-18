@@ -1,35 +1,71 @@
-import React, { useRef } from 'react';
+import React, { use, useCallback, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import ProjectCard from '../utils/Card';
 import SectionLabel from '../utils/SectionLabel';
 import { Sparkle } from 'lucide-react';
+import { useToast } from '../../context/ToastContext';
+import axios from "../../axios/axios.js"
 
-const projects = [
-  {
-    projectName: "MERN Stack Blog Project",
-    organization: "Meta",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry...",
-    live: "https://github.com/gihanchamila/omni-frontend",
-    github: "https://github.com/gihanchamila/omni-frontend"
-  },
-  {
-    projectName: "React E-commerce App",
-    organization: "Google",
-    description: "An advanced e-commerce platform built with React and Firebase, featuring authentication and payment integration.",
-    live: "https://github.com/gihanchamila/omni-frontend",
-    github: "https://github.com/gihanchamila/omni-frontend"
-  },
-  {
-    projectName: "AI Chatbot",
-    organization: "OpenAI",
-    description: "A chatbot leveraging OpenAI's GPT model to provide conversational responses and user-friendly interaction.",
-    live: "https://github.com/gihanchamila/omni-frontend",
-    github: "https://github.com/gihanchamila/omni-frontend"
-  }
-];
-
-const FeaturedProjects = () => {
+const FeaturedProjects =() => {
   const ref = useRef(null);
+  const { toast } = useToast();
+  const [projects, setProjects] = useState([]);
+  const [projectFiles, setProjectFiles] = useState({})
+
+  // fetch project details
+  const fetchProjects = useCallback(async () => {
+    if (projects.length > 0) return;
+    try {
+      const response = await axios.get("/project/get-projects");
+      const data = response.data.data.projects;
+      setProjects(data);
+      toast(`${response.data.message}`)
+    } catch (error) {
+      const response = error.response;
+      const data = response.data;
+      toast(`${data.message}`, "error");
+    }
+  }, [projects.length, toast]); 
+
+
+  // Handling side effects
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
+
+
+const fetchProjectFileUrls = useCallback(async () => {
+  try {
+    const fileUrls = await Promise.all(
+      projects.map(async (project) => {
+        if (!project.file || !project.file.key) {
+          return { id: project._id, fileUrl: null };
+        }
+
+        const response = await axios.get(`/file/signed-url?key=${project.file.key}`);
+        return {
+          id: project._id,
+          fileUrl: response.data.data.url,
+        };
+      })
+    );
+    const fileUrlMap = fileUrls.reduce((acc, item) => {
+      acc[item.id] = item.fileUrl;
+      return acc;
+    }, {});
+    setProjectFiles(fileUrlMap);
+    toast("Fetched signed file URLs successfully");
+  } catch (error) {
+    console.error("Error fetching signed URLs:", error);
+    toast("Failed to fetch signed file URLs", "error");
+  }
+}, [projects, toast]);
+
+useEffect(() => {
+  if (projects.length > 0) {
+    fetchProjectFileUrls();
+  }
+}, [projects, fetchProjectFileUrls]);
 
   return (
     <section
@@ -50,10 +86,14 @@ const FeaturedProjects = () => {
         className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
         {projects.map((project) => (
-          <motion.div
-          >
-            <ProjectCard {...project} />
-          </motion.div>
+            <ProjectCard 
+              key={project._id} 
+              projectName={project.title}
+              description={project.description}
+              imageUrl={projectFiles[project._id]}
+              github={project.githubUrl}
+              live={project.projectUrl}
+            />
         ))}
       </motion.div>
     </section>

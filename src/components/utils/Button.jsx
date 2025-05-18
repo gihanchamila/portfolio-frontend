@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { motion } from 'motion/react';
 
 const Button = ({ variant = "primary", className = "", disabled = false, children, ...buttonProps }) => {
   const baseStyles = "button";
@@ -14,7 +15,7 @@ const Button = ({ variant = "primary", className = "", disabled = false, childre
   const disabledStyles = "bg-gray-100 text-gray-500";
 
   return (
-    <button
+    <motion.button
       className={clsx(
         baseStyles,
         disabled ? disabledStyles : variantStyles[variant],
@@ -24,7 +25,7 @@ const Button = ({ variant = "primary", className = "", disabled = false, childre
       {...buttonProps}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };
 
