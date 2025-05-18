@@ -26,21 +26,13 @@ const typeStyles = {
   },
 };
 
-const positionClasses = {
-  "top-right": "top-4 right-4",
-  "top-left": "top-4 left-4",
-  "bottom-right": "bottom-4 right-4",
-  "bottom-left": "bottom-4 left-4",
-  "top-center": "top-4 left-1/2 -translate-x-1/2",
-  "bottom-center": "bottom-4 left-1/2 -translate-x-1/2",
-};
 
-const Toast = ({ message, type = "info", position = "bottom-right" }) => {
+
+const Toast = ({ message, type = "info"}) => {
   const { icon, color } = typeStyles[type] || typeStyles.info;
-  const pos = positionClasses[position] || positionClasses["bottom-right"];
 
   return (
-    <div className={`fixed z-50 ${pos}`}>
+    <div className={`fixed z-50`}>
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
