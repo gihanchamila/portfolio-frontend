@@ -44,15 +44,15 @@ const ContactForm = () => {
     });
 
     const handleVerifyEmail = debounce(async (email) => {
-      /* const now = new Date().getTime();
-      const cooldownPeriod = 1 * 60 * 1000; // 1 minutes */
+      const now = new Date().getTime();
+      const cooldownPeriod = 1 * 60 * 1000; // 1 minutes
 
       // Check from the client-side (or frontend trigger)
-      /* if (lastCodeSentTime && now - lastCodeSentTime < cooldownPeriod) {
+      if (lastCodeSentTime && now - lastCodeSentTime < cooldownPeriod) {
           const minutesLeft = Math.ceil((cooldownPeriod - (now - lastCodeSentTime)) / 60000);
           toast(`Please wait ${minutesLeft} minute(s) before requesting another code.`, "error", 3000);
           return;
-      } */
+      }
   
       try {
           setIsPopupOpen(true);
