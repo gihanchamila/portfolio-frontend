@@ -1,4 +1,4 @@
-import React, { use, useCallback, useEffect, useRef, useState } from 'react';
+import React, {useCallback, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import ProjectCard from '../utils/Card';
 import SectionLabel from '../utils/SectionLabel';
@@ -11,6 +11,7 @@ const FeaturedProjects =() => {
   const { toast } = useToast();
   const [projects, setProjects] = useState([]);
   const [projectFiles, setProjectFiles] = useState({})
+  const [totalCount, setTotalCount] = useState([null])
 
   // fetch project details
   const fetchProjects = useCallback(async () => {
@@ -18,6 +19,8 @@ const FeaturedProjects =() => {
     try {
       const response = await axios.get("/project/get-projects");
       const data = response.data.data.projects;
+      const total= response.data.data.total;
+      setTotalCount(total);
       setProjects(data);
       toast(`${response.data.message}`)
     } catch (error) {
@@ -27,45 +30,43 @@ const FeaturedProjects =() => {
     }
   }, [projects.length, toast]); 
 
-
   // Handling side effects
   useEffect(() => {
-    fetchProjects();
+    fetchProjects()
   }, [fetchProjects]);
 
+  const fetchProjectFileUrls = useCallback(async () => {
+    try {
+      const fileUrls = await Promise.all(
+        projects.map(async (project) => {
+          if (!project.file || !project.file.key) {
+            return { id: project._id, fileUrl: null };
+          }
 
-const fetchProjectFileUrls = useCallback(async () => {
-  try {
-    const fileUrls = await Promise.all(
-      projects.map(async (project) => {
-        if (!project.file || !project.file.key) {
-          return { id: project._id, fileUrl: null };
-        }
+          const response = await axios.get(`/file/signed-url?key=${project.file.key}`);
+          return {
+            id: project._id,
+            fileUrl: response.data.data.url,
+          };
+        })
+      );
+      const fileUrlMap = fileUrls.reduce((acc, item) => {
+        acc[item.id] = item.fileUrl;
+        return acc;
+      }, {});
+      setProjectFiles(fileUrlMap);
+      toast("Fetched signed file URLs successfully");
+    } catch (error) {
+      console.error("Error fetching signed URLs:", error);
+      toast("Failed to fetch signed file URLs", "error");
+    }
+  }, [projects, toast]);
 
-        const response = await axios.get(`/file/signed-url?key=${project.file.key}`);
-        return {
-          id: project._id,
-          fileUrl: response.data.data.url,
-        };
-      })
-    );
-    const fileUrlMap = fileUrls.reduce((acc, item) => {
-      acc[item.id] = item.fileUrl;
-      return acc;
-    }, {});
-    setProjectFiles(fileUrlMap);
-    toast("Fetched signed file URLs successfully");
-  } catch (error) {
-    console.error("Error fetching signed URLs:", error);
-    toast("Failed to fetch signed file URLs", "error");
-  }
-}, [projects, toast]);
-
-useEffect(() => {
-  if (projects.length > 0) {
-    fetchProjectFileUrls();
-  }
-}, [projects, fetchProjectFileUrls]);
+  useEffect(() => {
+    if (projects.length > 0) {
+      fetchProjectFileUrls();
+    }
+  }, [projects, fetchProjectFileUrls]);
 
   return (
     <section
@@ -95,6 +96,9 @@ useEffect(() => {
               live={project.projectUrl}
             />
         ))}
+        {totalCount > 3 && (
+          <div>Show more</div>
+        )}
       </motion.div>
     </section>
   );
