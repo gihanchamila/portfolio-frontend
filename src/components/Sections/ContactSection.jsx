@@ -24,9 +24,22 @@ const ContactSection = () => {
         </motion.h2>
       </header>
       <motion.main 
-        className="lg:flex lg:justify-between lg:items-center">
+        className="lg:flex lg:justify-between lg:items-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.3 } }
+        }}
+      >
         <motion.div 
-            className="sm:text-lg xs:space-y-6 xs:mb-5 sm:mb-0">
+            className="sm:text-lg xs:space-y-6 xs:mb-5 sm:mb-0"
+            variants={{
+            hidden: { opacity: 0, y: 30 },  // start 30px below
+            visible: { opacity: 1, y: 0, transition: { duration: 0.7 } }  // animate up to y=0
+        }}
+        >
           <p className="xs:text-center lg:text-left sm:text-xl xs:text-base xs:font-primary text-gray-800 dark:text-gray-50 max-w-sm font-bold">
             Feel free to reach out to me! Whether it's a 
             <span className="text-purple-500 dark:text-purple-300"> project collaboration</span>, a question, 
@@ -44,7 +57,7 @@ const ContactSection = () => {
           </p>
           <ContactDetailCard icon={Mail} text={'algihanchamila@gmail.com'} />
         </motion.div>
-        <ContactForm />
+          <ContactForm />
       </motion.main>
     </section>
   );
