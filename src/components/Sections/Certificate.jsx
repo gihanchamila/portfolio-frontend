@@ -79,6 +79,10 @@ const Certificate = () => {
       <header className="pb-8">
         <motion.h2
           className="sm:text-4xl xs:text-3xl font-bold font-primary"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
         >
           <span className="text-sky-500 dark:text-sky-300">Certifications</span> and Achievements
         </motion.h2>
