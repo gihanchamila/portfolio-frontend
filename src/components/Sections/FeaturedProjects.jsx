@@ -8,7 +8,7 @@ import axios from "../../axios/axios.js"
 
 const AnimatedCard = ({ project, imageUrl, index }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, {amount: 0.2 });
+  const isInView = useInView(ref, {once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px'});
 
   const variants = {
     hidden: { opacity: 0, y: 50 + index * 25},

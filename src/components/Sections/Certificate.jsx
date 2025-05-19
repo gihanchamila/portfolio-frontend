@@ -1,9 +1,44 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import React from 'react';
 import CertificateCard from '../utils/CertificateCard';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
-import { motion } from 'motion/react';
+import { motion, useAnimation, useInView} from 'framer-motion';
+
+const AnimatedCertificate = ({ certificate, index }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px'});
+
+  const variants = {
+    hidden: { opacity: 0, y: 50, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        delay: index * 0.1,
+        duration: 0.5,
+        ease: 'easeOut',
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+      variants={variants}
+    >
+      <CertificateCard
+        certificate={certificate}
+        certificateName={certificate.title}
+        organization={certificate.organization}
+        credentialUrl={certificate.credentialURL}
+      />
+    </motion.div>
+  );
+};
 
 const Certificate = () => {
 
@@ -49,22 +84,13 @@ const Certificate = () => {
         </motion.h2>
       </header>
     
-      <motion.div
-        className="sm:grid sm:grid-cols-2 sm:col-span-2 xs:gap-6 xs:flex xs:flex-col"
-      >
-        {certificates.length > 0 && certificates.map((cert) => (
-            <CertificateCard
-              key={cert._id}
-              certificate={cert}
-              certificateName={cert.title}
-              organization={cert.organization}
-              credentialUrl={cert.credentialURL}
-            />
-        ))}
-        {totalCount > 4 && (
-          <div>Show more</div>
-        )}
-      </motion.div>
+      <div className="sm:grid sm:grid-cols-2 sm:col-span-2 xs:gap-6 xs:flex xs:flex-col">
+        {certificates.length > 0 &&
+          certificates.map((cert, index) => (
+            <AnimatedCertificate key={cert._id} certificate={cert} index={index} />
+          ))}
+        {totalCount > 4 && <div>Show more</div>}
+      </div>
     </section>
   );
 };
