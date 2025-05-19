@@ -6,7 +6,6 @@ import LandingPage from "./pages/LandingPage";
 import AnimatedSuspenseWrapper from "./components/utils/AnimatedSuspenseWrapper";
 import CircleLoader from "./components/utils/CircleLoader";
 
-const Projects = lazy(() => import("./pages/Projects"));
 const DashBoard = lazy(() => import("./components/DashBoard"));
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
           <Routes>
             <Route path="/" element={<PublicLayout />}>
               <Route index element={<LandingPage />} />
-              <Route path="projects" element={<Projects/>} />
             </Route>
 
             <Route path="/admin" element={<PrivateLayout />}>
