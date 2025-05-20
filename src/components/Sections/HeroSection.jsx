@@ -3,6 +3,44 @@ import SplitText from '../utils/SplitText';
 import { ProjectImage } from '../../assets';
 import Skills from './Skills'
 import MySkill from './MySkill';
+import { motion } from 'motion/react';
+
+
+export const HoverReveal = () => {
+  return (
+    <motion.div
+      className="relative w-fit group overflow-hidden border border-white rounded-full cursor-pointer"
+      initial="rest"
+      whileHover="hover"
+      animate="rest"
+    >
+      {/* Initial Text */}
+      <motion.span
+        className="block py-2 px-4 text-white text-xs bg-transparent"
+        variants={{
+          rest: { y: 0, opacity: 1 },
+          hover: { y: -30, opacity: 0 },
+        }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+      >
+        Available to work
+      </motion.span>
+
+      {/* Reveal Text */}
+      <motion.span
+        className="absolute left-0 top-7.5 py-2 px-2 text-white text-xs w-full text-center"
+        variants={{
+          rest: { y: 30, opacity: 0 },
+          hover: { y: -30, opacity: 1 },
+        }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+      >
+        Let’s connect 🤝
+      </motion.span>
+    </motion.div>
+  );
+};
+
 
 const HeroSection = () => {
 
@@ -11,6 +49,7 @@ const HeroSection = () => {
         <section className="sm:grid sm:grid-cols-4 sm:col-start-1 sm:col-end-5 sm:col-span-4 gap-5 sm:items-center lg:pb-12 xs:pb-2 lg:grid-cols-12">
           <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 flex flex-col sm:items-center lg:col-span-5 lg:col-start-1 lg:col-end-6">
             <div className="xs:flex xs:flex-col lg:space-y-4 xs:space-y-6 justify-evenly">
+              <HoverReveal />
               <SplitText
                 text="Hi, I'm Gihan Chamila"
                 className="lg:text-6xl sm:text-5xl xs:text-4xl xs:text-center xs:font-bold xs:font-primary lg:text-left"
