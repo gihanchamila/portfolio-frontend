@@ -1,50 +1,52 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
+import axios from "../axios/axios";
+import { useLocation, useNavigate } from "react-router-dom";
+import { nav } from "motion/react-client";
 
-// Create AuthContext
-const AuthContext = createContext(null);
+// Create context
+const AuthContext = createContext();
 
-// AuthProvider Component
+// Custom hook to use AuthContext
+export const useAuth = () => useContext(AuthContext);
+
 export const AuthProvider = ({ children }) => {
-  const [apiKey, setApiKey] = useState(localStorage.getItem("apiKey") || null);
-  const [isAuthenticated, setIsAuthenticated] = useState(!!apiKey);
-
-  // Function to login (set API key)
-  const login = async (enteredApiKey) => {
+  const navigate = useNavigate();
+  const [admin, setAdmin] = useState(null);
+  const [loading, setLoading] = useState(false);
+  
+  // Admin sign in
+  const signIn = useCallback(async (email, password) => {
+    setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/api/private/data", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "api_key": enteredApiKey,
-        },
-      });
-
-      if (response.ok) {
-        setApiKey(enteredApiKey);
-        setIsAuthenticated(true);
-        localStorage.setItem("apiKey", enteredApiKey); 
-        return { success: true, message: "Login successful!" };
-      } else {
-        return { success: false, message: "Invalid API Key." };
-      }
+      const response = await axios.post("/admin/signin", { email, password });
+      const data = response.data.data.user
+      const token = response.data.data.token;
+      console.log(data);
+      setAdmin(data);
+      localStorage.setItem("apiKey", token);
+      localStorage.setItem("admin", JSON.stringify(data));
+      navigate("/admin/dashboard");
+      return { success: true, message: "Sign in successful" };
     } catch (error) {
-      return { success: false, message: "Error connecting to the server." };
+      return { success: false, message: error.response?.data?.message || "Sign in failed" };
+    } finally {
+      setLoading(false);
     }
-  };
+  }, [navigate]);
 
-  // Function to logout (clear API key)
-  const logout = () => {
-    setApiKey(null);
-    setIsAuthenticated(false);
+  // Admin sign out
+  const signOut = useCallback(() => {
+    setAdmin(null);
     localStorage.removeItem("apiKey");
-  };
+    navigate("/admin");
+  }, [navigate]);
+
+  // Optionally, check for existing token on mount
+  // and fetch admin profile if needed
 
   return (
-    <AuthContext.Provider value={{ apiKey, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ admin, loading, signIn, signOut, setAdmin }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
-// Custom Hook for using AuthContext
-export const useAuth = () => useContext(AuthContext);

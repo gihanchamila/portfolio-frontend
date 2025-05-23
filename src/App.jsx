@@ -5,24 +5,28 @@ import PrivateLayout from "./layouts/PrivateLayout";
 import LandingPage from "./pages/LandingPage";
 import AnimatedSuspenseWrapper from "./components/utils/AnimatedSuspenseWrapper";
 import CircleLoader from "./components/utils/CircleLoader";
+import Login from "./components/Login";
+import { AuthProvider } from "./context/AuthContext";
 
 const DashBoard = lazy(() => import("./components/DashBoard"));
 
 function App() {
   return (
-    <Router>
-        <AnimatedSuspenseWrapper fallback={<CircleLoader/>}>
-          <Routes>
-            <Route path="/" element={<PublicLayout />}>
-              <Route index element={<LandingPage />} />
-            </Route>
-
-            <Route path="/admin" element={<PrivateLayout />}>
-              <Route index element={<DashBoard />} />
-            </Route>
-          </Routes>
-        </AnimatedSuspenseWrapper>
-    </Router>
+      <Router>
+        <AuthProvider>
+          <AnimatedSuspenseWrapper fallback={<CircleLoader />}>
+            <Routes>
+              <Route path="/" element={<PublicLayout />}>
+                <Route index element={<LandingPage />} />
+              </Route>
+              <Route path="/admin" element={<PrivateLayout />}>
+                <Route index element={<Login />} />
+                <Route path="dashboard" element={<DashBoard />}/>
+              </Route>
+            </Routes>
+          </AnimatedSuspenseWrapper>
+        </AuthProvider>
+      </Router>
   );
 }
 
