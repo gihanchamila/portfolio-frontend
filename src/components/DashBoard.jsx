@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { PlusCircle, Award, Mail, FileText } from 'lucide-react'
 import Button from './utils/Button'
-import axios from '../axios/axios'
 import AddProjectForm from './utils/AddProjectForm'
 import AddCertificateForm from './utils/AddCertificateForm'
 import MessagesList from './utils/MessagesList'
@@ -105,8 +104,8 @@ const DashBoard = () => {
     {
       key: "project",
       icon: <PlusCircle size={36} />,
-      title: "Add Projects",
-      description: "Create and manage your portfolio projects.",
+      title: "Projects",
+      description: "Manage your portfolio projects. Add, update, or delete projects as needed.",
       actionLabel: "Add Project",
       popupTitle: "Add Project",
       popupContent: (
@@ -123,8 +122,8 @@ const DashBoard = () => {
     {
       key: "certificate",
       icon: <Award size={36} />,
-      title: "Add Certificates",
-      description: "Upload and showcase your certificates.",
+      title: "Certificates",
+      description: "Manage your certificates. Add, update, or delete certificates.",
       actionLabel: "Add Certificate",
       popupTitle: "Add Certificate",
       popupContent: (
@@ -141,8 +140,8 @@ const DashBoard = () => {
     {
       key: "messages",
       icon: <Mail size={36} />,
-      title: "Check Messages",
-      description: "View and respond to new messages.",
+      title: "Messages",
+      description: "View and respond to messages sent to you.",
       actionLabel: "View Messages",
       popupTitle: "Messages",
       popupContent: (
@@ -152,8 +151,8 @@ const DashBoard = () => {
     {
       key: "resume",
       icon: <FileText size={36} />,
-      title: "Add Resume",
-      description: "Upload or update your resume.",
+      title: "Resume",
+      description: "Upload or update your resume for your portfolio.",
       actionLabel: "Upload Resume",
       popupTitle: "Upload Resume",
       popupContent: (
