@@ -17,7 +17,7 @@ const DesktopMenu = ({navLinks}) => {
                     <ResumeDownload />
                     {admin && (
                         <div className="hidden lg:flex lg:gap-5">
-                            <span variant="primary" className='bg-on-surface rounded-full p-3' size="small" onClick={() => signOut()}><LogOut size={15}/></span>
+                            <span variant="primary" className='bg-neutral-800 rounded-full p-3' size="small" onClick={() => signOut()}><LogOut size={15}/></span>
                         </div>
                     )}
                 </div>
