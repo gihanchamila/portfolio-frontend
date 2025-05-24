@@ -105,7 +105,7 @@ const DashBoard = () => {
       key: "project",
       icon: <PlusCircle size={36} />,
       title: "Projects",
-      description: "Manage your portfolio projects. Add, update, or delete projects as needed.",
+      description: "Add new projects to showcase your work and skills.",
       actionLabel: "Add Project",
       popupTitle: "Add Project",
       popupContent: (
@@ -123,11 +123,29 @@ const DashBoard = () => {
       key: "certificate",
       icon: <Award size={36} />,
       title: "Certificates",
-      description: "Manage your certificates. Add, update, or delete certificates.",
+      description: "Add certificates and credentials to highlight your expertise.",
       actionLabel: "Add Certificate",
       popupTitle: "Add Certificate",
       popupContent: (
         <AddCertificateForm
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            setSubmitting(false);
+            resetForm();
+            setPopup(null);
+          }}
+          onCancel={() => setPopup(null)}
+        />
+      ),
+    },
+    {
+      key: "resume",
+      icon: <FileText size={36} />,
+      title: "Resume",
+      description: "Upload your latest resume in PDF format.",
+      actionLabel: "Upload Resume",
+      popupTitle: "Upload Resume",
+      popupContent: (
+        <ResumeUploadForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             setSubmitting(false);
             resetForm();
@@ -148,24 +166,6 @@ const DashBoard = () => {
         <MessagesList messages={messages} onClose={() => setPopup(null)} />
       ),
     },
-    {
-      key: "resume",
-      icon: <FileText size={36} />,
-      title: "Resume",
-      description: "Upload or update your resume for your portfolio.",
-      actionLabel: "Upload Resume",
-      popupTitle: "Upload Resume",
-      popupContent: (
-        <ResumeUploadForm
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
-            setSubmitting(false);
-            resetForm();
-            setPopup(null);
-          }}
-          onCancel={() => setPopup(null)}
-        />
-      ),
-    },
   ];
 
   return (
@@ -174,20 +174,11 @@ const DashBoard = () => {
         <p className='text-4xl'>Hello {admin?.firstName} {admin?.lastName}</p>
         <p>{currentTime.toLocaleString()}</p>
       </div>
-      {/* Bento grid */}
       <motion.div
         layout
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-20"
       >
         {dashboardItems.map(item => {
-          let animateProps;
-          if (hovered === item.key) {
-            animateProps = { scale: 1.08, zIndex: 2, boxShadow: "0 8px 32px 0 rgba(0, 200, 255, 0.25)" };
-          } else if (hovered !== null) {
-            animateProps = { scale: 0.93, opacity: 0.7, zIndex: 1 };
-          } else {
-            animateProps = { scale: 1, opacity: 1, zIndex: 1 };
-          }
           return (
             <DashboardCard
               key={item.key}
@@ -197,14 +188,12 @@ const DashBoard = () => {
               onClick={() => setPopup(item.key)}
               actionLabel={item.actionLabel}
               className=""
-              animateProps={animateProps}
               onMouseEnter={() => setHovered(item.key)}
               onMouseLeave={() => setHovered(null)}
             />
           );
         })}
       </motion.div>
-      {/* Popups */}
       {dashboardItems.map(item => (
         <AdminPopUp
           key={item.key}
