@@ -6,9 +6,9 @@ import AddProjectForm from './utils/AddProjectForm'
 import AddCertificateForm from './utils/AddCertificateForm'
 import MessagesList from './utils/MessagesList'
 import AdminPopUp from './utils/AdminPopUp'
-import { Formik, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { motion } from "framer-motion"
+import axios from '../axios/axios'
+import ResumeUploadForm from './utils/ResumeUploadForm'
 
 const DashboardCard = ({
   icon, title, description, onClick, actionLabel, className, animateProps
@@ -32,46 +32,6 @@ const DashboardCard = ({
       </Button>
     )}
   </motion.div>
-);
-
-const ResumeUploadForm = ({ onSubmit, onCancel }) => (
-  <Formik
-    initialValues={{ file: null }}
-    validationSchema={Yup.object({
-      file: Yup.mixed()
-        .required("Resume is required")
-        .test(
-          "fileFormat",
-          "Only PDF files are allowed",
-          value => value && value.type === "application/pdf"
-        ),
-    })}
-    onSubmit={onSubmit}
-  >
-    {({ setFieldValue, isSubmitting }) => (
-      <Form className="space-y-4">
-        <div>
-          <label className="formLable">Resume (PDF)</label>
-          <input
-            name="file"
-            type="file"
-            accept="application/pdf"
-            className="formInput"
-            onChange={e => setFieldValue("file", e.currentTarget.files[0])}
-          />
-          <ErrorMessage name="file" component="div" className="formError" />
-        </div>
-        <div className="flex gap-2">
-          <Button type="submit" variant="primary" disabled={isSubmitting}>
-            {isSubmitting ? "Uploading..." : "Upload"}
-          </Button>
-          <Button type="button" variant="secondary" onClick={onCancel}>
-            Cancel
-          </Button>
-        </div>
-      </Form>
-    )}
-  </Formik>
 );
 
 const DashBoard = () => {
@@ -111,9 +71,39 @@ const DashBoard = () => {
       popupContent: (
         <AddProjectForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            setSubmitting(false);
-            resetForm();
-            setPopup(null);
+          try {
+              let fileId = null;
+
+              if (values.file) {
+                const formData = new FormData();
+                formData.append('image', values.file);
+                
+                const fileResponse = await axios.post("/file/upload", formData);
+                
+                fileId = fileResponse.data.data.id;
+                console.log("File ID:", fileId);
+                console.log("File Uploaded:", fileResponse.data);
+              }
+
+              const projectPayload = {
+                title: values.title,
+                subtitle: values.subtitle,
+                description: values.description,
+                projectUrl: values.projectUrl,
+                githubUrl: values.githubUrl,
+                file: fileId
+              };
+
+              const projectResponse = await axios.post("/project/create-project", projectPayload);
+              console.log("Project Added:", projectResponse.data);
+              
+              resetForm();
+              setPopup(null);
+            } catch (error) {
+              console.error("Submission Error:", error?.response?.data || error.message);
+            } finally {
+              setSubmitting(false);
+            }
           }}
           onCancel={() => setPopup(null)}
         />
