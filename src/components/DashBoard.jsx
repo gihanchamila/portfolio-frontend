@@ -62,60 +62,6 @@ const DashBoard = () => {
   const [contacts, setContacts] = useState([]);
   const [hovered, setHovered] = useState(null);
 
-
-  const fetchProjects = useCallback(async () => {
-    try {
-      const response = await axios.get('/project/get-projects');
-      setProjects(response.data.data.projects);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-      toast(error.response?.data?.message || 'Failed to fetch projects', 'error', 3000, 'bottom-right');
-    }
-  }, []);
-
-  const fetchCertificates = useCallback(async () => {
-    try {
-      const response = await axios.get('/certificate/get-certificates');
-      setCertificates(response.data.data.certificates);
-    } catch (error) {
-      console.error('Error fetching certificates:', error);
-      toast(error.response?.data?.message || 'Failed to fetch certificates', 'error', 3000, 'bottom-right');
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchProjects();
-    fetchCertificates();
-  }, [fetchProjects, fetchCertificates]);
-
-  useEffect(() => {
-    const storedAdmin = localStorage.getItem("admin");
-    if (storedAdmin) setAdmin(JSON.parse(storedAdmin));
-  }, [setAdmin]);
-
-  useEffect(() => {
-    const timerId = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timerId);
-  }, []);
-
-  const fetchMessages = useCallback(async () => {
-    try {
-      const response = await axios.get("/connect/get-connections");
-      const data = response.data.data.contacts;
-      console.log("Fetched Messages:", data);
-      setContacts(data);
-      toast(response.data.message, "success", 3000, "bottom-right");
-    } catch (error) {
-      const response = error.response;
-      const data = response.data;
-      toast(data.message, "false", 3000, "bottom-right");
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchMessages();
-  }, [fetchMessages]);
-
   const dashboardItems = [
     {
       key: "project",
@@ -279,6 +225,60 @@ const DashBoard = () => {
       ),
     },
   ];
+
+  const fetchProjects = useCallback(async () => {
+    try {
+      const response = await axios.get('/project/get-projects');
+      setProjects(response.data.data.projects);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      toast(error.response?.data?.message || 'Failed to fetch projects', 'error', 3000, 'bottom-right');
+    }
+  }, []);
+
+  const fetchCertificates = useCallback(async () => {
+    try {
+      const response = await axios.get('/certificate/get-certificates');
+      setCertificates(response.data.data.certificates);
+    } catch (error) {
+      console.error('Error fetching certificates:', error);
+      toast(error.response?.data?.message || 'Failed to fetch certificates', 'error', 3000, 'bottom-right');
+    }
+  }, []);
+
+    const fetchMessages = useCallback(async () => {
+    try {
+      const response = await axios.get("/connect/get-connections");
+      const data = response.data.data.contacts;
+      console.log("Fetched Messages:", data);
+      setContacts(data);
+      toast(response.data.message, "success", 3000, "bottom-right");
+    } catch (error) {
+      const response = error.response;
+      const data = response.data;
+      toast(data.message, "false", 3000, "bottom-right");
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProjects();
+    fetchCertificates();
+  }, [fetchProjects, fetchCertificates]);
+
+  useEffect(() => {
+    const storedAdmin = localStorage.getItem("admin");
+    if (storedAdmin) setAdmin(JSON.parse(storedAdmin));
+  }, [setAdmin]);
+
+  useEffect(() => {
+    const timerId = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timerId);
+  }, []);
+
+  useEffect(() => {
+    fetchMessages();
+  }, [fetchMessages]);
+
 
   return (
     <>
