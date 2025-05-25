@@ -12,51 +12,9 @@ import ResumeUploadForm from './utils/ResumeUploadForm'
 import { useToast } from "../context/ToastContext";
 import { DashboardCard } from './utils/DashboardCard'
 
-const ItemsList = ({ items, onEdit, onDelete, type }) => {
-  return (
-    <div className="space-y-4 max-h-[60vh] overflow-y-auto">
-      {items.length === 0 ? (
-        <p className="text-center text-gray-500">No {type} found</p>
-      ) : (
-        items.map((item) => (
-          <div 
-            key={item._id} 
-            className="bg-white dark:bg-neutral-800 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
-          >
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="font-semibold text-lg">{item.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {type === 'projects' ? item.subtitle : item.organization}
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <Button
-                  onClick={() => onEdit(item)}
-                  className="p-2 text-blue-500 hover:text-blue-600"
-                >
-                  <Edit2 size={18} />
-                </Button>
-                <Button
-                  onClick={() => onDelete(item._id)}
-                  className="p-2 text-red-500 hover:text-red-600"
-                >
-                  <Trash2 size={18} />
-                </Button>
-              </div>
-            </div>
-          </div>
-        ))
-      )}
-    </div>
-  );
-};
-
 const DashBoard = () => {
   const { admin, setAdmin } = useAuth();
   const { toast } = useToast();
-  const [projects, setProjects] = useState([]);
-  const [certificates, setCertificates] = useState([]);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [popup, setPopup] = useState(null);
   const [contacts, setContacts] = useState([]);
@@ -71,7 +29,7 @@ const DashBoard = () => {
       actionLabel: "Create",
       popupTitle: "Add Project",
       secondaryActionLabel: "View",
-      onSecondaryClick: () => setPopup('viewProjects'),
+      onSecondaryClick: () => window.open('/admin/projects', '_blank'),
       popupContent: (
         <AddProjectForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -119,7 +77,7 @@ const DashBoard = () => {
       actionLabel: "Create",
       popupTitle: "Add Certificate",
       secondaryActionLabel: "View",
-      onSecondaryClick: () => setPopup('viewCertificates'),
+      onSecondaryClick: () => window.open('/admin/certificates', '_blank'),
       popupContent: (
         <AddCertificateForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -226,27 +184,7 @@ const DashBoard = () => {
     },
   ];
 
-  const fetchProjects = useCallback(async () => {
-    try {
-      const response = await axios.get('/project/get-projects');
-      setProjects(response.data.data.projects);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-      toast(error.response?.data?.message || 'Failed to fetch projects', 'error', 3000, 'bottom-right');
-    }
-  }, []);
-
-  const fetchCertificates = useCallback(async () => {
-    try {
-      const response = await axios.get('/certificate/get-certificates');
-      setCertificates(response.data.data.certificates);
-    } catch (error) {
-      console.error('Error fetching certificates:', error);
-      toast(error.response?.data?.message || 'Failed to fetch certificates', 'error', 3000, 'bottom-right');
-    }
-  }, []);
-
-    const fetchMessages = useCallback(async () => {
+  const fetchMessages = useCallback(async () => {
     try {
       const response = await axios.get("/connect/get-connections");
       const data = response.data.data.contacts;
@@ -261,11 +199,6 @@ const DashBoard = () => {
   }, []);
 
   useEffect(() => {
-    fetchProjects();
-    fetchCertificates();
-  }, [fetchProjects, fetchCertificates]);
-
-  useEffect(() => {
     const storedAdmin = localStorage.getItem("admin");
     if (storedAdmin) setAdmin(JSON.parse(storedAdmin));
   }, [setAdmin]);
@@ -278,7 +211,6 @@ const DashBoard = () => {
   useEffect(() => {
     fetchMessages();
   }, [fetchMessages]);
-
 
   return (
     <>
@@ -314,56 +246,10 @@ const DashBoard = () => {
           open={popup === item.key}
           onClose={() => setPopup(null)}
           title={item.popupTitle}
-          secondaryActionLabel={item.secondaryActionLabel}
         >
           {item.popupContent}
         </AdminPopUp>
       ))}
-      <AdminPopUp
-        open={popup === 'viewProjects'}
-        onClose={() => setPopup(null)}
-        title="Manage Projects"
-      >
-        <ItemsList
-          items={projects}
-          type="projects"
-          onEdit={(project) => {
-            // Handle edit
-            console.log('Edit project:', project);
-          }}
-          onDelete={async (id) => {
-            try {
-              await axios.delete(`/project/delete/${id}`);
-              fetchProjects();
-              toast('Project deleted successfully', 'success', 3000, 'bottom-right');
-            } catch (error) {
-              toast(error.response?.data?.message || 'Failed to delete project', 'error', 3000, 'bottom-right');
-            }
-          }}
-        />
-      </AdminPopUp>
-      <AdminPopUp
-        open={popup === 'viewCertificates'}
-        onClose={() => setPopup(null)}
-        title="Manage Certificates"
-      >
-        <ItemsList
-          items={certificates}
-          type="certificates"
-          onEdit={(certificate) => {
-            console.log('Edit certificate:', certificate);
-          }}
-          onDelete={async (id) => {
-            try {
-              await axios.delete(`/certificate/delete/${id}`);
-              fetchCertificates();
-              toast('Certificate deleted successfully', 'success', 3000, 'bottom-right');
-            } catch (error) {
-              toast(error.response?.data?.message || 'Failed to delete certificate', 'error', 3000, 'bottom-right');
-            }
-          }}
-        />
-      </AdminPopUp>
     </>
   );
 };
