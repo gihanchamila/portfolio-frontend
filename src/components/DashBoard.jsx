@@ -13,9 +13,9 @@ import { useToast } from "../context/ToastContext";
 import { DashboardCard } from './utils/DashboardCard'
 
 const DashBoard = () => {
+  const navigate = useNavigate();
   const { admin, setAdmin } = useAuth();
   const { toast } = useToast();
-  const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [popup, setPopup] = useState(null);
   const [contacts, setContacts] = useState([]);
