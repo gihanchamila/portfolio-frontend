@@ -71,16 +71,6 @@ const DashBoard = () => {
     fetchMessages();
   }, [fetchMessages]);
 
-  const uploadFile = async (file) => {
-    try{
-
-      const currentResume = await axios.get("")
-
-    }catch (error) {
-      return null
-    }
-  }
-
   const dashboardItems = [
     {
       key: "project",
@@ -189,6 +179,37 @@ const DashBoard = () => {
       popupContent: (
         <ResumeUploadForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
+            setSubmitting(true);
+
+            const filePayload = {
+              file: values.file,
+            }
+
+            try {
+              const currentResume = await axios.get("/resume/get-resumes");
+              const resume = currentResume.data.data.file;
+
+              if (resume) {
+                const deleteResume = await axios.delete(`/resume/delete/${resume}`);
+                if (!deleteResume.data.status) {
+                  throw new Error(deleteResume.data.message);
+                }
+              }
+
+              const filePayload = values.file;
+
+              const formData = new FormData();
+              formData.append("resume", filePayload);
+
+              const response = await axios.post("/resume/upload", formData);
+              const data = response.data;
+              console.log("Resume Upload Response:", data);
+              toast(data.message, "success", 3000, "bottom-right");
+
+            } catch (error) {
+              const message = error.response?.data?.message || error.message || "Something went wrong";
+              toast(message, "false", 3000, "bottom-right");
+            }
             setSubmitting(false);
             resetForm();
             setPopup(null);
