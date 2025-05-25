@@ -22,9 +22,9 @@ const DashboardCard = ({
     className={`bg-white dark:bg-neutral-800 rounded-2xl shadow-md p-6 flex flex-col items-center justify-between hover:shadow-2xl transition-shadow min-h-[180px] cursor-pointer ${className}`}
     onClick={onClick}
   >
-    <div className="mb-4 text-sky-500 dark:text-sky-300">{icon}</div>
+    <div className="mb-4 text-sky-500 dark:text-sky-300 xs:text-sm lg:text-base">{icon}</div>
     <h3 className="text-lg font-semibold mb-2 text-center">{title}</h3>
-    <p className="text-gray-600 dark:text-gray-300 text-center mb-4">{description}</p>
+    <p className="text-gray-600 dark:text-gray-300 text-center mb-4 xs:text-sm lg:text-base">{description}</p>
     {actionLabel && (
       <Button
         className="mt-auto px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-600 transition-colors text-sm"
