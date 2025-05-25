@@ -23,7 +23,7 @@ const AddCertificateForm = ({ onSubmit, onCancel }) => (
     validationSchema={validationSchema}
     onSubmit={onSubmit}
   >
-    {({ isSubmitting }) => (
+    {({isSubmitting }) => (
       <Form className="space-y-4">
         <div>
           <label className="formLable">Title</label>

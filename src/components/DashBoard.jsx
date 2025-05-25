@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { PlusCircle, Award, Mail, FileText } from 'lucide-react'
 import Button from './utils/Button'
@@ -9,6 +9,7 @@ import AdminPopUp from './utils/AdminPopUp'
 import { motion } from "framer-motion"
 import axios from '../axios/axios'
 import ResumeUploadForm from './utils/ResumeUploadForm'
+import { useToast } from "../context/ToastContext";
 
 const DashboardCard = ({
   icon, title, description, onClick, actionLabel, className, animateProps
@@ -36,9 +37,10 @@ const DashboardCard = ({
 
 const DashBoard = () => {
   const { admin, setAdmin } = useAuth();
+  const { toast } = useToast();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [popup, setPopup] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [contacts, setContacts] = useState([]);
   const [hovered, setHovered] = useState(null);
 
   useEffect(() => {
@@ -51,14 +53,23 @@ const DashBoard = () => {
     return () => clearInterval(timerId);
   }, []);
 
-  useEffect(() => {
-    if (popup === "messages") {
-      setMessages([
-        { id: 1, subject: "Welcome!", body: "Hello admin!", date: "2024-05-23" },
-        { id: 2, subject: "New Project", body: "A new project was added.", date: "2024-05-22" }
-      ]);
+  const fetchMessages = useCallback(async () => {
+    try {
+      const response = await axios.get("/connect/get-connections");
+      const data = response.data.data.contacts;
+      console.log("Fetched Messages:", data);
+      setContacts(data);
+      toast(response.data.message, "success", 3000, "bottom-right");
+    } catch (error) {
+      const response = error.response;
+      const data = response.data;
+      toast(data.message, "false", 3000, "bottom-right");
     }
-  }, [popup]);
+  }, []);
+
+  useEffect(() => {
+    fetchMessages();
+  }, [fetchMessages]);
 
   const dashboardItems = [
     {
@@ -77,12 +88,9 @@ const DashBoard = () => {
               if (values.file) {
                 const formData = new FormData();
                 formData.append('image', values.file);
-                
                 const fileResponse = await axios.post("/file/upload", formData);
-                
                 fileId = fileResponse.data.data.id;
-                console.log("File ID:", fileId);
-                console.log("File Uploaded:", fileResponse.data);
+                toast(fileResponse.message, "success", 3000, "bottom-right");
               }
 
               const projectPayload = {
@@ -94,9 +102,10 @@ const DashBoard = () => {
                 file: fileId
               };
 
-              const projectResponse = await axios.post("/project/create-project", projectPayload);
-              console.log("Project Added:", projectResponse.data);
-              
+              const response = await axios.post("/project/create-project", projectPayload);
+              const data = response.data;
+              toast(data.message, "success", 3000, "bottom-right");
+              console.log("Project Added:", response.data);
               resetForm();
               setPopup(null);
             } catch (error) {
@@ -119,9 +128,42 @@ const DashBoard = () => {
       popupContent: (
         <AddCertificateForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            setSubmitting(false);
-            resetForm();
-            setPopup(null);
+            try {
+              setSubmitting(true);
+              const formattedDate = values.issueDate;
+
+              const certificatePayload = {
+                title: values.title,
+                organization: values.organization,
+                issueDate: formattedDate,
+                credentialURL: values.credentialURL,
+              };
+
+              console.log('Submitting certificate:', certificatePayload); // Debug log
+
+              const response = await axios.post("/certificate/create-certificate", certificatePayload);
+              console.log('Server response:', response.data); // Debug log
+              
+              // Check if we have a response and it's successful
+              if (!response.data || response.data.status === false) {
+                throw new Error(response.data?.message || 'Failed to create certificate');
+              }
+
+              toast(response.data.message || 'Certificate added successfully', "success", 3000, "bottom-right");
+              resetForm();
+              setPopup(null);
+
+            } catch (error) {
+              console.error("Certificate submission error:", error);
+              toast(
+                error.response?.data?.message || error.message || "Failed to add certificate", 
+                "error", 
+                3000, 
+                "bottom-right"
+              );
+            } finally {
+              setSubmitting(false);
+            }
           }}
           onCancel={() => setPopup(null)}
         />
@@ -153,7 +195,7 @@ const DashBoard = () => {
       actionLabel: "View Messages",
       popupTitle: "Messages",
       popupContent: (
-        <MessagesList messages={messages} onClose={() => setPopup(null)} />
+        <MessagesList contacts={contacts} onClose={() => setPopup(null)} />
       ),
     },
   ];

@@ -12,7 +12,7 @@ const AdminPopUp = ({ open, onClose, title, children }) => (
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="bg-white dark:bg-neutral-900 rounded-2xl shadow-lg p-12 w-full max-w-lg mx-4 relative h-[500px] max-h-[80vh] flex flex-col"
+          className="bg-white dark:bg-neutral-900 rounded-2xl shadow-lg py-10 px-10 w-full max-w-lg mx-4 relative h-auto max-h-[80vh] flex flex-col"
           initial={{ scale: 0.95, y: 40 }}
           animate={{ scale: 1, y: 0 }}
           exit={{ scale: 0.95, y: 40 }}
