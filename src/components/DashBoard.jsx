@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { PlusCircle, Award, Mail, FileText, Edit2, Trash2 } from 'lucide-react'
-import Button from './utils/Button'
 import AddProjectForm from './utils/AddProjectForm'
 import AddCertificateForm from './utils/AddCertificateForm'
 import MessagesList from './utils/MessagesList'
@@ -15,6 +15,7 @@ import { DashboardCard } from './utils/DashboardCard'
 const DashBoard = () => {
   const { admin, setAdmin } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [popup, setPopup] = useState(null);
   const [contacts, setContacts] = useState([]);
@@ -29,7 +30,7 @@ const DashBoard = () => {
       actionLabel: "Create",
       popupTitle: "Add Project",
       secondaryActionLabel: "View",
-      onSecondaryClick: () => window.open('/admin/projects', '_blank'),
+      onSecondaryClick: () => navigate('/admin/projects'),
       popupContent: (
         <AddProjectForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -77,7 +78,7 @@ const DashBoard = () => {
       actionLabel: "Create",
       popupTitle: "Add Certificate",
       secondaryActionLabel: "View",
-      onSecondaryClick: () => window.open('/admin/certificates', '_blank'),
+      onSecondaryClick: () => navigate('/admin/certificates'),
       popupContent: (
         <AddCertificateForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -133,11 +134,6 @@ const DashBoard = () => {
         <ResumeUploadForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
-
-            const filePayload = {
-              file: values.file,
-            }
-
             try {
               const currentResume = await axios.get("/resume/get-resumes");
               const resume = currentResume.data.data.file;

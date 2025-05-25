@@ -24,8 +24,8 @@ function App() {
               <Route path="/admin" element={<PrivateLayout />}>
                 <Route index element={<Login />} />
                 <Route path="dashboard" element={<DashBoard />}/>
-                <Route path="/admin/projects" element={<ProjectsView />} />
-                <Route path="/admin/certificates" element={<CertificatesView />} />
+                <Route path="projects" element={<ProjectsView />} />
+                <Route path="certificates" element={<CertificatesView />} />
               </Route>
             </Routes>
           </AnimatedSuspenseWrapper>

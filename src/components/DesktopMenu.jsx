@@ -1,13 +1,14 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+
 import GridContainer from './GridContainer'
 import NavLinks from './NavLinks'
 import Button from './utils/Button'
 import ResumeDownload from './utils/ResumeDownload'
 import { useAuth } from '../context/AuthContext'
 import { LogOut } from 'lucide-react'
+import { useLocation } from 'react-router-dom'
 
 const DesktopMenu = ({navLinks}) => {
+    const location = useLocation()
     const {admin, signOut} = useAuth()
   return (
         <GridContainer>

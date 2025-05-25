@@ -3,10 +3,19 @@ import { ItemsList } from './ItemList';
 import { useCallback, useEffect, useState } from 'react';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
+import { useAuth } from '../../context/AuthContext';
 
 const ProjectsView = () => {
+  const { admin, setAdmin} = useAuth()
   const { toast } = useToast();
   const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+  const storedToken = localStorage.getItem("apiKey");
+  if (storedToken) {
+    setAdmin(true);  // or decode token to verify role
+  }
+}, []);
 
   const fetchProjects = useCallback(async () => {
     try {
