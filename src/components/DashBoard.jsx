@@ -71,6 +71,16 @@ const DashBoard = () => {
     fetchMessages();
   }, [fetchMessages]);
 
+  const uploadFile = async (file) => {
+    try{
+
+      const currentResume = await axios.get("")
+
+    }catch (error) {
+      return null
+    }
+  }
+
   const dashboardItems = [
     {
       key: "project",
