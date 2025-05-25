@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useAuth } from '../context/AuthContext'
-import { PlusCircle, Award, Mail, FileText } from 'lucide-react'
+import { PlusCircle, Award, Mail, FileText, Edit2, Trash2 } from 'lucide-react'
 import Button from './utils/Button'
 import AddProjectForm from './utils/AddProjectForm'
 import AddCertificateForm from './utils/AddCertificateForm'
@@ -10,38 +10,83 @@ import { motion } from "framer-motion"
 import axios from '../axios/axios'
 import ResumeUploadForm from './utils/ResumeUploadForm'
 import { useToast } from "../context/ToastContext";
+import { DashboardCard } from './utils/DashboardCard'
 
-const DashboardCard = ({
-  icon, title, description, onClick, actionLabel, className, animateProps
-}) => (
-  <motion.div
-    layout
-    whileTap={{ scale: 0.97 }}
-    animate={animateProps}
-    transition={{ type: "spring", stiffness: 300, damping: 25 }}
-    className={`bg-white dark:bg-neutral-800 rounded-2xl shadow-md p-6 flex flex-col items-center justify-between hover:shadow-2xl transition-shadow min-h-[180px] cursor-pointer ${className}`}
-    
-  >
-    <div className="mb-4 text-sky-500 dark:text-sky-300 xs:text-sm lg:text-base">{icon}</div>
-    <h3 className="text-lg font-semibold mb-2 text-center">{title}</h3>
-    <p className="text-gray-600 dark:text-gray-300 text-center mb-4 xs:text-sm lg:text-base">{description}</p>
-    {actionLabel && (
-      <Button onClick={onClick}
-        className="mt-auto px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-600 transition-colors text-sm"
-      >
-        {actionLabel}
-      </Button>
-    )}
-  </motion.div>
-);
+const ItemsList = ({ items, onEdit, onDelete, type }) => {
+  return (
+    <div className="space-y-4 max-h-[60vh] overflow-y-auto">
+      {items.length === 0 ? (
+        <p className="text-center text-gray-500">No {type} found</p>
+      ) : (
+        items.map((item) => (
+          <div 
+            key={item._id} 
+            className="bg-white dark:bg-neutral-800 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+          >
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="font-semibold text-lg">{item.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {type === 'projects' ? item.subtitle : item.organization}
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => onEdit(item)}
+                  className="p-2 text-blue-500 hover:text-blue-600"
+                >
+                  <Edit2 size={18} />
+                </Button>
+                <Button
+                  onClick={() => onDelete(item._id)}
+                  className="p-2 text-red-500 hover:text-red-600"
+                >
+                  <Trash2 size={18} />
+                </Button>
+              </div>
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  );
+};
 
 const DashBoard = () => {
   const { admin, setAdmin } = useAuth();
   const { toast } = useToast();
+  const [projects, setProjects] = useState([]);
+  const [certificates, setCertificates] = useState([]);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [popup, setPopup] = useState(null);
   const [contacts, setContacts] = useState([]);
   const [hovered, setHovered] = useState(null);
+
+
+  const fetchProjects = useCallback(async () => {
+    try {
+      const response = await axios.get('/project/get-projects');
+      setProjects(response.data.data.projects);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      toast(error.response?.data?.message || 'Failed to fetch projects', 'error', 3000, 'bottom-right');
+    }
+  }, []);
+
+  const fetchCertificates = useCallback(async () => {
+    try {
+      const response = await axios.get('/certificate/get-certificates');
+      setCertificates(response.data.data.certificates);
+    } catch (error) {
+      console.error('Error fetching certificates:', error);
+      toast(error.response?.data?.message || 'Failed to fetch certificates', 'error', 3000, 'bottom-right');
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProjects();
+    fetchCertificates();
+  }, [fetchProjects, fetchCertificates]);
 
   useEffect(() => {
     const storedAdmin = localStorage.getItem("admin");
@@ -77,8 +122,10 @@ const DashBoard = () => {
       icon: <PlusCircle size={36} />,
       title: "Projects",
       description: "Add new projects to showcase your work and skills.",
-      actionLabel: "Add Project",
+      actionLabel: "Create",
       popupTitle: "Add Project",
+      secondaryActionLabel: "View",
+      onSecondaryClick: () => setPopup('viewProjects'),
       popupContent: (
         <AddProjectForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -123,8 +170,10 @@ const DashBoard = () => {
       icon: <Award size={36} />,
       title: "Certificates",
       description: "Add certificates and credentials to highlight your expertise.",
-      actionLabel: "Add Certificate",
+      actionLabel: "Create",
       popupTitle: "Add Certificate",
+      secondaryActionLabel: "View",
+      onSecondaryClick: () => setPopup('viewCertificates'),
       popupContent: (
         <AddCertificateForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -250,6 +299,8 @@ const DashBoard = () => {
               description={item.description}
               onClick={() => setPopup(item.key)}
               actionLabel={item.actionLabel}
+              secondaryActionLabel={item.secondaryActionLabel}
+              onSecondaryClick={item.onSecondaryClick}
               className=""
               onMouseEnter={() => setHovered(item.key)}
               onMouseLeave={() => setHovered(null)}
@@ -263,10 +314,56 @@ const DashBoard = () => {
           open={popup === item.key}
           onClose={() => setPopup(null)}
           title={item.popupTitle}
+          secondaryActionLabel={item.secondaryActionLabel}
         >
           {item.popupContent}
         </AdminPopUp>
       ))}
+      <AdminPopUp
+        open={popup === 'viewProjects'}
+        onClose={() => setPopup(null)}
+        title="Manage Projects"
+      >
+        <ItemsList
+          items={projects}
+          type="projects"
+          onEdit={(project) => {
+            // Handle edit
+            console.log('Edit project:', project);
+          }}
+          onDelete={async (id) => {
+            try {
+              await axios.delete(`/project/delete/${id}`);
+              fetchProjects();
+              toast('Project deleted successfully', 'success', 3000, 'bottom-right');
+            } catch (error) {
+              toast(error.response?.data?.message || 'Failed to delete project', 'error', 3000, 'bottom-right');
+            }
+          }}
+        />
+      </AdminPopUp>
+      <AdminPopUp
+        open={popup === 'viewCertificates'}
+        onClose={() => setPopup(null)}
+        title="Manage Certificates"
+      >
+        <ItemsList
+          items={certificates}
+          type="certificates"
+          onEdit={(certificate) => {
+            console.log('Edit certificate:', certificate);
+          }}
+          onDelete={async (id) => {
+            try {
+              await axios.delete(`/certificate/delete/${id}`);
+              fetchCertificates();
+              toast('Certificate deleted successfully', 'success', 3000, 'bottom-right');
+            } catch (error) {
+              toast(error.response?.data?.message || 'Failed to delete certificate', 'error', 3000, 'bottom-right');
+            }
+          }}
+        />
+      </AdminPopUp>
     </>
   );
 };

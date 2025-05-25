@@ -40,7 +40,7 @@
   }
 
 .button {
-    @apply w-auto text-center lg:px-4 lg:py-2 xs:py-2 xs:px-3 lg:text-base xs:text-sm rounded-lg font-primary flex items-center space-x-2 disabled:hover:cursor-not-allowed hover:cursor-pointer
+    @apply w-auto text-center lg:px-4 lg:py-2 xs:py-2 xs:px-3 lg:text-base xs:text-xs rounded-lg font-primary flex items-center space-x-2 disabled:hover:cursor-not-allowed hover:cursor-pointer
 }
 
 .navLink {
