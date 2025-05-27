@@ -43,6 +43,15 @@
     @apply w-auto text-center lg:px-4 lg:py-2 xs:py-2 xs:px-3 lg:text-base xs:text-xs rounded-lg font-primary flex items-center space-x-2 disabled:hover:cursor-not-allowed hover:cursor-pointer
 }
 
+.pageButton {
+    @apply flex items-center justify-center px-3 h-8 leading-tight 
+        text-gray-500 bg-white border border-gray-300
+        hover:bg-gray-100 hover:text-gray-700
+        dark:bg-neutral-800 dark:text-gray-200 dark:border-neutral-700
+        dark:hover:bg-neutral-700 dark:hover:text-white
+        transition-colors duration-150;
+}
+
 .navLink {
     @apply xs:text-gray-700 hover:text-gray-800 dark:text-gray-100 dark:hover:text-white
 }

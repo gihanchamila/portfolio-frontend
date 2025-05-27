@@ -1,40 +1,77 @@
-import { Edit2, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Button from "./Button";
+import Pagination from "./Pagination";
 
-export const ItemsList = ({ items, onEdit, onDelete, type }) => {
+export const ItemsList = ({ items, onEdit, onDelete, type, pageCount, currentPage, totalPage }) => {
+
   return (
-    <div className="space-y-4  overflow-y-auto">
+    <div className="overflow-y-auto">
       {items.length === 0 ? (
-        <p className="text-center text-gray-500">No {type} found</p>
+        <motion.p
+          className="text-center text-gray-500"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          No {type} found
+        </motion.p>
       ) : (
-        items.map((item) => (
-          <div 
-            key={item._id} 
-            className="bg-white dark:bg-neutral-800 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
-          >
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="font-semibold text-lg">{item.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {type === 'projects' ? item.subtitle : item.organization}
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <span
-                  onClick={() => onEdit(item)}
-                  className="p-2 text-blue-500 hover:text-blue-600"
+        <>
+          <AnimatePresence>
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.08,
+                  },
+                },
+              }}
+            >
+              {items.map((item) => (
+                <motion.div
+                  key={item._id}
+                  className="bg-white dark:bg-neutral-800 rounded-xl p-8 shadow-md hover:shadow-2xl transition-shadow border border-neutral-200 dark:border-neutral-700 group relative"
+                  initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 40, scale: 0.96 }}
+                  transition={{ duration: 0.35, type: "spring" }}
+                  whileHover={{
+                    scale: 1.025,
+                    boxShadow: "0 12px 32px rgba(0,0,0,0.14)",
+                    y: -4,
+                  }}
                 >
-                  <Edit2 size={18} />
-                </span>
-                <span
-                  onClick={() => onDelete(item._id)}
-                  className="p-2 text-red-500 hover:text-red-600"
-                >
-                  <Trash2 size={18} />
-                </span>
-              </div>
-            </div>
-          </div>
-        ))
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1 group-hover:text-blue-600 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                      {type === "projects" ? item.subtitle : item.organization}
+                    </p>
+                    <div className="flex gap-2 mt-2">
+                      <Button
+                        onClick={() => onEdit(item)}
+                        varient="primary"
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        onClick={() => onDelete(item._id)}
+                        variant="danger"
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </>
       )}
     </div>
   );

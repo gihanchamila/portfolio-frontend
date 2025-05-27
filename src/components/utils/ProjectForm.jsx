@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Button from "../utils/Button";
+import Button from "./Button";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
@@ -17,9 +17,10 @@ const validationSchema = Yup.object({
   file: Yup.mixed().required("File is required"),
 });
 
-const AddProjectForm = ({ onSubmit, onCancel }) => (
+const ProjectForm = ({ onSubmit, onCancel, initialValues, isUpdate }) => (
   <Formik
-    initialValues={{
+    enableReinitialize={true}
+    initialValues={initialValues || {
       title: "",
       subtitle: "",
       description: "",
@@ -69,7 +70,7 @@ const AddProjectForm = ({ onSubmit, onCancel }) => (
         </div>
         <div className="flex gap-2">
           <Button type="submit" variant="primary" disabled={isSubmitting}>
-            {isSubmitting ? "Adding..." : "Add Project"}
+            {isSubmitting ? (isUpdate ? "Updating..." : "Adding...") : isUpdate ? "Update Project" : "Add Project"}
           </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
@@ -80,4 +81,4 @@ const AddProjectForm = ({ onSubmit, onCancel }) => (
   </Formik>
 );
 
-export default AddProjectForm;
+export default ProjectForm;

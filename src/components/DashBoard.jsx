@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { PlusCircle, Award, Mail, FileText, Edit2, Trash2 } from 'lucide-react'
-import AddProjectForm from './utils/AddProjectForm'
-import AddCertificateForm from './utils/AddCertificateForm'
+import ProjectForm from './utils/ProjectForm'
+import CertificateForm from './utils/CertificateForm'
 import MessagesList from './utils/MessagesList'
 import AdminPopUp from './utils/AdminPopUp'
 import { motion } from "framer-motion"
@@ -32,7 +32,7 @@ const DashBoard = () => {
       secondaryActionLabel: "View",
       onSecondaryClick: () => navigate('/admin/projects'),
       popupContent: (
-        <AddProjectForm
+        <ProjectForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
               let fileId = null;
@@ -80,7 +80,7 @@ const DashBoard = () => {
       secondaryActionLabel: "View",
       onSecondaryClick: () => navigate('/admin/certificates'),
       popupContent: (
-        <AddCertificateForm
+        <CertificateForm
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             try {
               setSubmitting(true);
@@ -93,12 +93,11 @@ const DashBoard = () => {
                 credentialURL: values.credentialURL,
               };
 
-              console.log('Submitting certificate:', certificatePayload); // Debug log
+              console.log('Submitting certificate:', certificatePayload);
 
               const response = await axios.post("/certificate/create-certificate", certificatePayload);
-              console.log('Server response:', response.data); // Debug log
-              
-              // Check if we have a response and it's successful
+              console.log('Server response:', response.data); 
+
               if (!response.data || response.data.status === false) {
                 throw new Error(response.data?.message || 'Failed to create certificate');
               }
@@ -184,7 +183,6 @@ const DashBoard = () => {
     try {
       const response = await axios.get("/connect/get-connections");
       const data = response.data.data.contacts;
-      console.log("Fetched Messages:", data);
       setContacts(data);
       toast(response.data.message, "success", 3000, "bottom-right");
     } catch (error) {

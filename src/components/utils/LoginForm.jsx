@@ -61,7 +61,7 @@ const LoginForm = () => {
         >
             {({ isSubmitting }) => (
             <>
-                <p className='lg:text-4xl xs:text-xl lg:text-left font-semibold font-primary mb-4'>login</p>
+                <p className='lg:text-4xl xs:text-xl lg:text-left font-semibold font-primary mb-4'>Admin login</p>
                 <Form>
                     <motion.div className="mb-4" variants={childVariant}>
                         <label htmlFor="email" className="formLable">Email <Asterisk className="text-red-500 inline-block align-super" size={10} /></label>
@@ -89,7 +89,7 @@ const LoginForm = () => {
                             className="formError"
                         />
                     </motion.div>
-                    <Button type="submit" variant={'primary'} disabled={isSubmitting}>
+                    <Button type="submit" variant={'primary'} disabled={isSubmitting} className='mt-6'>
                         {isSubmitting ? 'Logging in...' : 'Login'}
                     </Button>
                 </Form>

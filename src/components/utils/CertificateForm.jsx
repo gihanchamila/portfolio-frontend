@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Button from "../utils/Button";
+import Button from "./Button";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
@@ -12,7 +12,7 @@ const validationSchema = Yup.object({
     .url("Invalid Credential URL"),
 });
 
-const AddCertificateForm = ({ onSubmit, onCancel }) => (
+const CertificateForm = ({ onSubmit, onCancel }) => (
   <Formik
     initialValues={{
       title: "",
@@ -58,4 +58,4 @@ const AddCertificateForm = ({ onSubmit, onCancel }) => (
   </Formik>
 );
 
-export default AddCertificateForm;
+export default CertificateForm;
