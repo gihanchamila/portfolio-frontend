@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 import axios from "../axios/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { nav } from "motion/react-client";
@@ -13,8 +13,14 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [admin, setAdmin] = useState(null);
   const [loading, setLoading] = useState(false);
-  
-  // Admin sign in
+
+  useEffect(() => {
+    const storedAdmin = localStorage.getItem("admin");
+    if (storedAdmin) {
+      setAdmin(JSON.parse(storedAdmin));
+    }
+  }, []);
+
   const signIn = useCallback(async (email, password) => {
     setLoading(true);
     try {
@@ -34,15 +40,11 @@ export const AuthProvider = ({ children }) => {
     }
   }, [navigate]);
 
-  // Admin sign out
   const signOut = useCallback(() => {
     setAdmin(null);
     localStorage.removeItem("apiKey");
     navigate("/admin");
   }, [navigate]);
-
-  // Optionally, check for existing token on mount
-  // and fetch admin profile if needed
 
   return (
     <AuthContext.Provider value={{ admin, loading, signIn, signOut, setAdmin }}>

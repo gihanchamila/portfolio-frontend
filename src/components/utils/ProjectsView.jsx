@@ -18,12 +18,13 @@ const ProjectsView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState([]);
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("apiKey");
-    if (storedToken) {
-      setAdmin(true);
-    }
-  }, [setAdmin]);
+useEffect(() => {
+  const storedAdmin = localStorage.getItem("admin");
+  const token = localStorage.getItem("apiKey");
+  if (storedAdmin && token) {
+    setAdmin(JSON.parse(storedAdmin));
+  }
+}, []);
 
 const fetchProjects = useCallback(async (page = 1) => {
   try {
