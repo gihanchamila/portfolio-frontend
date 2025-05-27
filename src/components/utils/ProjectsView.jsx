@@ -31,8 +31,8 @@ const fetchProjects = useCallback(async (page = 1) => {
     const response = await axios.get(`/project/get-projects?page=${page}`);
     const data = response.data;
     setProjects(data.data.projects);
-    setTotalPage(data.data.pages); // <-- use 'pages' from API
-    setPageCount(Array.from({ length: data.data.pages }, (_, i) => i + 1)); // <-- use 'pages'
+    setTotalPage(data.data.pages);
+    setPageCount(Array.from({ length: data.data.pages }, (_, i) => i + 1)); 
   } catch (error) {
     const response = error.response;
     const data = response.data;
