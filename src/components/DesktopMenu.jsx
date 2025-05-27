@@ -12,7 +12,7 @@ const DesktopMenu = ({navLinks}) => {
                 <div className="lg:flex lg:flex-row lg:justify-between lg:items-center lg:gap-5">
                     <NavLinks links={navLinks} />
                     <ResumeDownload />
-                    {admin && (
+                    {admin &&  (
                         <div className="hidden lg:flex lg:gap-5">
                             <span variant="primary" className='bg-neutral-800 rounded-full p-3' size="small" onClick={() => signOut()}><LogOut size={15}/></span>
                         </div>

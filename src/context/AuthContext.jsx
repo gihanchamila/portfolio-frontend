@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }) => {
 
   const signOut = useCallback(() => {
     setAdmin(null);
+    localStorage.removeItem("admin");
     localStorage.removeItem("apiKey");
     navigate("/admin");
   }, [navigate]);
