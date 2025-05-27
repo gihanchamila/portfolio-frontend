@@ -122,7 +122,6 @@ const fetchProjects = useCallback(async (page = 1) => {
         ))}
       </motion.ul>
     </AnimatePresence>
-    {/* Pagination always stays at the bottom */}
     <Pagination
       currentPage={currentPage}
       totalPage={totalPage}
