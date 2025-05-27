@@ -55,8 +55,6 @@ const CertificatesView = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={() => {
-                      // Implement edit logic or open edit modal
-                      console.log('Edit certificate:', certificate);
                     }}
                     className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition-colors text-sm font-medium shadow"
                   >
