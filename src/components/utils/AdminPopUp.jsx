@@ -22,11 +22,6 @@ const AdminPopUp = ({ open, onClose, title, children }) => (
           <div className="flex-1 overflow-y-auto pr-2 pb-6">
             {children}
           </div>
-          {/* Button row example */}
-          {/* <div className="pt-4 flex justify-end gap-2">
-            <Button ...>Cancel</Button>
-            <Button ...>Save</Button>
-          </div> */}
         </motion.div>
       </motion.div>
     )}
