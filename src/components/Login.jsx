@@ -1,6 +1,5 @@
 import React from 'react'
 import LoginForm from './utils/LoginForm'
-import { div } from 'motion/react-client'
 
 const Login = () => {
   return (

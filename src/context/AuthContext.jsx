@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post("/admin/signin", { email, password });
       const data = response.data.data.user
       const token = response.data.data.token;
-      console.log(data);
       setAdmin(data);
       localStorage.setItem("apiKey", token);
       localStorage.setItem("admin", JSON.stringify(data));
