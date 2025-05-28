@@ -138,12 +138,12 @@ const ContactForm = () => {
 
             const response = await axios.post("/connect/make-connection", contactData)
             const data = response.data;
-            console.log(data)
+            toast(data.message)
             resetForm(); 
           }catch(error){
             const response = error.response
             const data = response.data.message
-            console.error("Submission Error:", data);
+            toast(data)
           }
         }}
       >

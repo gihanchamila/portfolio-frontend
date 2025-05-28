@@ -11,7 +11,7 @@ const SplitText = ({
   threshold = 0.1,
   rootMargin = '-100px',
   onLetterAnimationComplete,
-}) => {
+  }) => {
   const words = text.split(' ').map(word => word.split(''));
   const letters = words.flat();
   const [inView, setInView] = useState(false);

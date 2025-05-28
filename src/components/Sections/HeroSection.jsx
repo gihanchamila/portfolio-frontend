@@ -9,14 +9,14 @@ import { motion } from 'motion/react';
 export const HoverReveal = () => {
   return (
     <motion.div
-      className="relative w-fit group overflow-hidden border border-white rounded-full cursor-pointer"
+      className="relative w-fit group overflow-hidden border dark:border-white rounded-full cursor-pointer"
       initial="rest"
       whileHover="hover"
       animate="rest"
     >
       {/* Initial Text */}
       <motion.span
-        className="block py-2 px-4 text-white text-xs bg-transparent"
+        className="block py-2 px-4 dark:text-white text-xs bg-transparent"
         variants={{
           rest: { y: 0, opacity: 1 },
           hover: { y: -30, opacity: 0 },
@@ -26,9 +26,8 @@ export const HoverReveal = () => {
         Available to work
       </motion.span>
 
-      {/* Reveal Text */}
       <motion.span
-        className="absolute left-0 top-7.5 py-2 px-2 text-white text-xs w-full text-center"
+        className="absolute left-0 top-7.5 py-2 px-2 dark:text-white text-xs w-full text-center"
         variants={{
           rest: { y: 30, opacity: 0 },
           hover: { y: -30, opacity: 1 },

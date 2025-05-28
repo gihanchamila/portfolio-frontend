@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
 import Pagination from "./Pagination";
 
-export const ItemsList = ({ items, onEdit, onDelete, type, pageCount, currentPage, totalPage }) => {
+export const ItemsList = ({ items, onEdit, onDelete, type }) => {
 
   return (
     <div className="overflow-y-auto">
