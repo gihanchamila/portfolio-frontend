@@ -12,9 +12,10 @@ const validationSchema = Yup.object({
     .url("Invalid Credential URL"),
 });
 
-const CertificateForm = ({ onSubmit, onCancel }) => (
+const CertificateForm = ({ onSubmit, onCancel, isUpdate, initialValues }) => (
   <Formik
-    initialValues={{
+    enableReinitialize={true}
+    initialValues={ initialValues || {
       title: "",
       organization: "",
       issueDate: "",
@@ -47,7 +48,9 @@ const CertificateForm = ({ onSubmit, onCancel }) => (
         </div>
         <div className="flex gap-2">
           <Button type="submit" variant="primary" disabled={isSubmitting}>
-            {isSubmitting ? "Adding..." : "Add Certificate"}
+            {isSubmitting
+              ? (isUpdate ? "Updating..." : "Adding...")
+              : isUpdate ? "Update Certificate" : "Add Certificate"}
           </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel

@@ -3,7 +3,9 @@ import { ItemsList } from './ItemList';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
 import Pagination from './Pagination';
-import { AnimatePresence, motion } from 'motion/react';
+import CertificateForm from './CertificateForm';
+import { AnimatePresence, motion } from 'framer-motion';
+import Button from './Button';
 
 const CertificatesView = () => {
   const { toast } = useToast();
@@ -11,6 +13,8 @@ const CertificatesView = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [editCertificate, setEditCertificate] = useState(null);
 
   const fetchCertificates = useCallback(async (page = 1) => {
     try {
@@ -30,8 +34,47 @@ const CertificatesView = () => {
     fetchCertificates(currentPage);
   }, [fetchCertificates, currentPage]);
 
+  const handleUpdateCertificate = async (values, { setSubmitting, setFieldError }) => {
+    try {
+      const data = {
+        title: values.title,
+        organization: values.organization,
+        issueDate: values.issueDate,
+        credentialURL: values.credentialURL,
+      };
+
+      const response = await axios.put(
+        `/certificate/update-certificate/${editCertificate._id}`,
+        data
+      );
+      toast(response.data.message, "success", 3000, "bottom-right");
+      setShowForm(false);
+      setEditCertificate(null);
+      fetchCertificates(currentPage);
+    } catch (error) {
+      const response = error.response;
+      const data = response?.data;
+      toast(data?.message || "Update failed", "error", 3000, "bottom-right");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDeleteCertificate = async (id) => {
+    try {
+      const response = await axios.delete(`/certificate/delete-certificate/${id}`);
+      const data = response.data;
+      fetchCertificates(currentPage);
+      toast(data.message, 'success', 3000, 'bottom-right');
+    } catch (error) {
+      const response = error.response;
+      const data = response.data;
+      toast(data.message, "error", 3000, 'bottom-right');
+    }
+  };
+
   return (
-    <div className="container mx-auto pb-20 min-h-[500px] flex flex-col">
+    <div className="container mx-auto pb-20">
       <h1 className="text-2xl font-bold mb-6">Manage Certificates</h1>
       <div className="flex-1">
         <AnimatePresence mode="wait">
@@ -53,30 +96,23 @@ const CertificatesView = () => {
                   <div className="text-gray-600 dark:text-gray-300 text-sm">{certificate.organization}</div>
                 </div>
                 <div className="flex gap-2">
-                  <button
+                  <Button
+                    variant='primary'
                     onClick={() => {
+                      console.log(certificate)
+                      setEditCertificate(certificate);
+                      setShowForm(true);
                     }}
-                    className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition-colors text-sm font-medium shadow"
+                    
                   >
                     Update
-                  </button>
-                  <button
-                    onClick={async () => {
-                      try {
-                        const response = await axios.delete(`/certificate/delete/${certificate._id}`);
-                        const data = response.data;
-                        fetchCertificates(currentPage);
-                        toast(data.message, 'success', 3000, 'bottom-right');
-                      } catch (error) {
-                        const response = error.response;
-                        const data = response.data;
-                        toast(data.message, "error", 3000, 'bottom-right');
-                      }
-                    }}
-                    className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition-colors text-sm font-medium shadow"
+                  </Button>
+                  <Button
+                    variant='danger'
+                    onClick={() => handleDeleteCertificate(certificate._id)}
                   >
                     Delete
-                  </button>
+                  </Button>
                 </div>
               </li>
             ))}
@@ -89,6 +125,27 @@ const CertificatesView = () => {
         pageCount={pageCount}
         onPageChange={setCurrentPage}
       />
+      {showForm && editCertificate && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-neutral-900 rounded-lg p-8 w-full max-w-lg shadow-lg relative">
+            <h2 className="text-xl font-bold mb-4">Update Certificate</h2>
+            <CertificateForm
+              onSubmit={handleUpdateCertificate}
+              onCancel={() => {
+                setShowForm(false);
+                setEditCertificate(null);
+              }}
+              initialValues={{
+                title: editCertificate.title || "",
+                organization: editCertificate.organization || "",
+                issueDate: editCertificate.issueDate ? editCertificate.issueDate.slice(0, 10) : "",
+                credentialURL: editCertificate.credentialURL || "",
+              }}
+              isUpdate
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
