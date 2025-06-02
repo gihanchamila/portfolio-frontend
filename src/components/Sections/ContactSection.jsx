@@ -38,7 +38,7 @@ const ContactSection = () => {
         }}
       >
         <motion.div 
-            className="sm:text-lg xs:space-y-6 xs:mb-5 sm:mb-0"
+            className="sm:text-lg xs:space-y-6 xs:mb-5 sm:mb-0 sm:text"
             variants={{
             hidden: { opacity: 0, y: 30 },  // start 30px below
             visible: { opacity: 1, y: 0, transition: { duration: 0.7 } }  // animate up to y=0

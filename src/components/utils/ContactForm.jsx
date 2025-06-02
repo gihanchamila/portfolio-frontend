@@ -145,7 +145,7 @@ const ContactForm = () => {
       >
         {({ isSubmitting, values }) => (
           <motion.div
-            className="lg:w-1/2 sm:w-full"
+            className="lg:w-1/2 sm:w-full "
             variants={containerVariant}
             initial="hidden"
             whileInView="visible"
@@ -226,7 +226,7 @@ const ContactForm = () => {
               </motion.div>
 
               <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
-                <h2 className="cardTitle drop-shadow-none pb-5 ">Verify Your Email</h2>
+                <h2 className="cardTitle drop-shadow-none pb-5">Verify Your Email</h2>
                 <p className="font-primary text-gray-800 dark:text-white">A verification code has been sent to your email. Please enter the code below:</p>
 
                 <div className="flex justify-center w-full py-6">
