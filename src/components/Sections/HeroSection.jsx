@@ -46,8 +46,8 @@ const HeroSection = () => {
   return (
     <div className="relative">
         <section className="sm:grid sm:grid-cols-4 sm:col-start-1 sm:col-end-5 sm:col-span-4 gap-5 sm:items-center lg:pb-12 xs:pb-2 lg:grid-cols-12">
-          <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 flex flex-col sm:items-center lg:col-span-5 lg:col-start-1 lg:col-end-6">
-            <div className="xs:flex xs:flex-col lg:space-y-4 xs:space-y-6 justify-evenly">
+          <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 flex flex-col sm:items-center md:items-left  lg:col-span-5 lg:col-start-1 lg:col-end-6">
+            <div className="flex flex-col items-center justify-center space-y-6 md:items-start md:justify-start lg:space-y-4">
               <HoverReveal />
               <SplitText
                 text="Hi, I'm Gihan Chamila"

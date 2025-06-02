@@ -1,12 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Button from './Button'
 import axios from '../../axios/axios'
+import { useToast } from '../../context/ToastContext'
 
 const ResumeDownload = () => {
+    const { toast } = useToast();
+    const [resume, setResume] = useState(null)
+
+    const fetchResume = useCallback(async () => {
+        try {
+            const response = await axios.get("/resume/get-resumes")
+            const data = response.data;
+            console.log(data)
+            setResume(data.data.resume);
+            toast(data.message, 'success', 3000, 'bottom-right');
+
+        }catch(error){
+            const response = error.response;
+            const data = response.data
+            toast(data.message, 'error', 3000, 'bottom-right');
+        }
+    }, []) 
 
     const handleDownload = async() => {
         try{
-            const response = await axios.get("/resume/download/67f1471c8909435a018521ce");
+            const response = await axios.get("/resume/download/");
             const signedUrl = response?.data?.data?.url;
 
             if (!signedUrl) {
@@ -24,6 +42,10 @@ const ResumeDownload = () => {
             console.error("Error downloading the resume:", error);
         }
     }
+
+    useEffect(() => {
+        fetchResume()
+    }, [])
 
   return (
     <Button variant="primary" className="lg:mt-0 font-semibold" aria-label="View Resume" onClick={handleDownload}>
