@@ -61,9 +61,8 @@ const ContactForm = () => {
 
     const handleVerifyEmail = debounce(async (email) => {
       const now = new Date().getTime();
-      const cooldownPeriod = 1 * 60 * 1000; // 1 minutes
+      const cooldownPeriod = 1 * 60 * 1000;
 
-      // Check from the client-side (or frontend trigger)
       if (lastCodeSentTime && now - lastCodeSentTime < cooldownPeriod) {
           const minutesLeft = Math.ceil((cooldownPeriod - (now - lastCodeSentTime)) / 60000);
           toast(`Please wait ${minutesLeft} minute(s) before requesting another code.`, "error", 3000);
@@ -76,12 +75,10 @@ const ContactForm = () => {
           const data = response.data;
           toast(data.message, "success", 3000, "bottom-right");
           setCount(1);
-          // setLastCodeSentTime(now); // Update the last code sent time
       } catch (error) {
           const response = error.response;
           const data = response?.data?.message || "An error occurred";
           toast(data, "bottom-right");
-          console.error(data);
       }
   }, 500)
     
@@ -92,7 +89,6 @@ const ContactForm = () => {
           email
         });
         const data = response.data
-        console.log(data)
         if(data.success == true){
           setIsEmailVerified(true);
           setIsPopupOpen(false);
@@ -249,8 +245,7 @@ const ContactForm = () => {
                 </Button>
               </Popup>
             </Form>
-          </motion.div>
-          
+          </motion.div>  
         )}
       </Formik>
     </>
