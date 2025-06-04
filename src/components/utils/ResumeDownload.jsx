@@ -32,6 +32,7 @@ const ResumeDownload = () => {
         {showPopUp && 
             <>
                 <Popup isOpen={showPopUp} onClose={handlePopUp}>
+  
                     <Formik 
                         initialValues={{email : ""}}
                         validationSchema={validationSchema}
@@ -50,6 +51,7 @@ const ResumeDownload = () => {
                             }
                         }}
                     >   
+                        {({isSubmitting}) => (
                         <Form>
                             <label htmlFor="email" className="formLable">
                             Email <Asterisk className="text-red-500 inline-block align-super" size={10} />
@@ -57,9 +59,12 @@ const ResumeDownload = () => {
                             <Field type="email" id="email"  name="email" className="formInput " placeholder="e.g., jane.doe@example.com" />
                             <ErrorMessage name="email" component="div" className="formError" />
                             <div className="flex justify-end mt-4">
-                                <Button>Send Resume</Button>
+                                <Button disabled={isSubmitting} type="submit">
+                                     {isSubmitting ? "Sending..." : "Send Resume"}
+                                </Button>
                             </div>
                         </Form>
+                        )}
                     </Formik>
                 </Popup>
             </>
