@@ -134,7 +134,8 @@ const ContactForm = () => {
             const response = await axios.post("/connect/make-connection", contactData)
             const data = response.data;
             toast(data.message)
-            resetForm(); 
+            resetForm();
+            
           }catch(error){
             const response = error.response
             const data = response.data.message

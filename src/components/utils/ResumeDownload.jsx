@@ -34,7 +34,21 @@ const ResumeDownload = () => {
                 <Popup isOpen={showPopUp} onClose={handlePopUp}>
                     <Formik 
                         initialValues={{email : ""}}
-                        validationSchema={validationSchema}   
+                        validationSchema={validationSchema}
+                        onSubmit={async(values, {resetForm}) => {
+                            try{
+                                const email = values.email;
+                                const response = await axios.post("/resume/request", {email})
+                                const data = response.data;
+                                toast(data.message)
+                                resetForm();
+                                handlePopUp()
+                            }catch(error){
+                                const response = error.response
+                                const data = response.data.message
+                                toast(data)
+                            }
+                        }}
                     >   
                         <Form>
                             <label htmlFor="email" className="formLable">
@@ -43,7 +57,7 @@ const ResumeDownload = () => {
                             <Field type="email" id="email"  name="email" className="formInput " placeholder="e.g., jane.doe@example.com" />
                             <ErrorMessage name="email" component="div" className="formError" />
                             <div className="flex justify-end mt-4">
-                                <Button>Download Resume</Button>
+                                <Button>Send Resume</Button>
                             </div>
                         </Form>
                     </Formik>
