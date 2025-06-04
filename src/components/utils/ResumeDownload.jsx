@@ -3,8 +3,9 @@ import Button from './Button'
 import axios from '../../axios/axios'
 import { useToast } from '../../context/ToastContext'
 import Popup from '../utils/Popup'
-import { Formik } from 'formik'
+import { Formik, Field, Form, ErrorMessage  } from 'formik'
 import * as Yup from "yup";
+import { Asterisk } from 'lucide-react'
 
 const ResumeDownload = () => {
     const { toast } = useToast();
@@ -33,10 +34,18 @@ const ResumeDownload = () => {
                 <Popup isOpen={showPopUp} onClose={handlePopUp}>
                     <Formik 
                         initialValues={{email : ""}}
-                        validationSchema={validationSchema}
-                        
-                    >
-
+                        validationSchema={validationSchema}   
+                    >   
+                        <Form>
+                            <label htmlFor="email" className="formLable">
+                            Email <Asterisk className="text-red-500 inline-block align-super" size={10} />
+                            </label>
+                            <Field type="email" id="email"  name="email" className="formInput " placeholder="e.g., jane.doe@example.com" />
+                            <ErrorMessage name="email" component="div" className="formError" />
+                            <div className="flex justify-end mt-4">
+                                <Button>Download Resume</Button>
+                            </div>
+                        </Form>
                     </Formik>
                 </Popup>
             </>
