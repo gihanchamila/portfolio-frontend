@@ -31,6 +31,12 @@ const ResumeDownload = () => {
         {showPopUp && 
             <>
                 <Popup isOpen={showPopUp} onClose={handlePopUp}>
+                    <Formik 
+                        initialValues={{email : ""}}
+                        validationSchema={validationSchema}
+                    >
+
+                    </Formik>
                 </Popup>
             </>
         }

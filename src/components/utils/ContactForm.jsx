@@ -80,7 +80,7 @@ const ContactForm = () => {
           const data = response?.data?.message || "An error occurred";
           toast(data, "bottom-right");
       }
-  }, 500)
+    }, 500);
     
     const handleVerifyCode = async(email, verificationCode) => {
       try{
@@ -100,17 +100,17 @@ const ContactForm = () => {
         console.error(data.message)
         toast(data.message, "error", 3000, "bottom-right")
       }
-    }
+    };
       
     const handleClosePopup = () => {
         setIsPopupOpen(false)
         setVerificationCode(null);
-    }
+    };
 
     const handleInputChange = (e) => {
       const { value } = e.target;
       setVerificationCode(value)
-    }
+    };
 
     const handleChangeEmail = () => {
       setIsEmailVerified(false);
