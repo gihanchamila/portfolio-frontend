@@ -34,6 +34,7 @@ const ResumeDownload = () => {
                     <Formik 
                         initialValues={{email : ""}}
                         validationSchema={validationSchema}
+                        
                     >
 
                     </Formik>
