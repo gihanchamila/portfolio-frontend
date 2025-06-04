@@ -84,10 +84,10 @@ const CertificatesView = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -40 }}
             transition={{ duration: 0.3 }}
-            className="divide-y divide-neutral-200 dark:divide-neutral-700 bg-white dark:bg-neutral-800 rounded-lg shadow"
+            className="divide-y divide-neutral-200 dark:divide-neutral-700 bg-white  dark:bg-neutral-800 rounded-lg shadow"
           >
             {certificates.length === 0 && (
-              <li className="py-6 text-center text-gray-500">No certificates found</li>
+              <li className="py-6 text-center text-gray-500 sm:text">No certificates found</li>
             )}
             {certificates.map((certificate) => (
               <li key={certificate._id} className="flex items-center justify-between px-6 py-4 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition">
