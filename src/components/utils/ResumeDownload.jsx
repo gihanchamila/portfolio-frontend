@@ -6,11 +6,13 @@ import Popup from '../utils/Popup'
 import { Formik, Field, Form, ErrorMessage  } from 'formik'
 import * as Yup from "yup";
 import { Asterisk } from 'lucide-react'
+import useDisableBackgroundScroll from '../../hooks/useDisableBackgroundScroll'
 
 const ResumeDownload = () => {
     const { toast } = useToast();
     const [resume, setResume] = useState(null)
     const [showPopUp, setShowPopUp] = useState(false)
+    useDisableBackgroundScroll(showPopUp)
 
     const validationSchema = Yup.object({
         email : Yup.string()
