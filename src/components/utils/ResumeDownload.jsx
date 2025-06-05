@@ -10,7 +10,6 @@ import useDisableBackgroundScroll from '../../hooks/useDisableBackgroundScroll'
 
 const ResumeDownload = () => {
     const { toast } = useToast();
-    const [resume, setResume] = useState(null)
     const [showPopUp, setShowPopUp] = useState(false)
     useDisableBackgroundScroll(showPopUp)
 
