@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import DOMPurify from "dompurify";
 import * as Yup from "yup";
 import Button from "./Button";
 import { Asterisk } from "lucide-react";
@@ -10,6 +11,7 @@ import debounce from "lodash.debounce";
 import { useToast } from "../../context/ToastContext";
 import { motion } from "motion/react";
 import { div } from "motion/react-client";
+
 
 
 const ContactForm = () => {
@@ -127,9 +129,9 @@ const ContactForm = () => {
         onSubmit={async(values, { resetForm }) => {
           try{
             const contactData = {
-              name : values.fullName,
-              email : values.email,
-              message : values.message
+              name : DOMPurify.sanitize(values.fullName),
+              email : DOMPurify.sanitize(values.email),
+              message : DOMPurify.sanitize(values.message)
             }
             const response = await axios.post("/connect/make-connection", contactData)
             const data = response.data;
