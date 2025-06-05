@@ -61,7 +61,7 @@ const ContactForm = () => {
 
     const handleVerifyEmail = debounce(async (email, name) => {
       const now = new Date().getTime();
-      const cooldownPeriod = 1 * 60 * 1000;
+      const cooldownPeriod = 10 * 60 * 1000;
 
       if (lastCodeSentTime && now - lastCodeSentTime < cooldownPeriod) {
           const minutesLeft = Math.ceil((cooldownPeriod - (now - lastCodeSentTime)) / 60000);
@@ -74,7 +74,7 @@ const ContactForm = () => {
           const response = await axios.post("/user/send-verification-code", { email, name });
           const data = response.data;
           toast(data.message, "success", 3000, "bottom-right");
-          setCount(1);
+          setCount(10);
       } catch (error) {
           const response = error.response;
           const data = response?.data?.message || "An error occurred";
