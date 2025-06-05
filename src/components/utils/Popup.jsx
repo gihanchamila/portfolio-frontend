@@ -11,7 +11,7 @@ const Popup = ({ isOpen, onClose, children }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.1 }}
-          className="fixed inset-0 backdrop-blur-[1px] backdrop-brightness-50 flex justify-center items-center z-50"
+          className="fixed inset-0  backdrop-brightness-50 flex justify-center items-center z-50"
           onClick={onClose}
         >
           <motion.div
