@@ -16,7 +16,6 @@ export const HoverReveal = () => {
       whileHover="hover"
       animate="rest"
     >
-      {/* Initial Text */}
       <motion.span
         className="block py-2 px-4 dark:text-white text-xs bg-transparent"
         variants={{
