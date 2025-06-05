@@ -59,7 +59,7 @@ const ContactForm = () => {
           .min(10, "Message must be at least 10 characters long"),
     });
 
-    const handleVerifyEmail = debounce(async (email) => {
+    const handleVerifyEmail = debounce(async (email, name) => {
       const now = new Date().getTime();
       const cooldownPeriod = 1 * 60 * 1000;
 
@@ -71,7 +71,7 @@ const ContactForm = () => {
   
       try {
           setIsPopupOpen(true);
-          const response = await axios.post("/user/send-verification-code", { email });
+          const response = await axios.post("/user/send-verification-code", { email, name });
           const data = response.data;
           toast(data.message, "success", 3000, "bottom-right");
           setCount(1);
@@ -180,7 +180,7 @@ const ContactForm = () => {
                   {!isEmailVerified && values.email && (
                     <span
                       type="pop-up"
-                      onClick={() => handleVerifyEmail(values.email)}
+                      onClick={() => handleVerifyEmail(values.email, values.fullName)}
                       className="text-sky-500 text-sm font-primary hover:underline cursor-pointer"
                     >
                       Verify Email
