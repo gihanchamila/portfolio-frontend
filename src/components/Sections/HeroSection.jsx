@@ -1,9 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
 import SplitText from '../utils/SplitText';
 import { ProjectImage } from '../../assets';
 import Skills from './Skills'
 import MySkill from './MySkill';
 import { motion } from 'motion/react';
+import CustomCursor from '../utils/CustomCursor';
 
 
 export const HoverReveal = () => {
@@ -42,9 +44,11 @@ export const HoverReveal = () => {
 
 
 const HeroSection = () => {
+  const [cursorVisible, setCursorVisible] = useState(false);
 
   return (
     <div className="relative">
+        <CustomCursor show={cursorVisible} text="Gihan Chamila" />
         <section className="sm:grid sm:grid-cols-4 sm:col-start-1 sm:col-end-5 sm:col-span-4 gap-5 sm:items-center lg:pb-12 xs:pb-2 lg:grid-cols-12">
           <div className="sm:col-span-4 sm:col-start-1 sm:col-end-5 flex flex-col sm:items-center md:items-left  lg:col-span-5 lg:col-start-1 lg:col-end-6">
             <div className="flex flex-col items-center justify-center space-y-6 md:items-start md:justify-start lg:space-y-4">
@@ -71,6 +75,8 @@ const HeroSection = () => {
           <div className="xs:col-span-4 xs:col-start-1 xs:col-end-5 xs:flex xs:justify-center lg:block lg:col-span-6 lg:col-start-9 lg:col-end-13 xs:mt-5">
             <img
               src={ProjectImage}
+              onMouseEnter={() => setCursorVisible(true)}
+              onMouseLeave={() => setCursorVisible(false)}
               alt="Hero Section Illustration"
               className="w-[200px] h-[200px] lg:w-[400px] lg:h-[400px] rounded-full"
             />
