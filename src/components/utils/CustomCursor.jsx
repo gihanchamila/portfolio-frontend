@@ -34,6 +34,7 @@ const CustomCursor = ({ show, text }) => {
           animate="visible"
           exit="hidden"
         >
+          
           <div className="dark:bg-black/80 dark:text-white bg-white text-black px-6 py-2 rounded-xl text-lg font-bold shadow-lg select-none">
             {text}
           </div>
