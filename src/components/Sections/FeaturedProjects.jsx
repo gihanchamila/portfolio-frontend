@@ -48,7 +48,7 @@ const FeaturedProjects =() => {
   const fetchProjects = useCallback(async () => {
     if (projects.length > 0) return;
     try {
-      const response = await axios.get("/project/get-projects");
+      const response = await axios.get("/project/get-projects?size=3");
       const data = response.data.data.projects;
       const total= response.data.data.total;
       setTotalCount(total);
