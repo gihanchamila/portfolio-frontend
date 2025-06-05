@@ -114,7 +114,7 @@ return (
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        Featured <span className="text-sky-500 dark:text-sky-300">Projects</span>
+        Featured <span className="">Projects</span>
       </motion.h2>
     </header>
 

@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import SplitText from '../utils/SplitText';
 import { ProjectImage } from '../../assets';
 import Skills from './Skills'
-import MySkill from './MySkill';
 import { motion } from 'motion/react';
 import CustomCursor from '../utils/CustomCursor';
 
@@ -81,7 +80,6 @@ const HeroSection = () => {
             />
           </div>
         </section>
-        <MySkill />
       <Skills />
     </div>
   );

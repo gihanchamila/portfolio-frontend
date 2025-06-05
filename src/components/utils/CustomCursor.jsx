@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { MousePointer2 } from "lucide-react";
 
 const cursorVariants = {
   hidden: { opacity: 0, scale: 0.5, transition: { duration: 0.2 } },
@@ -34,8 +35,7 @@ const CustomCursor = ({ show, text }) => {
           animate="visible"
           exit="hidden"
         >
-          
-          <div className="dark:bg-black/80 dark:text-white bg-white text-black px-6 py-2 rounded-xl text-lg font-bold shadow-lg select-none">
+          <div className="dark:bg-black/80 dark:text-white bg-white text-black px-6 py-2 rounded-xl text-lg font-bold border border-black dark:border-none select-none ">
             {text}
           </div>
         </motion.div>

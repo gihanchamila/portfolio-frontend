@@ -83,7 +83,7 @@ const Certificate = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <span className="text-sky-500 dark:text-sky-300">Certifications</span> and Achievements
+          <span className="">Certifications</span> and Achievements
         </motion.h2>
       </header>
     
