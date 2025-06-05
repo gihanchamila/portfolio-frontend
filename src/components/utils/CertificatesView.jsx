@@ -31,7 +31,7 @@ const CertificatesView = () => {
   }, [toast]);
 
   useEffect(() => {
-    fetchCertificates(currentPage);
+    fetchCertificates(currentPage, 2);
   }, [fetchCertificates, currentPage]);
 
   const handleUpdateCertificate = async (values, { setSubmitting, setFieldError }) => {
@@ -99,7 +99,6 @@ const CertificatesView = () => {
                   <Button
                     variant='primary'
                     onClick={() => {
-                      console.log(certificate)
                       setEditCertificate(certificate);
                       setShowForm(true);
                     }}

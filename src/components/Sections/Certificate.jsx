@@ -51,10 +51,9 @@ const Certificate = () => {
   const getCertificateDetails = useCallback(async () => {
     if (certificates.length > 0) return;
     try {
-      const response = await axios.get('/certificate/get-certificates');
+      const response = await axios.get('/certificate/get-certificates?size=4');
       const data = response.data.data.certifications;
       const total = response.data.data.total;
-      console.log(total)
       setTotalCount(total)
       setCertificates(data);
       toast(`${response.data.message}`)
