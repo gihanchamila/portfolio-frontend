@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import DOMPurify from "dompurify";
 import Button from './Button'
 import axios from '../../axios/axios'
 import { useToast } from '../../context/ToastContext'
@@ -39,7 +40,7 @@ const ResumeDownload = () => {
                         validationSchema={validationSchema}
                         onSubmit={async(values, {resetForm}) => {
                             try{
-                                const email = values.email;
+                                const email = DOMPurify.sanitize(values.email);
                                 const response = await axios.post("/resume/request", {email})
                                 const data = response.data;
                                 toast(data.message)
