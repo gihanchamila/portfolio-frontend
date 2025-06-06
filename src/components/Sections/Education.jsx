@@ -17,6 +17,12 @@ const educationData = [
     degree: "Diploma in Information Technology",
     location: "Matara Center, Sri Lanka",
   },
+  {
+    institute: "Mahinda Rajapaksa college",
+    year: "2018 - 2020",
+    degree: "Physical Stream",
+    location: "Matara, Sri Lanka",
+  },
 ];
 
 const cardVariants = {
@@ -82,19 +88,23 @@ const EducationCard = ({ edu, index }) => (
       </span>
     </div>
     <div className="flex flex-col sm:flex-row sm:justify-between items-start gap-2">
-      <span
-        className="text-sm font-semibold"
-      >
-        {edu.degree}
-      </span>
+      {edu.degree && (
+        <span
+          className="text-sm font-semibold"
+        >
+          {edu.degree}
+        </span>
+      )}
       <span className="text-xs text-neutral-400 dark:text-neutral-500">
         {edu.location}
       </span>
     </div>
     <div className="flex items-center gap-2">
-      <Label>
-        {edu.grade}
-      </Label>
+      {edu.grade && (
+        <Label>
+          {edu.grade}
+        </Label>
+      )}
     </div>
     {edu.highlights && (
       <ul className="mt-2 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
