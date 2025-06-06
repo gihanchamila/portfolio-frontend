@@ -61,14 +61,13 @@ const MobileMenu = ({ navLinks }) => {
                             </div>
                             <div className='mt-20 xs:flex md:block xs:flex-col xs:space-y-6 xs:w-auto'>
                                 <NavLinks links={navLinks} />
-                                <div>
+                                <div className='mt-5'> 
                                     <ResumeDownload />
                                 </div>
-                                
                             </div>
                         </motion.div>
                     )}
-                </AnimatePresence>  
+                </AnimatePresence> 
             </header>
         </GridContainer>
     )
