@@ -1,31 +1,20 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-// Example education data (replace with your own or pass as props)
 const educationData = [
   {
-    institute: "Massachusetts Institute of Technology",
-    year: "2018 - 2022",
-    grade: "GPA: 3.9/4.0",
-    degree: "B.Sc. in Computer Science",
-    location: "Cambridge, MA",
-    highlights: [
-      "Dean’s List (2019-2022)",
-      "President, Coding Club",
-      "Research Assistant, AI Lab",
-    ],
+    institute: "Sri Lanka Institute of Information Technology ",
+    year: "2025 - 2029",
+    grade: "Pending",
+    degree: "B.Sc.(Hons) in Information Technology",
+    location: "Matara Center, Sri Lanka",
   },
   {
-    institute: "Springfield High School",
-    year: "2016 - 2018",
-    grade: "Grade: 96%",
-    degree: "High School Diploma",
-    location: "Springfield, USA",
-    highlights: [
-      "Valedictorian",
-      "Math Olympiad Winner",
-      "Basketball Team Captain",
-    ],
+    institute: "Esoft Metro Campus",
+    year: "2023 - 2024",
+    grade: "Distinction",
+    degree: "Diploma in Information Technology",
+    location: "Matara Center, Sri Lanka",
   },
 ];
 
@@ -41,7 +30,7 @@ const cardVariants = {
 const EducationCard = ({ edu, index }) => (
   <motion.div
     className={`
-      relative border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 mb-8 max-w-xl w-full
+      relative border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 mb-8 max-w-2xl w-full
       transition-colors duration-300
       flex flex-col gap-3
       mx-0
@@ -85,11 +74,14 @@ const EducationCard = ({ edu, index }) => (
         {edu.grade}
       </span>
     </div>
-    <ul className="mt-2 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
-      {edu.highlights.map((h, i) => (
-        <li key={i}>{h}</li>
-      ))}
-    </ul>
+    {edu.highlights && (
+      <ul className="mt-2 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
+        {edu.highlights.map((h, i) => (
+          <li key={i}>{h}</li>
+        ))}
+      </ul>
+    )}
+    
   </motion.div>
 );
 
@@ -120,15 +112,6 @@ const Education = () => {
         >
           Education
         </motion.h2>
-        <motion.p
-          className="text-base sm:text-lg"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          My academic journey
-        </motion.p>
       </div>
       <div className="relative flex flex-col items-start">
 
