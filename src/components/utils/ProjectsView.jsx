@@ -24,7 +24,7 @@ const ProjectsView = () => {
     if (storedAdmin && token) {
       setAdmin(JSON.parse(storedAdmin));
     }
-  }, []);
+  }, [setAdmin]);
 
   const fetchProjects = useCallback(async (page = 1) => {
     try {
@@ -119,32 +119,37 @@ const ProjectsView = () => {
           <li key={project._id} className="flex items-center justify-between px-6 py-4 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition">
             <span className="font-medium lg:text-lg xs:text:xs sm:text-sm">{project.title}</span>
             <div className="flex gap-2">
-              <Button variant='primary'
-                onClick={() => {
-                  setEditProject(project);
-                  setShowForm(true);
-                }}
-                className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition-colors text-sm font-medium shadow"
-              >
-                Update
-              </Button>
-              <Button variant='error'
-                onClick={async () => {
-                  try {
-                    const response = await axios.delete(`/project/delete-project/${project._id}`);
-                    const data = response.data;
-                    fetchProjects();
-                    toast(data.message, 'success', 3000, 'bottom-right');
-                  } catch (error) {
-                    const response = error.response;
-                    const data = response.data;
-                    toast(data.message, "error", 3000, 'bottom-right');
-                  }
-                }}
-                className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition-colors text-sm font-medium shadow"
-              >
-                Delete
-              </Button>
+              {admin && (
+                <>
+                  <Button variant='primary'
+                  onClick={() => {
+                    setEditProject(project);
+                    setShowForm(true);
+                  }}
+                  className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition-colors text-sm font-medium shadow"
+                >
+                  Update
+                  </Button>
+                  <Button variant='error'
+                    onClick={async () => {
+                      try {
+                        const response = await axios.delete(`/project/delete-project/${project._id}`);
+                        const data = response.data;
+                        fetchProjects();
+                        toast(data.message, 'success', 3000, 'bottom-right');
+                      } catch (error) {
+                        const response = error.response;
+                        const data = response.data;
+                        toast(data.message, "error", 3000, 'bottom-right');
+                      }
+                    }}
+                    className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition-colors text-sm font-medium shadow"
+                  >
+                    Delete
+                  </Button>
+                </>
+              )}
+              
             </div>
           </li>
         ))}
