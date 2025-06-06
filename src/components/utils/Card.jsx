@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ProjectImage } from "../../assets";
+import { profileImage } from "../../assets";
 import AnimatedButton from "./AnimatedButton";
 import { motion} from "motion/react";
 
 const ProjectCard = ({ projectName, description, imageUrl, github, live }) => {
-  const defaultImage = ProjectImage;
+  const defaultImage = profileImage;
 
   return (
     <motion.div className="lg:w-[25rem] lg:h-[30rem] sm:w-auto sm:h-[30rem] xs:h-[20rem] bg-white border border-gray-300 dark:border-none rounded-2xl relative overflow-hidden group">

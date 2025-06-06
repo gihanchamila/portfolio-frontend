@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { useState, useRef, useEffect } from 'react'
 import GridContainer from './GridContainer'
 import { Menu, X } from 'lucide-react'
-import { ProfileImage } from '../assets'
+import { profileImage } from '../assets/index'
 import NavLinks from './NavLinks'
 import { motion } from 'motion/react'
 import { AnimatePresence } from 'motion/react'
@@ -32,7 +32,7 @@ const MobileMenu = ({ navLinks }) => {
         <GridContainer>
             <header className='lg:hidden sm:grid sm:col-start-1 sm:col-end-5 sm:col-span-4 mt-5 mb-16 dark:bg-surface'>
                 <div className='flex items-center justify-between w-full'>
-                    <img src={ProfileImage} alt="profile" className='rounded-full sm:h-10 sm:w-10 xs:h-8 xs:w-8 bg-black' role='image'/>
+                    <img src={profileImage} alt="profile" className='rounded-full sm:h-10 sm:w-10 xs:h-8 xs:w-8 bg-black' role='image'/>
                     <motion.div transition={{ duration: 0.2 }}>
                         {!isOpen && (
                             <Menu onClick={toggleMenu} aria-label="Toggle menu" className="cursor-pointer" />
