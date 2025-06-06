@@ -8,7 +8,7 @@ const defaultFallback = (
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.95 }}
     transition={{ duration: 0.3 }}
-    className="flex justify-center items-center h-full p-6 text-xl text-gray-600"
+    className="flex justify-center items-center h-full p-6 text-xl text-gray-600 "
   >
     Loading...
   </motion.div>

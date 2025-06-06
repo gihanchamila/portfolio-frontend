@@ -1,11 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  CheckCircle,
-  AlertTriangle,
-  Info,
-  XCircle,
-} from "lucide-react"; // these are pretty icons!
+import {CheckCircle, AlertTriangle, Info, XCircle} from "lucide-react";
 
 const typeStyles = {
   success: {
@@ -26,11 +21,9 @@ const typeStyles = {
   },
 };
 
-
-
 const Toast = ({ message, type = "info"}) => {
   const { icon, color } = typeStyles[type] || typeStyles.info;
-
+  
   return (
     <div className={`fixed z-50`}>
       <motion.div

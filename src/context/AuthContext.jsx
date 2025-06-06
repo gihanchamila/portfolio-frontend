@@ -1,50 +1,54 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
+import axios from "../axios/axios";
+import { useLocation, useNavigate } from "react-router-dom";
+import { nav } from "motion/react-client";
 
-// Create AuthContext
-const AuthContext = createContext(null);
+// Create context
+const AuthContext = createContext();
 
-// AuthProvider Component
+// Custom hook to use AuthContext
+export const useAuth = () => useContext(AuthContext);
+
 export const AuthProvider = ({ children }) => {
-  const [apiKey, setApiKey] = useState(localStorage.getItem("apiKey") || null);
-  const [isAuthenticated, setIsAuthenticated] = useState(!!apiKey);
+  const navigate = useNavigate();
+  const [admin, setAdmin] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // Function to login (set API key)
-  const login = async (enteredApiKey) => {
-    try {
-      const response = await fetch("http://localhost:5000/api/private/data", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "api_key": enteredApiKey,
-        },
-      });
-
-      if (response.ok) {
-        setApiKey(enteredApiKey);
-        setIsAuthenticated(true);
-        localStorage.setItem("apiKey", enteredApiKey); 
-        return { success: true, message: "Login successful!" };
-      } else {
-        return { success: false, message: "Invalid API Key." };
-      }
-    } catch (error) {
-      return { success: false, message: "Error connecting to the server." };
+  useEffect(() => {
+    const storedAdmin = localStorage.getItem("admin");
+    if (storedAdmin) {
+      setAdmin(JSON.parse(storedAdmin));
     }
-  };
+  }, []);
 
-  // Function to logout (clear API key)
-  const logout = () => {
-    setApiKey(null);
-    setIsAuthenticated(false);
+  const signIn = useCallback(async (email, password) => {
+    setLoading(true);
+    try {
+      const response = await axios.post("/admin/signin", { email, password });
+      const data = response.data.data.user
+      const token = response.data.data.token;
+      setAdmin(data);
+      localStorage.setItem("apiKey", token);
+      localStorage.setItem("admin", JSON.stringify(data));
+      navigate("/admin/dashboard");
+      return { success: true, message: "Sign in successful" };
+    } catch (error) {
+      return { success: false, message: error.response?.data?.message || "Sign in failed" };
+    } finally {
+      setLoading(false);
+    }
+  }, [navigate]);
+
+  const signOut = useCallback(() => {
+    setAdmin(null);
+    localStorage.removeItem("admin");
     localStorage.removeItem("apiKey");
-  };
+    navigate("/admin");
+  }, [navigate]);
 
   return (
-    <AuthContext.Provider value={{ apiKey, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ admin, loading, signIn, signOut, setAdmin }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
-// Custom Hook for using AuthContext
-export const useAuth = () => useContext(AuthContext);

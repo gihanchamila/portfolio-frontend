@@ -19,7 +19,7 @@
 
 @layer base {
     html {
-        @apply bg-gray-50 dark:bg-surface;
+        @apply bg-white dark:bg-surface ;
     }
 
     body {
@@ -40,7 +40,16 @@
   }
 
 .button {
-    @apply w-auto text-center lg:px-4 lg:py-2 xs:py-2 xs:px-3 lg:text-base xs:text-sm rounded-lg font-primary flex items-center space-x-2 disabled:hover:cursor-not-allowed hover:cursor-pointer
+    @apply w-auto text-center lg:px-4 lg:py-2 xs:py-2 xs:px-3 lg:text-base xs:text-xs rounded-lg font-primary flex items-center space-x-2 disabled:hover:cursor-not-allowed hover:cursor-pointer
+}
+
+.pageButton {
+    @apply flex items-center justify-center px-3 h-8 leading-tight 
+        text-gray-500 bg-white border border-gray-300
+        hover:bg-gray-100 hover:text-gray-700
+        dark:bg-neutral-800 dark:text-gray-200 dark:border-neutral-700
+        dark:hover:bg-neutral-700 dark:hover:text-white
+        transition-colors duration-150;
 }
 
 .navLink {
@@ -48,7 +57,7 @@
 }
 
 .cardTitle {
-    @apply sm:text-2xl xs:text-xl xs:font-bold line-clamp-2 min-h-[2.5rem] xs:font-primary drop-shadow-[0_0_10px_rgba(255,255,255,0.9)];
+    @apply sm:text-2xl xs:text-xl xs:font-bold line-clamp-2 min-h-[2.5rem] xs:font-primary;
 }
 
 .cardSubTitle {
@@ -56,7 +65,7 @@
 }
 
 .formInput {
-    @apply w-full py-2 px-4 xs:pl-2 sm:pl-4 border border-gray-300 rounded-lg dark:focus:bg-on-surface dark:active:bg-on-surface focus:outline-gray-300 focus:outline-1 xs:font-primary sm:text-sm xs:text-xs
+    @apply w-full py-2 px-4 xs:pl-2 sm:pl-4 border border-gray-300 rounded-lg focus:outline-gray-300 focus:outline-1 xs:font-primary sm:text-sm xs:text-xs
 }
 
 .formLable {
