@@ -8,6 +8,7 @@ const Header = () => {
     const navLinks = useMemo(() => [
         { name: "Home", to: "/" },
         { name: "Featured Projects", to: "#projects" },
+        { name: "Education", to: "#education" },
         { name: "Certification", to: "#certification" },
         { name: "Contact me", to: "#contact" },
     ], []) ;

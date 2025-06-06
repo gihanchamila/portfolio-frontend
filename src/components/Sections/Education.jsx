@@ -35,6 +35,7 @@ const EducationCard = ({ edu, index }) => (
       flex flex-col gap-3
       mx-0
       bg-transparent
+      
     `}
     initial="offscreen"
     whileInView="onscreen"
@@ -98,6 +99,7 @@ const Education = () => {
         transition-colors duration-300
         bg-transparent
         text-left
+        scroll-mt-14
       `}
       id="education"
       aria-label="Education Section"

@@ -5,6 +5,8 @@ import { profileImage } from '../../assets';
 import Skills from './Skills'
 import { motion } from 'motion/react';
 import CustomCursor from '../utils/CustomCursor';
+import Button from '../utils/Button';
+import { useNavigate } from 'react-router-dom';
 
 
 export const HoverReveal = () => {
@@ -43,6 +45,11 @@ export const HoverReveal = () => {
 
 const HeroSection = () => {
   const [cursorVisible, setCursorVisible] = useState(false);
+  const navigate = useNavigate()
+
+  const handleNavigate = () => {
+    navigate("#projects")
+  }
 
   return (
     <div className="relative">
