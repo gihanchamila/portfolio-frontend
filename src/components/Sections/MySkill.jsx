@@ -40,7 +40,7 @@ const MySkill = ({ skillsList = skills }) => {
         <span className="">My Skills</span>
       </motion.h2>
       <motion.div
-        className="flex flex-wrap gap-3 justify-center lg:justify-start pb-12"
+        className="flex flex-wrap gap-3 justify-center lg:justify-start pb-20"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -52,7 +52,7 @@ const MySkill = ({ skillsList = skills }) => {
             variants={skillVariants}
             className={`rounded-xl px-5 py-2 text-sm font-semibold 
               border border-gray-300 dark:border-gray-600
-              bg-white dark:bg-slate-800
+              bg-white dark:bg-transparent dark:inset-52
               text-gray-900 dark:text-gray-100
               transition-colors duration-300
               xs:text-xs sm:text-base lg:text-lg
