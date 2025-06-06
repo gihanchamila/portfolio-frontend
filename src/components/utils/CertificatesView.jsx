@@ -7,6 +7,7 @@ import CertificateForm from './CertificateForm';
 import { AnimatePresence, motion } from 'framer-motion';
 import Button from './Button';
 import { useAuth } from '../../context/AuthContext';
+import { Label } from '../Sections/Education';
 
 const CertificatesView = () => {
   const { toast } = useToast();
@@ -102,7 +103,7 @@ const CertificatesView = () => {
                   <span className="font-medium text-lg">{certificate.title}</span>
                   <div className="text-gray-600 dark:text-gray-300 text-sm">{certificate.organization}</div>
                 </div>
-                <div className="flex gap-2">{admin && (
+                <div className="flex gap-2">{admin ? (
                   <>
                   <Button
                     variant='primary'
@@ -121,6 +122,10 @@ const CertificatesView = () => {
                     Delete
                   </Button>
                   </>
+                ) : (
+                  <Label link={certificate.credentialURL}>
+                    View certificate
+                  </Label>
                 )}
                 </div>
               </li>

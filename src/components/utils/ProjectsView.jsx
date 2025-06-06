@@ -6,6 +6,7 @@ import ProjectForm from './ProjectForm';
 import Button from './Button';
 import Pagination from './Pagination';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Label } from '../Sections/Education';
 
 const ProjectsView = () => {
   const { admin, setAdmin } = useAuth();
@@ -119,7 +120,7 @@ const ProjectsView = () => {
           <li key={project._id} className="flex items-center justify-between px-6 py-4 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition">
             <span className="font-medium lg:text-lg xs:text:xs sm:text-sm">{project.title}</span>
             <div className="flex gap-2">
-              {admin && (
+              {admin ? (
                 <>
                   <Button variant='primary'
                   onClick={() => {
@@ -148,6 +149,10 @@ const ProjectsView = () => {
                     Delete
                   </Button>
                 </>
+              ) : (
+                <Label link={project.githubUrl}>
+                  Github repo
+                </Label>
               )}
             </div>
           </li>

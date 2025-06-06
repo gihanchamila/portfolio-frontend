@@ -1,5 +1,6 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const educationData = [
   {
@@ -25,6 +26,32 @@ const cardVariants = {
     y: 0,
     transition: { type: "spring", bounce: 0.3, duration: 0.9 },
   },
+};
+
+export const Label = ({children, link}) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (!link) return;
+    if (link.startsWith("http")) {
+      window.open(link, "_blank");
+    } else {
+      navigate(link);
+    }
+  };
+
+  return(
+  <span
+      className="inline-block px-2 py-1 rounded text-xs font-semibold"
+      style={{
+        background: "color-mix(in srgb, var(--color-primary) 15%, transparent)",
+        color: "var(--color-primary)",
+      }}
+      onClick={handleClick}
+    >
+      {children}
+    </span>
+  )
 };
 
 const EducationCard = ({ edu, index }) => (
@@ -65,15 +92,9 @@ const EducationCard = ({ edu, index }) => (
       </span>
     </div>
     <div className="flex items-center gap-2">
-      <span
-        className="inline-block px-2 py-1 rounded text-xs font-semibold"
-        style={{
-          background: "color-mix(in srgb, var(--color-primary) 15%, transparent)",
-          color: "var(--color-primary)",
-        }}
-      >
+      <Label>
         {edu.grade}
-      </span>
+      </Label>
     </div>
     {edu.highlights && (
       <ul className="mt-2 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
