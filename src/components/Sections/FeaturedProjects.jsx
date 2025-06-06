@@ -129,7 +129,7 @@ return (
           index={index}
         />
       ))}
-      {totalCount > 3 && <span className='' onClick={() => navigate("projects")}>Show more</span>}
+      {totalCount > 3 && <span className='cursor-pointer' onClick={() => navigate("projects")}>Show more</span>}
     </div>
 
     

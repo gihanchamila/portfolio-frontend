@@ -42,7 +42,7 @@ export const Label = ({children, link}) => {
 
   return(
   <span
-      className="inline-block px-2 py-1 rounded text-xs font-semibold"
+      className="inline-block px-2 py-1 rounded text-xs font-semibold cursor-pointer"
       style={{
         background: "color-mix(in srgb, var(--color-primary) 15%, transparent)",
         color: "var(--color-primary)",
