@@ -6,15 +6,22 @@ import Pagination from './Pagination';
 import CertificateForm from './CertificateForm';
 import { AnimatePresence, motion } from 'framer-motion';
 import Button from './Button';
+import { useAuth } from '../../context/AuthContext';
 
 const CertificatesView = () => {
   const { toast } = useToast();
+  const { admin, setAdmin } = useAuth();
   const [certificates, setCertificates] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editCertificate, setEditCertificate] = useState(null);
+
+  useEffect(() => {
+    const storedAdmin = localStorage.getItem("admin");
+    if (storedAdmin) setAdmin(JSON.parse(storedAdmin));
+  }, [setAdmin]);
 
   const fetchCertificates = useCallback(async (page = 1) => {
     try {
@@ -75,7 +82,7 @@ const CertificatesView = () => {
 
   return (
     <div className="container mx-auto pb-20">
-      <h1 className="text-2xl font-bold mb-6">Manage Certificates</h1>
+      <h1 className="text-2xl font-bold mb-6">{admin ? "Manage Certificates" : "Certificates "}</h1>
       <div className="flex-1">
         <AnimatePresence mode="wait">
           <motion.ul
@@ -95,7 +102,8 @@ const CertificatesView = () => {
                   <span className="font-medium text-lg">{certificate.title}</span>
                   <div className="text-gray-600 dark:text-gray-300 text-sm">{certificate.organization}</div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2">{admin && (
+                  <>
                   <Button
                     variant='primary'
                     onClick={() => {
@@ -112,6 +120,8 @@ const CertificatesView = () => {
                   >
                     Delete
                   </Button>
+                  </>
+                )}
                 </div>
               </li>
             ))}

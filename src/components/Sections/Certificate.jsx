@@ -4,6 +4,8 @@ import CertificateCard from '../utils/CertificateCard';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
 import { motion, useAnimation, useInView} from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import Button from '../utils/Button';
 
 const AnimatedCertificate = ({ certificate, index }) => {
   const ref = useRef(null);
@@ -43,6 +45,7 @@ const AnimatedCertificate = ({ certificate, index }) => {
 const Certificate = () => {
 
   const { toast } = useToast();
+  const navigate = useNavigate()
 
   const [certificates, setCertificates] = useState([]);
   const [totalCount, setTotalCount] = useState([]);
@@ -92,7 +95,7 @@ const Certificate = () => {
           certificates.map((cert, index) => (
             <AnimatedCertificate key={cert._id} certificate={cert} index={index} />
           ))}
-        {totalCount > 4 && <div>Show more</div>}
+        {totalCount > 3 && <Button onClick={() => navigate("/certificates")}>Show more</Button>}
       </div>
     </section>
   );
