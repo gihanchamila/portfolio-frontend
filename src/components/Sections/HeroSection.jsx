@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import SplitText from '../utils/SplitText';
-import { ProjectImage } from '../../assets';
+import { profileImage } from '../../assets';
 import Skills from './Skills'
 import { motion } from 'motion/react';
 import CustomCursor from '../utils/CustomCursor';
@@ -72,7 +72,7 @@ const HeroSection = () => {
 
           <div className="xs:col-span-4 xs:col-start-1 xs:col-end-5 xs:flex xs:justify-center lg:block lg:col-span-6 lg:col-start-9 lg:col-end-13 xs:mt-5 cursor-none">
             <img
-              src={ProjectImage}
+              src={profileImage}
               onMouseEnter={() => setCursorVisible(true)}
               onMouseLeave={() => setCursorVisible(false)}
               alt="Hero Section Illustration"

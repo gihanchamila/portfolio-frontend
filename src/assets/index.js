@@ -1,3 +1,3 @@
-import ProjectImage from "../assets/ProjectImage.jpg"
+import profileImage from "../assets/profileImage.jpg"
 
-export {ProjectImage}
+export {profileImage}
