@@ -100,13 +100,14 @@ const Education = () => {
         bg-transparent
         text-left
         scroll-mt-14
+        pb-12
       `}
       id="education"
       aria-label="Education Section"
     >
       <div className="max-w-3xl lg:max-w-5xl mx-auto mb-12 lg:mb-16 lg:mx-0">
         <motion.h2
-          className="text-3xl sm:text-4xl font-extrabold mb-2"
+          className="text-3xl sm:text-4xl font-extrabold"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
@@ -128,7 +129,7 @@ const Education = () => {
           }}
           className="hidden sm:block absolute sm:top-5 z-0"
         />
-        <div className="flex flex-col gap-12 w-full lg:pl-12">
+        <div className="flex flex-col gap-auto w-full lg:pl-12">
           {educationData.map((edu, idx) => (
             <EducationCard edu={edu} key={idx} index={idx} />
           ))}
