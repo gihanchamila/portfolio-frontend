@@ -95,7 +95,7 @@ const Certificate = () => {
           certificates.map((cert, index) => (
             <AnimatedCertificate key={cert._id} certificate={cert} index={index} />
           ))}
-        {totalCount > 3 && <Button onClick={() => navigate("/certificates")}>Show more</Button>}
+        {totalCount > 3 && <span onClick={() => navigate("certificates")}>Show more</span>}
       </div>
     </section>
   );

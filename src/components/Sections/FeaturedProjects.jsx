@@ -5,6 +5,7 @@ import SectionLabel from '../utils/SectionLabel';
 import { Sparkle } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 import axios from "../../axios/axios.js"
+import { useNavigate } from 'react-router-dom';
 
 const AnimatedCard = ({ project, imageUrl, index }) => {
   const ref = useRef(null);
@@ -40,6 +41,7 @@ const AnimatedCard = ({ project, imageUrl, index }) => {
 const FeaturedProjects =() => {
   const ref = useRef(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [projectFiles, setProjectFiles] = useState({})
   const [totalCount, setTotalCount] = useState([null])
@@ -118,7 +120,7 @@ return (
       </motion.h2>
     </header>
 
-    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm">
+    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xs:gap-6 ">
       {projects.map((project, index) => (
         <AnimatedCard
           key={project._id}
@@ -127,13 +129,10 @@ return (
           index={index}
         />
       ))}
+      {totalCount > 3 && <span className='' onClick={() => navigate("projects")}>Show more</span>}
     </div>
 
-    {totalCount > 3 && (
-      <div className="pt-6">
-        Show more
-      </div>
-    )}
+    
   </section>
 );
 };

@@ -102,7 +102,7 @@ const ProjectsView = () => {
 
   return (
     <div className="container mx-auto pb-20">
-    <h1 className="text-2xl font-bold mb-6">Manage Projects</h1>
+    <h1 className="text-2xl font-bold mb-6">{admin ? "Manage Projects" : "Projects"}</h1>
     <AnimatePresence mode="wait">
       <motion.ul
         key={currentPage}
@@ -149,7 +149,6 @@ const ProjectsView = () => {
                   </Button>
                 </>
               )}
-              
             </div>
           </li>
         ))}

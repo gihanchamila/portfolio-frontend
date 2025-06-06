@@ -20,8 +20,8 @@ function App() {
             <Routes>
               <Route path="/" element={<PublicLayout />}>
                 <Route index element={<LandingPage />} />
-                <Route path="/certificates" element={<CertificatesView />} />
-                <Route path="/projects" element={<ProjectsView />} />
+                <Route path="certificates" element={<CertificatesView />} />
+                <Route path="projects" element={<ProjectsView />} />
               </Route>
               <Route path="/admin" element={<PrivateLayout />}>
                 <Route index element={<Login />} />
