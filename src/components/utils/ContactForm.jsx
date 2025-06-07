@@ -12,10 +12,10 @@ import { useToast } from "../../context/ToastContext";
 import { motion } from "motion/react";
 import { div } from "motion/react-client";
 
-
-
 const ContactForm = () => {
-    const inputRefs = useRef([]);
+    const fullnameRef = useRef();
+    const emailRef = useRef();
+    const messageRef = useRef();
     const { toast } = useToast();
     const [isEmailVerified, setIsEmailVerified] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);   
@@ -121,6 +121,15 @@ const ContactForm = () => {
       setCount(null);
     };
 
+    const handleKeyDown = (e, value, nextRef) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (value.trim() !== "" && nextRef?.current) {
+          nextRef.current.focus();
+        }
+      }
+    };
+
   return (
     <>
       <Formik
@@ -164,6 +173,11 @@ const ContactForm = () => {
                   name="fullName"
                   className="formInput"
                   placeholder="e.g., Jane Doe"
+                  innerRef={fullnameRef}
+                  onKeyDown={(e) =>
+                    handleKeyDown(e, e.target.value, emailRef)
+                  }
+                  
                 />
                 <ErrorMessage
                   name="fullName"
@@ -176,7 +190,18 @@ const ContactForm = () => {
                 <label htmlFor="email" className="formLable">
                   Email <Asterisk className="text-red-500 inline-block align-super" size={10} />
                 </label>
-                <Field type="email" id="email" disabled={isEmailVerified} name="email" className="formInput " placeholder="e.g., jane.doe@example.com" />
+                <Field 
+                  type="email" 
+                  id="email" 
+                  disabled={isEmailVerified} 
+                  name="email" 
+                  className="formInput " 
+                  placeholder="e.g., jane.doe@example.com"
+                  innerRef={emailRef}
+                  onKeyDown={(e) =>
+                    handleKeyDown(e, e.target.value, messageRef)
+                  }
+                />
                 <ErrorMessage name="email" component="div" className="formError" />
                 <div className="mt-2 absolute -top-2 right-0">
                   {!isEmailVerified && values.email && (
@@ -213,6 +238,7 @@ const ContactForm = () => {
                   className="formInput"
                   placeholder="Tell me a bit about your project or how I can help…"
                   rows="5"
+                  innerRef={messageRef}
                 />
                 <ErrorMessage
                   name="message"
