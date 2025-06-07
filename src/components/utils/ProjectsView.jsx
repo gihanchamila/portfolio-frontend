@@ -150,9 +150,14 @@ const ProjectsView = () => {
                   </Button>
                 </>
               ) : (
+                <>
+                <Label id={project.id} link={"/project"}>
+                  More information
+                </Label>
                 <Label link={project.githubUrl}>
                   Github repo
                 </Label>
+                </>
               )}
             </div>
           </li>

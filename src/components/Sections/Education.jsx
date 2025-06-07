@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import axios from "../../axios/axios";
 
 const educationData = [
   {
@@ -34,9 +35,25 @@ const cardVariants = {
   },
 };
 
-export const Label = ({children, link}) => {
+export const Label = ({children, link, id}) => {
   const navigate = useNavigate();
 
+  const projectView = useCallback(async() => {
+    try{
+      const response = await axios.get(`/project/get-project/${id}`)
+      const data = response.data;
+      console.log(data)
+    }catch(error){
+      const response = error.response;
+      const data = response.data;
+      console.log(data)
+    }
+  }, [id])
+
+  useEffect(() => {
+    projectView(id)
+  }, [projectView, id, navigate])
+  
   const handleClick = () => {
     if (!link) return;
     if (link.startsWith("http")) {

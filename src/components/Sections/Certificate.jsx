@@ -6,10 +6,13 @@ import { useToast } from '../../context/ToastContext';
 import { motion, useAnimation, useInView} from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Button from '../utils/Button';
+import { useTransition } from 'react';
+import CircleLoader from '../utils/CircleLoader';
 
 const AnimatedCertificate = ({ certificate, index }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px'});
+
 
   const variants = {
     hidden: { opacity: 0, y: 50, scale: 0.8 },
@@ -46,27 +49,29 @@ const Certificate = () => {
 
   const { toast } = useToast();
   const navigate = useNavigate()
+  const [isPending, startTransition] = useTransition();
 
   const [certificates, setCertificates] = useState([]);
   const [totalCount, setTotalCount] = useState([]);
+  
+  const getCertificateDetails = useCallback(() => {
 
-  // Get certification details
-  const getCertificateDetails = useCallback(async () => {
-    if (certificates.length > 0) return;
+  startTransition(async () => {
+    if(certificates.length === 4) return;
     try {
       const response = await axios.get('/certificate/get-certificates?size=4');
       const data = response.data.data.certifications;
       const total = response.data.data.total;
-      setTotalCount(total)
+      setTotalCount(total);
       setCertificates(data);
-      toast(`${response.data.message}`)
+      toast(`${response.data.message}`);
     } catch (error) {
-      const response = error.response;
-      const data = response.data;
-      toast(`${data.message}`, "error");
-
+      const response = error?.response;
+      const data = response?.data;
+      toast(`${data?.message || "Failed to load certificates"}`, "error");
     }
-  }, [certificates.length, toast]);
+  });
+}, [toast, certificates]);
   
   useEffect(() => {
     getCertificateDetails();
@@ -91,7 +96,7 @@ const Certificate = () => {
       </header>
     
       <div className="sm:grid sm:grid-cols-2 sm:col-span-2 xs:gap-6 xs:flex xs:flex-col">
-        {certificates.length > 0 &&
+        {isPending ? <CircleLoader /> : certificates.length > 0 &&
           certificates.map((cert, index) => (
             <AnimatedCertificate key={cert._id} certificate={cert} index={index} />
           ))}
