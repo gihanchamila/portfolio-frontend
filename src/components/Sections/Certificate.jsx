@@ -6,7 +6,6 @@ import { useToast } from '../../context/ToastContext';
 import { motion, useAnimation, useInView} from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Button from '../utils/Button';
-import { useTransition } from 'react';
 import CircleLoader from '../utils/CircleLoader';
 
 const AnimatedCertificate = ({ certificate, index }) => {
@@ -49,33 +48,28 @@ const Certificate = () => {
 
   const { toast } = useToast();
   const navigate = useNavigate()
-  const [isPending, startTransition] = useTransition();
 
   const [certificates, setCertificates] = useState([]);
   const [totalCount, setTotalCount] = useState([]);
   
-  const getCertificateDetails = useCallback(() => {
+const getCertificateDetails = useCallback(async () => {
+  try {
+    const response = await axios.get('/certificate/get-certificates?size=4');
+    const data = response.data.data.certifications;
+    const total = response.data.data.total;
+    setTotalCount(total);
+    setCertificates(data);
+    toast(`${response.data.message}`);
+  } catch (error) {
+    const response = error?.response;
+    const data = response?.data;
+    toast(`${data?.message || "Failed to load certificates"}`, "error");
+  }
+}, [toast]);
 
-  startTransition(async () => {
-    if(certificates.length === 4) return;
-    try {
-      const response = await axios.get('/certificate/get-certificates?size=4');
-      const data = response.data.data.certifications;
-      const total = response.data.data.total;
-      setTotalCount(total);
-      setCertificates(data);
-      toast(`${response.data.message}`);
-    } catch (error) {
-      const response = error?.response;
-      const data = response?.data;
-      toast(`${data?.message || "Failed to load certificates"}`, "error");
-    }
-  });
-}, [toast, certificates]);
-  
-  useEffect(() => {
-    getCertificateDetails();
-  }, [getCertificateDetails]);
+useEffect(() => {
+  getCertificateDetails();
+}, [getCertificateDetails]);
 
   return (
 
@@ -96,7 +90,7 @@ const Certificate = () => {
       </header>
     
       <div className="sm:grid sm:grid-cols-2 sm:col-span-2 xs:gap-6 xs:flex xs:flex-col">
-        {isPending ? <CircleLoader /> : certificates.length > 0 &&
+        {certificates.length > 0 &&
           certificates.map((cert, index) => (
             <AnimatedCertificate key={cert._id} certificate={cert} index={index} />
           ))}

@@ -7,10 +7,12 @@ import Button from './Button';
 import Pagination from './Pagination';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Label } from '../Sections/Education';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectsView = () => {
   const { admin, setAdmin } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editProject, setEditProject] = useState(null);
@@ -113,10 +115,7 @@ const ProjectsView = () => {
         transition={{ duration: 0.3 }}
         className="divide-y divide-neutral-200 dark:divide-neutral-700 bg-white dark:bg-neutral-800 rounded-lg shadow"
       >
-        {projects.length === 0 && (
-          <li className="py-6 text-center text-gray-500">No projects found</li>
-        )}
-        {projects.map((project) => (
+        {projects.length > 0 && projects.map((project) => (
           <li key={project._id} className="flex items-center justify-between px-6 py-4 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition">
             <span className="font-medium lg:text-lg xs:text:xs sm:text-sm">{project.title}</span>
             <div className="flex gap-2">
@@ -151,7 +150,7 @@ const ProjectsView = () => {
                 </>
               ) : (
                 <>
-                <Label id={project.id} link={"/project"}>
+                <Label link={`/projects/${project._id}`} >
                   More information
                 </Label>
                 <Label link={project.githubUrl}>

@@ -35,25 +35,8 @@ const cardVariants = {
   },
 };
 
-export const Label = ({children, link, id}) => {
+export const Label = ({children, link}) => {
   const navigate = useNavigate();
-
-  const projectView = useCallback(async() => {
-    try{
-      const response = await axios.get(`/project/get-project/${id}`)
-      const data = response.data;
-      console.log(data)
-    }catch(error){
-      const response = error.response;
-      const data = response.data;
-      console.log(data)
-    }
-  }, [id])
-
-  useEffect(() => {
-    projectView(id)
-  }, [projectView, id, navigate])
-  
   const handleClick = () => {
     if (!link) return;
     if (link.startsWith("http")) {
