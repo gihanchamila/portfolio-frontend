@@ -33,6 +33,7 @@ const AnimatedCard = ({ project, imageUrl, index }) => {
         imageUrl={imageUrl}
         github={project.githubUrl}
         live={project.projectUrl}
+        link={`${}`}
       />
     </motion.div>
   );
@@ -67,6 +68,7 @@ const FeaturedProjects =() => {
   useEffect(() => {
     fetchProjects()
   }, [fetchProjects]);
+
 
   const fetchProjectFileUrls = useCallback(async () => {
     try {
