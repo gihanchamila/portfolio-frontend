@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Button from './Button';
 import { useAuth } from '../../context/AuthContext';
 import { Label } from '../Sections/Education';
+import CircleLoader from './CircleLoader';
 
 const CertificatesView = () => {
   const { toast } = useToast();
@@ -18,6 +19,7 @@ const CertificatesView = () => {
   const [pageCount, setPageCount] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editCertificate, setEditCertificate] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const storedAdmin = localStorage.getItem("admin");
@@ -26,11 +28,13 @@ const CertificatesView = () => {
 
   const fetchCertificates = useCallback(async (page = 1) => {
     try {
+      setIsLoading(true)
       const response = await axios.get(`/certificate/get-certificates?page=${page}`);
       const data = response.data.data;
       setCertificates(data.certifications);
       setTotalPage(data.pages);
       setPageCount(Array.from({ length: data.pages }, (_, i) => i + 1));
+      setIsLoading(false)
     } catch (error) {
       const response = error.response;
       const data = response.data;
@@ -80,6 +84,10 @@ const CertificatesView = () => {
       toast(data.message, "error", 3000, 'bottom-right');
     }
   };
+
+  if(isLoading){
+    return <CircleLoader />
+  }
 
   return (
     <div className="container mx-auto pb-20">
