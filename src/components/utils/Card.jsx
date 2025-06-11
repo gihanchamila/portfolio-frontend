@@ -2,19 +2,34 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { profileImage } from "../../assets";
 import AnimatedButton from "./AnimatedButton";
-import { motion} from "motion/react";
+import { motion, useInView} from "motion/react";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
-const ProjectCard = ({ projectName, description, imageUrl, github, live, link }) => {
+const ProjectCard = ({ projectName, description, imageUrl, github, live, projectId, index }) => {
   const defaultImage = profileImage;
-  const navigate = useNavigate();
+  const navigate = useNavigate();const ref = useRef(null);
+  const isInView = useInView(ref, {once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px'});
 
-  const handleNavigate = (link) => {
-    navigate(`${link}`)
-  }
+  const variants = {
+    hidden: { opacity: 0, y: 50 + index * 25},
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: index * 0.1, duration: 0.5, ease: 'easeOut' },
+    },
+  };
  
   return (
-    <motion.div className="lg:w-[25rem] lg:h-[30rem] sm:w-auto sm:h-[30rem] xs:h-[20rem] bg-white border border-gray-300 dark:border-none rounded-2xl relative overflow-hidden group">
+    <motion.div 
+      className="lg:w-[25rem] lg:h-[30rem] sm:w-auto sm:h-[30rem] xs:h-[20rem] bg-white border border-gray-300 dark:border-none rounded-2xl relative overflow-hidden group"
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={variants}
+      viewport={{once : true}}
+      
+    >
       <motion.div 
         whileHover={{ scale: 1.1 }} 
         whileTap={{ scale: 1.1 }}
@@ -32,7 +47,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, link })
       </motion.div>
 
       <div className="absolute bottom-0 p-4 text-white w-full flex flex-col sm:space-y-3 xs:space-y-2">
-        <h2 className="cardTitle drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]" onClick={handleNavigate(link)}>{projectName}</h2>
+        <h2 className="cardTitle drop-shadow-[0_0_10px_rgba(255,255,255,0.9)] cursor-pointer" onClick={() => {navigate(`/project/get-project/${projectId}`)}}>{projectName}</h2>
         <p className="cardSubTitle">{description}</p>
         <AnimatedButton live={live} github={github} />
       </div>

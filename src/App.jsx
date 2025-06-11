@@ -15,7 +15,7 @@ const DashBoard = lazy(() => import("./components/DashBoard"));
 
 function App() {
   return (
-      <Router>
+     <Router>
         <AuthProvider>
           <AnimatedSuspenseWrapper fallback={<CircleLoader />}>
             <Routes>
@@ -23,7 +23,7 @@ function App() {
                 <Route index element={<LandingPage />} />
                 <Route path="certificates" element={<CertificatesView />} />
                 <Route path="projects" element={<ProjectsView />} />
-                <Route path="projects/:id" element={<Project />} />
+                <Route path="project/get-project/:id" element={<Project />} />
               </Route>
               <Route path="/admin" element={<PrivateLayout />}>
                 <Route index element={<Login />} />

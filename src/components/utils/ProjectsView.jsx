@@ -150,7 +150,7 @@ const ProjectsView = () => {
                 </>
               ) : (
                 <>
-                <Label link={`/projects/${project._id}`} >
+                <Label link={`/project/get-project/${project._id}`} >
                   More information
                 </Label>
                 <Label link={project.githubUrl}>
