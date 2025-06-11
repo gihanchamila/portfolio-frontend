@@ -33,16 +33,21 @@ const Project = () => {
         console.log(projectData)
         setProject(projectData);
 
-        if (projectData.file) {
-          const urls = await Promise(
-            projectData.file.map(async (file) => {
-              if (!file.key) return null;
-              const res = await axios.get(`/file/signed-url?key=${file.key}`);
-              return res.data.data.url;
-            })
-          );
-          setImageUrls(urls.filter(Boolean));
-        }
+        if (projectData.images && projectData.images.length > 0) {
+          try {
+            const urls = await Promise.all(
+              projectData.images.map(async (image) => {
+                if (!image.key) return null;
+                const res = await axios.get(`/file/signed-url?key=${image.key}`);
+                return res.data.data.url;
+              })
+            );
+            setImageUrls(urls.filter(Boolean));
+          } catch (err) {
+            console.error("Error fetching image URLs", err);
+            toast("Failed to load project images", "error");
+          }
+      }
       } catch (error) {
         const errorMessage = error.response?.data?.message || "Failed to fetch project details.";
         toast(errorMessage, 'error');

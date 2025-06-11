@@ -47,59 +47,85 @@ const ProjectsView = () => {
     fetchProjects(currentPage);
   }, [fetchProjects, currentPage]);
 
-  const handleUpdateProject = async (values, { setSubmitting, setFieldError }) => {
-    let uploadedFileId = null;
+  const handleUpdateProject = async (values, { setSubmitting }) => {
+    let newlyUploadedIds = [];
     try {
-      let fileId = values.file;
+        setSubmitting(true);
 
-      if (values.file && values.file instanceof File) {
-        const formData = new FormData();
-        formData.append("image", values.file);
-
-        const uploadRes = await axios.post("/file/upload", formData, {
-          headers: { "Content-Type": "multipart/form-data" }
-        });
-
-        if (uploadRes.data && uploadRes.data.data && uploadRes.data.data.id) {
-          fileId = uploadRes.data.data.id;
-          uploadedFileId = fileId;
-        } else {
-          setFieldError("file", "File upload failed");
-          setSubmitting(false);
-          return;
+        const filesToUpload = [];
+        // Check if the main 'file' is a new upload
+        if (values.file instanceof File) {
+            // CORRECTED: Changed type to 'file' for consistency
+            filesToUpload.push({ type: 'file', file: values.file });
         }
-      }
-      const data = {
-        title: values.title,
-        subtitle: values.subtitle,
-        description: values.description,
-        projectUrl: values.projectUrl,
-        githubUrl: values.githubUrl,
-        file: fileId,
-      };
+        // Check which of the additional 'images' are new uploads
+        if (values.images && values.images.length > 0) {
+            values.images.forEach(img => {
+                if (img instanceof File) {
+                    filesToUpload.push({ type: 'image', file: img });
+                }
+            });
+        }
+        
+        // CORRECTED: Renamed 'newCoverPhotoId' to 'newFileId'
+        let newFileId = values.file; // Default to existing ID string
+        const finalImageIds = values.images || [];
 
-      const response = await axios.put(
-        `/project/update-project/${editProject._id}`,
-        data
-      );
+        if (filesToUpload.length > 0) {
+            const uploadPromises = filesToUpload.map(item => {
+                const formData = new FormData();
+                formData.append('image', item.file);
+                return axios.post('/file/upload', formData);
+            });
 
-      toast(response.data.message, "success", 3000, "bottom-right");
-      setShowForm(false);
-      setEditProject(null);
-      fetchProjects();
+            const uploadResponses = await Promise.all(uploadPromises);
+            newlyUploadedIds = uploadResponses.map(res => res.data.data.id);
+            
+            filesToUpload.forEach((item, index) => {
+                const newId = newlyUploadedIds[index];
+                // CORRECTED: Check for 'file' type and assign to 'newFileId'
+                if (item.type === 'file') {
+                    newFileId = newId;
+                } else {
+                    const originalFileIndex = values.images.findIndex(img => img === item.file);
+                    finalImageIds[originalFileIndex] = newId;
+                }
+            });
+        }
+
+        const projectPayload = {
+            title: values.title,
+            subtitle: values.subtitle,
+            description: values.description,
+            projectUrl: values.projectUrl,
+            githubUrl: values.githubUrl,
+            techStack: values.techStack,
+            // CORRECTED: Use 'newFileId' for the 'file' field
+            file: newFileId,
+            images: finalImageIds,
+        };
+
+        const response = await axios.put(`/project/update-project/${editProject._id}`, projectPayload);
+        
+        toast(response.data.message, "success");
+        setShowForm(false);
+        setEditProject(null);
+        fetchProjects(currentPage);
+
     } catch (error) {
-      if (uploadedFileId) {
-        try {
-          await axios.delete(`/file/delete/${uploadedFileId}`);
-        } catch (deleteError) {
-          console.error("Rollback file delete failed", deleteError);
+        if (newlyUploadedIds.length > 0) {
+            // This rollback logic is still valid
+            console.error("Project update failed. Rolling back uploaded files...");
+            // Make sure you have the 'delete-by-id/:id' endpoint from the previous step
+            const deletePromises = newlyUploadedIds.map(id => axios.delete(`/file/delete-by-id/${id}`));
+            await Promise.all(deletePromises);
+            toast("Update failed. Uploaded files were rolled back.", "error");
+        } else {
+            toast(error?.response?.data?.message || "Update failed", "error");
         }
-      }
-      const response = error.response;
-      const data = response?.data;
-      toast(data?.message || "Update failed", "error", 3000, "bottom-right");
+        console.error("Update Error:", error?.response?.data || error);
     } finally {
-      setSubmitting(false);
+        setSubmitting(false);
     }
   };
 
@@ -170,28 +196,30 @@ const ProjectsView = () => {
       onPageChange={setCurrentPage}
     />
     {showForm && editProject && (
-      <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-        <div className="bg-white dark:bg-neutral-900 rounded-lg p-8 w-full max-w-lg shadow-lg relative">
-          <h2 className="text-xl font-bold mb-4">Update Project</h2>
-          <ProjectForm
-            onSubmit={handleUpdateProject}
-            onCancel={() => {
-              setShowForm(false);
-              setEditProject(null);
-            }}
-            initialValues={{
-              title: editProject.title || "",
-              subtitle: editProject.subtitle || "",
-              description: editProject.description || "",
-              projectUrl: editProject.projectUrl || "",
-              githubUrl: editProject.githubUrl || "",
-              file: editProject.file || null, 
-            }}
-            isUpdate
-          />
-        </div>
-      </div>
-    )}
+  <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 overflow-y-auto">
+    <div className="bg-white dark:bg-neutral-900 rounded-lg p-8 w-full max-w-5xl shadow-lg relative my-10 max-h-[90vh] overflow-y-auto">
+      <h2 className="text-xl font-bold mb-4">Update Project</h2>
+      <ProjectForm
+        onSubmit={handleUpdateProject}
+        onCancel={() => {
+          setShowForm(false);
+          setEditProject(null);
+        }}
+        initialValues={{
+          title: editProject.title || "",
+          subtitle: editProject.subtitle || "",
+          description: editProject.description || "",
+          projectUrl: editProject.projectUrl || "",
+          githubUrl: editProject.githubUrl || "",
+          techStack: editProject.techStack ? editProject.techStack.join(", ") : "",
+          file: editProject.file,
+          images: editProject.images || [],
+        }}
+        isUpdate
+      />
+    </div>
+  </div>
+)}
   </div>
   );
 };
