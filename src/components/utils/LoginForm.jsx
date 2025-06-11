@@ -8,7 +8,6 @@ import { useAuth } from '../../context/AuthContext'
 import axios from '../../axios/axios'
 import * as Yup from 'yup'
 import Button from './Button'
-import { p } from 'motion/react-client'
 
 const LoginForm = () => {
 

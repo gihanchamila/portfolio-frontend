@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Button from "./Button";
+import DOMPurify from 'dompurify'
 
 // --- MODIFICATION 1: Update Validation Schema ---
 const validationSchema = Yup.object({
@@ -32,20 +33,31 @@ const ProjectForm = ({ onSubmit, onCancel, initialValues, isUpdate }) => (
       description: "",
       projectUrl: "",
       githubUrl: "",
-      // --- MODIFICATION 2: Update Initial Values ---
       techStack: initialValues?.techStack ? initialValues.techStack.join(", ") : "",
-      file: null, // For the cover photo
-      images: [], // For the additional images
+      file: null,
+      images: [],
     }}
     validationSchema={validationSchema}
     onSubmit={(values, helpers) => {
-      // Split the techStack string into an array before submitting
+      const sanitizedValues = Object.fromEntries(
+        Object.entries(values).map(([key, value]) => {
+          if (typeof value === 'string') {
+            return [key, DOMPurify.sanitize(value)];
+          }
+          return [key, value];
+        })
+      );
+
       const finalValues = {
-        ...values,
-        techStack: values.techStack ? values.techStack.split(',').map(item => item.trim()) : []
+        ...sanitizedValues,
+        techStack: sanitizedValues.techStack
+          ? sanitizedValues.techStack.split(',').map(item => DOMPurify.sanitize(item.trim()))
+          : []
       };
+
       onSubmit(finalValues, helpers);
     }}
+
   >
     {({ setFieldValue, isSubmitting }) => (
       <Form className="space-y-4">
