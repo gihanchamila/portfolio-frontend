@@ -100,9 +100,9 @@ const Project = () => {
             {project.description || 'No description provided.'}
           </p>
           
-          {project.tags && project.tags.length > 0 && (
+          {project.techStack && project.techStack.length > 0 && (
             <div className="mt-6 flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
+              {project.techStack.map((tag) => (
                 <span key={tag} className="px-3 py-1 text-sm font-medium bg-sky-100 text-sky-800 dark:bg-sky-900/50 dark:text-sky-300 rounded-full">
                   {tag}
                 </span>
