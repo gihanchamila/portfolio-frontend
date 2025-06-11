@@ -27,6 +27,8 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={variants}
+      whileTap={{scale : 0.98, rotate: -0.2,}}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
       viewport={{once : true}}
       
     >
