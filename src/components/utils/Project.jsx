@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
+import CircleLoader from '../utils/CircleLoader'
 
 import AnimatedButton from './AnimatedButton';
 import ImageCarousel from './ImageCarousel';
@@ -59,8 +60,10 @@ const Project = () => {
     fetchProjectData();
   }, [projectID, toast]);
 
+  if (isLoading){
+    return <CircleLoader />
+  }
 
-  // Render a message if the project could not be loaded
   if (!project) {
     return (
       <div className="flex flex-col items-center justify-center h-96 text-center">
@@ -74,6 +77,8 @@ const Project = () => {
       </div>
     );
   }
+
+  
 
   return (
     <motion.div
