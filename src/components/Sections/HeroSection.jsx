@@ -45,11 +45,6 @@ export const HoverReveal = () => {
 
 const HeroSection = () => {
   const [cursorVisible, setCursorVisible] = useState(false);
-  const navigate = useNavigate()
-
-  const handleNavigate = () => {
-    navigate("#projects")
-  }
 
   return (
     <div className="relative">
@@ -79,10 +74,12 @@ const HeroSection = () => {
 
           <div className="xs:col-span-4 xs:col-start-1 xs:col-end-5 xs:flex xs:justify-center lg:block lg:col-span-6 lg:col-start-9 lg:col-end-13 xs:mt-5 cursor-none">
             <img
+              role='image'
+              tabIndex="0"
               src={profileImage}
               onMouseEnter={() => setCursorVisible(true)}
               onMouseLeave={() => setCursorVisible(false)}
-              alt="Hero Section Illustration"
+              alt="A personal headshot of Gihan Chamila, the developer."
               className="w-[200px] h-[200px] lg:w-[400px] lg:h-[400px] rounded-full"
             />
           </div>
