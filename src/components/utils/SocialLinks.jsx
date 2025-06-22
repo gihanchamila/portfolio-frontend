@@ -1,9 +1,25 @@
 import { motion } from "framer-motion"; // Note: It's "framer-motion", not "motion/react"
+import { Github, Linkedin, Instagram } from "lucide-react";
 
-const SocialLinks = ({ links, variant }) => {
+const socialLinks = [
+    {
+      icon: <Github className="footerIconSize" />,
+      to: "https://github.com/gihanchamila",
+    },
+    {
+      icon: <Linkedin className="footerIconSize" />,
+      to: "https://www.linkedin.com/in/algihanchamila",
+    },
+    {
+      icon: <Instagram className="footerIconSize" />,
+      to: "https://www.instagram.com/zander_xz",
+    },
+  ];
+
+const SocialLinks = ({variant }) => {
   return (
     <motion.div className="flex gap-4 mt-2" variants={variant}>
-      {links.map((link, index) => (
+      {socialLinks.map((link, index) => (
         <motion.a
           key={index}
           href={link.to}

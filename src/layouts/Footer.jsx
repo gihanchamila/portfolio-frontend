@@ -1,5 +1,5 @@
 import GridContainer from "../components/GridContainer";
-import { Github, Linkedin, Instagram } from "lucide-react";
+
 import { motion } from "framer-motion"; // corrected here too
 import SocialLinks from "../components/utils/SocialLinks";
 
@@ -22,21 +22,6 @@ const Footer = () => {
     },
   };
 
-  const socialLinks = [
-    {
-      icon: <Github className="footerIconSize" />,
-      to: "https://github.com/gihanchamila",
-    },
-    {
-      icon: <Linkedin className="footerIconSize" />,
-      to: "https://www.linkedin.com/in/algihanchamila",
-    },
-    {
-      icon: <Instagram className="footerIconSize" />,
-      to: "https://www.instagram.com/zander_xz",
-    },
-  ];
-
   return (
     <GridContainer>
       <motion.footer
@@ -52,7 +37,7 @@ const Footer = () => {
         <motion.p className="xs:text-xs" variants={childVariant}>
           algihanchamila@gmail.com
         </motion.p>
-        <SocialLinks links={socialLinks} variant={childVariant} />
+        <SocialLinks variant={childVariant} />
       </motion.footer>
     </GridContainer>
   );
