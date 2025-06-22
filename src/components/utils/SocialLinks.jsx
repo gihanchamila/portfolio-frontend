@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"; // Note: It's "framer-motion", not "motion/react"
-import { Github, Linkedin, Instagram } from "lucide-react";
+import { Github, Linkedin, Instagram, } from "lucide-react";
 
 const socialLinks = [
     {
