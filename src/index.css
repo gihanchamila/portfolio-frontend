@@ -18,6 +18,7 @@
 }
 
 @layer base {
+
     html {
         @apply bg-white dark:bg-surface ;
     }
@@ -33,6 +34,7 @@
     a {
         @apply text-gray-800 dark:text-gray-200;
     }
+    
 }
 
 ::-webkit-scrollbar {

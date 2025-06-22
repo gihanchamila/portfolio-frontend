@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import CustomCursor from "../utils/CustomCursor";
+import GlareHover from "../utils/GlareHover";
 
 const skills = [
   "JavaScript", "TypeScript", "Python", "Java", "HTML", "CSS", "Tailwind", "Bootstrap",
@@ -24,12 +24,9 @@ const skillVariants = {
 };
 
 const MySkill = ({ skillsList = skills }) => {
-  const [cursorVisible, setCursorVisible] = useState(false);
-  const [cursorText, setCursorText] = useState("");
 
   return (
     <>
-      <CustomCursor show={cursorVisible} text={cursorText} />
       <motion.h2
         className="sm:text-4xl xs:text-3xl font-bold font-primary pb-8"
         initial={{ opacity: 0, y: 20 }}
@@ -47,27 +44,28 @@ const MySkill = ({ skillsList = skills }) => {
         viewport={{ once: true, amount: 0.2 }}
       >
         {skillsList.map((skill) => (
-          <motion.div
-            key={skill}
-            variants={skillVariants}
-            className={`rounded-xl px-5 py-2 text-sm font-semibold 
-              border border-gray-300 dark:border-gray-600
-              bg-white dark:bg-transparent dark:inset-52
-              text-gray-900 dark:text-gray-100
-              transition-colors duration-300
-              xs:text-xs sm:text-base lg:text-lg
-            `}
-            onMouseEnter={() => {
-              setCursorVisible(true);
-              setCursorText(skill);
-            }}
-            onMouseLeave={() => {
-              setCursorVisible(false);
-              setCursorText("");
-            }}
+          <GlareHover
+              glareColor="#ffffff"
+              glareOpacity={0.3}
+              glareAngle={-30}
+              glareSize={300}
+              transitionDuration={800}
+              playOnce={false}
           >
-            {skill}
-          </motion.div>
+            <motion.div
+              key={skill}
+              variants={skillVariants}
+              className={`rounded-xl px-5 py-2 text-sm font-semibold 
+                border border-gray-300 dark:border-gray-600
+                bg-white dark:bg-transparent dark:inset-52
+                text-gray-900 dark:text-gray-100
+                transition-colors duration-300
+                xs:text-xs sm:text-base lg:text-lg z-50
+              `}
+            >
+                {skill}
+            </motion.div>
+          </GlareHover>
         ))}
       </motion.div>
     </>

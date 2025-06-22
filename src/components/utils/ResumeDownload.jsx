@@ -34,7 +34,7 @@ const ResumeDownload = () => {
         {showPopUp && 
             <>
                 <Popup isOpen={showPopUp} onClose={handlePopUp}>
-                    <h2 className="cardTitle drop-shadow-none pb-5">Enter Your Email to Receive the Resume Link</h2>
+                    <h2 className="cardTitle drop-shadow-none pb-5">Enter your email to receive the resume link</h2>
                     <Formik 
                         initialValues={{email : ""}}
                         validationSchema={validationSchema}

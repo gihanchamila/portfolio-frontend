@@ -4,10 +4,14 @@ import CertificateCard from '../utils/CertificateCard';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
 import { motion, useAnimation, useInView} from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import Button from '../utils/Button';
+import CircleLoader from '../utils/CircleLoader';
 
 const AnimatedCertificate = ({ certificate, index }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px'});
+
 
   const variants = {
     hidden: { opacity: 0, y: 50, scale: 0.8 },
@@ -43,31 +47,29 @@ const AnimatedCertificate = ({ certificate, index }) => {
 const Certificate = () => {
 
   const { toast } = useToast();
+  const navigate = useNavigate()
 
   const [certificates, setCertificates] = useState([]);
   const [totalCount, setTotalCount] = useState([]);
-
-  // Get certification details
-  const getCertificateDetails = useCallback(async () => {
-    if (certificates.length > 0) return;
-    try {
-      const response = await axios.get('/certificate/get-certificates?size=4');
-      const data = response.data.data.certifications;
-      const total = response.data.data.total;
-      setTotalCount(total)
-      setCertificates(data);
-      toast(`${response.data.message}`)
-    } catch (error) {
-      const response = error.response;
-      const data = response.data;
-      toast(`${data.message}`, "error");
-
-    }
-  }, [certificates.length, toast]);
   
-  useEffect(() => {
-    getCertificateDetails();
-  }, [getCertificateDetails]);
+const getCertificateDetails = useCallback(async () => {
+  try {
+    const response = await axios.get('/certificate/get-certificates?size=4');
+    const data = response.data.data.certifications;
+    const total = response.data.data.total;
+    setTotalCount(total);
+    setCertificates(data);
+    toast(`${response.data.message}`);
+  } catch (error) {
+    const response = error?.response;
+    const data = response?.data;
+    toast(`${data?.message || "Failed to load certificates"}`, "error");
+  }
+}, [toast]);
+
+useEffect(() => {
+  getCertificateDetails();
+}, [getCertificateDetails]);
 
   return (
 
@@ -92,7 +94,7 @@ const Certificate = () => {
           certificates.map((cert, index) => (
             <AnimatedCertificate key={cert._id} certificate={cert} index={index} />
           ))}
-        {totalCount > 4 && <div>Show more</div>}
+        {totalCount > 3 && <span className='cursor-pointer' onClick={() => navigate("certificates")}>Show more</span>}
       </div>
     </section>
   );

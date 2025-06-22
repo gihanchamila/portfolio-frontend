@@ -33,41 +33,72 @@ const DashBoard = () => {
       onSecondaryClick: () => navigate('/admin/projects'),
       popupContent: (
         <ProjectForm
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
-              let fileId = null;
+            setSubmitting(true);
 
-              if (values.file) {
-                const formData = new FormData();
-                formData.append('image', values.file);
-                const fileResponse = await axios.post("/file/upload", formData);
-                fileId = fileResponse.data.data.id;
-                toast(fileResponse.message, "success", 3000, "bottom-right");
-              }
+            // --- STEP 1: UPLOAD ALL FILES IN PARALLEL ---
+            // This is the key to high performance. We upload the cover photo
+            // and all additional images at the same time.
 
-              const projectPayload = {
-                title: values.title,
-                subtitle: values.subtitle,
-                description: values.description,
-                projectUrl: values.projectUrl,
-                githubUrl: values.githubUrl,
-                file: fileId
-              };
+            const allFilesToUpload = [];
+            // Add the cover photo file first. It's guaranteed to exist by Yup validation.
+            allFilesToUpload.push(values.file);
 
-              const response = await axios.post("/project/create-project", projectPayload);
-              const data = response.data;
-              toast(data.message, "success", 3000, "bottom-right");
-              console.log("Project Added:", response.data);
-              resetForm();
-              setPopup(null);
-            } catch (error) {
-              console.error("Submission Error:", error?.response?.data || error.message);
-            } finally {
-              setSubmitting(false);
+            // Add the additional image files, if any exist.
+            if (values.images && values.images.length > 0) {
+              allFilesToUpload.push(...values.images);
             }
-          }}
-          onCancel={() => setPopup(null)}
-        />
+            
+            // Create an array of upload promises.
+            const uploadPromises = allFilesToUpload.map(fileToUpload => {
+              const formData = new FormData();
+              // IMPORTANT: The key 'file' must match what your backend Multer is expecting.
+              // In your FileController, you use `req.file`, so this is likely correct.
+              formData.append('image', fileToUpload);
+              return axios.post("/file/upload", formData);
+            });
+
+            // Execute all upload promises at the same time.
+            const uploadResponses = await Promise.all(uploadPromises);
+
+            // Extract the file IDs from the responses.
+            const allFileIds = uploadResponses.map(response => response.data.data.id);
+
+            // The first ID belongs to the cover photo because we added it first.
+            const coverPhotoId = allFileIds[0];
+            // The rest of the IDs belong to the additional images.
+            const imageIds = allFileIds.slice(1);
+
+            // --- STEP 2: CREATE THE PROJECT WITH ALL DATA ---
+            // This payload now includes everything: techStack, cover photo ID, and image IDs.
+            const projectPayload = {
+              title: values.title,
+              subtitle: values.subtitle,
+              description: values.description,
+              techStack: values.techStack, // Formik has already converted this to an array
+              projectUrl: values.projectUrl || null,
+              githubUrl: values.githubUrl,
+              file: coverPhotoId, // The ID of the cover photo
+              images: imageIds    // The array of IDs for the other images
+            };
+
+            const response = await axios.post("/project/create-project", projectPayload);
+            
+            toast(response.data.message || "Project created successfully!", "success");
+            console.log("Project Added:", response.data);
+            resetForm();
+            setPopup(null);
+
+          } catch (error) {
+            console.error("Submission Error:", error?.response?.data || error.message);
+            toast(error?.response?.data?.message || "An error occurred.", "error");
+          } finally {
+            setSubmitting(false);
+          }
+        }}
+        onCancel={() => setPopup(null)}
+      />
       ),
     },
     {

@@ -1,67 +1,37 @@
 import React, {useCallback, useEffect, useRef, useState } from 'react';
-import { motion, useAnimation, useInView} from 'framer-motion';
 import ProjectCard from '../utils/Card';
 import SectionLabel from '../utils/SectionLabel';
 import { Sparkle } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 import axios from "../../axios/axios.js"
-
-const AnimatedCard = ({ project, imageUrl, index }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, {once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px'});
-
-  const variants = {
-    hidden: { opacity: 0, y: 50 + index * 25},
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { delay: index * 0.1, duration: 0.5, ease: 'easeOut' },
-    },
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={variants}
-    >
-      <ProjectCard
-        projectName={project.title}
-        description={project.description}
-        imageUrl={imageUrl}
-        github={project.githubUrl}
-        live={project.projectUrl}
-      />
-    </motion.div>
-  );
-};
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'motion/react';
 
 const FeaturedProjects =() => {
   const ref = useRef(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [projectFiles, setProjectFiles] = useState({})
-  const [totalCount, setTotalCount] = useState([null])
+  const [totalCount, setTotalCount] = useState(null)
+  const [hasFetched, setHasFetched] = useState(false);
 
-  // fetch project details
   const fetchProjects = useCallback(async () => {
-    if (projects.length > 0) return;
-    try {
-      const response = await axios.get("/project/get-projects?size=3");
-      const data = response.data.data.projects;
-      const total= response.data.data.total;
-      setTotalCount(total);
-      setProjects(data);
-      toast(`${response.data.message}`)
-    } catch (error) {
-      const response = error.response;
-      const data = response.data;
-      toast(`${data.message}`, "error");
-    }
-  }, [projects.length, toast]); 
+  if (hasFetched) return;
+  try {
+    const response = await axios.get("/project/get-projects?size=3");
+    const data = response.data.data.projects;
+    const total = response.data.data.total;
+    setTotalCount(total);
+    setProjects(data);
+    setHasFetched(true);
+    toast(`${response.data.message}`);
+  } catch (error) {
+    const data = error.response?.data || {};
+    toast(data.message || "Something went wrong", "error");
+  }
+}, [hasFetched, toast]); 
 
-  // Handling side effects
   useEffect(() => {
     fetchProjects()
   }, [fetchProjects]);
@@ -80,7 +50,7 @@ const FeaturedProjects =() => {
             fileUrl: response.data.data.url,
           };
         })
-      );
+      )
       const fileUrlMap = fileUrls.reduce((acc, item) => {
         acc[item.id] = item.fileUrl;
         return acc;
@@ -118,22 +88,23 @@ return (
       </motion.h2>
     </header>
 
-    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm">
+    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xs:gap-6 ">
       {projects.map((project, index) => (
-        <AnimatedCard
-          key={project._id}
-          project={project}
-          imageUrl={projectFiles[project._id]}
-          index={index}
-        />
+          <ProjectCard
+              key={project._id}
+              projectName={project.title}
+              description={project.description}
+              github={project.githubUrl}
+              live={project.projectUrl}
+              imageUrl={projectFiles[project._id]}
+              projectId={project._id}
+              index={index}
+          />
       ))}
+      {totalCount > 3 && <span className='cursor-pointer' onClick={() => navigate("projects")}>Show more</span>}
     </div>
 
-    {totalCount > 3 && (
-      <div className="pt-6">
-        Show more
-      </div>
-    )}
+    
   </section>
 );
 };

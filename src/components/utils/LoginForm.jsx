@@ -8,7 +8,6 @@ import { useAuth } from '../../context/AuthContext'
 import axios from '../../axios/axios'
 import * as Yup from 'yup'
 import Button from './Button'
-import { p } from 'motion/react-client'
 
 const LoginForm = () => {
 
@@ -41,7 +40,7 @@ const LoginForm = () => {
 
 
   return (
-    <div className='dark:lg:bg-on-background lg:py-12 lg:px-10  rounded-2xl mb-4 lg:w-1/3 xs:w-full xs:p-4'>
+    <div className='dark:lg:bg-transparent lg:py-12 lg:px-10 border border-gray-300 dark:border-neutral-300 rounded-2xl mb-4 lg:w-1/3 xs:w-full xs:p-4'>
         <Formik
             initialValues={{
                 email: '',

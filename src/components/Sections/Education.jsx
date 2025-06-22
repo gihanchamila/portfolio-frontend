@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import axios from "../../axios/axios";
 
 const educationData = [
   {
@@ -16,6 +18,12 @@ const educationData = [
     degree: "Diploma in Information Technology",
     location: "Matara Center, Sri Lanka",
   },
+  {
+    institute: "Mahinda Rajapaksa college",
+    year: "2018 - 2020",
+    degree: "Physical Stream",
+    location: "Matara, Sri Lanka",
+  },
 ];
 
 const cardVariants = {
@@ -25,6 +33,31 @@ const cardVariants = {
     y: 0,
     transition: { type: "spring", bounce: 0.3, duration: 0.9 },
   },
+};
+
+export const Label = ({children, link}) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (!link) return;
+    if (link.startsWith("http")) {
+      window.open(link, "_blank");
+    } else {
+      navigate(link);
+    }
+  };
+
+  return(
+  <span
+      className="inline-block px-2 py-1 rounded text-xs font-semibold cursor-pointer"
+      style={{
+        background: "color-mix(in srgb, var(--color-primary) 15%, transparent)",
+        color: "var(--color-primary)",
+      }}
+      onClick={handleClick}
+    >
+      {children}
+    </span>
+  )
 };
 
 const EducationCard = ({ edu, index }) => (
@@ -55,25 +88,23 @@ const EducationCard = ({ edu, index }) => (
       </span>
     </div>
     <div className="flex flex-col sm:flex-row sm:justify-between items-start gap-2">
-      <span
-        className="text-sm font-semibold"
-      >
-        {edu.degree}
-      </span>
+      {edu.degree && (
+        <span
+          className="text-sm font-semibold"
+        >
+          {edu.degree}
+        </span>
+      )}
       <span className="text-xs text-neutral-400 dark:text-neutral-500">
         {edu.location}
       </span>
     </div>
     <div className="flex items-center gap-2">
-      <span
-        className="inline-block px-2 py-1 rounded text-xs font-semibold"
-        style={{
-          background: "color-mix(in srgb, var(--color-primary) 15%, transparent)",
-          color: "var(--color-primary)",
-        }}
-      >
-        {edu.grade}
-      </span>
+      {edu.grade && (
+        <Label>
+          {edu.grade}
+        </Label>
+      )}
     </div>
     {edu.highlights && (
       <ul className="mt-2 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
