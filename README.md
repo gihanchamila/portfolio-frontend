@@ -109,21 +109,6 @@ Your portfolio website is a full stack application, with the frontend built usin
 
 ---
 
-## **Contributing**
-
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Commit your changes with clear messages.
-4. Open a pull request describing your changes.
-
----
-
-## **License**
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
 ## **Contact**
 
 For questions or support, please open an issue in the relevant repository.
