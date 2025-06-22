@@ -10,10 +10,8 @@ const validationSchema = Yup.object({
   subtitle: Yup.string().required("Subtitle is required"),
   description: Yup.string().required("Description is required"),
   projectUrl: Yup.string()
-    .required("ProjectUrl is required")
-    .url("Invalid project URL"),
-  githubUrl: Yup.string()
-    .required("GithubUrl is required")
+    .url("Invalid URL").nullable(),
+    githubUrl: Yup.string()
     .url("Invalid GitHub URL")
     .matches(/^https:\/\/github\.com\//, "GitHub URL must start with 'https://github.com/'"),
   techStack: Yup.string(), // Tech stack is optional

@@ -77,7 +77,7 @@ const DashBoard = () => {
               subtitle: values.subtitle,
               description: values.description,
               techStack: values.techStack, // Formik has already converted this to an array
-              projectUrl: values.projectUrl,
+              projectUrl: values.projectUrl || null,
               githubUrl: values.githubUrl,
               file: coverPhotoId, // The ID of the cover photo
               images: imageIds    // The array of IDs for the other images
