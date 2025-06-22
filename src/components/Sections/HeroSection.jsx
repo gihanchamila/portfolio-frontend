@@ -7,6 +7,7 @@ import { motion } from 'motion/react';
 import CustomCursor from '../utils/CustomCursor';
 import Button from '../utils/Button';
 import { useNavigate } from 'react-router-dom';
+import SocialLinks from '../utils/SocialLinks';
 
 
 export const HoverReveal = () => {
@@ -69,6 +70,7 @@ const HeroSection = () => {
                 <span className="text-purple-500 dark:text-purple-300"> efficient</span>, and
                 <span className="text-orange-500 dark:text-red-300"> user-friendly</span> web applications.
               </h2>
+              <SocialLinks />
             </div>
           </div>
 
