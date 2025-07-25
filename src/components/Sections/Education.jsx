@@ -130,7 +130,7 @@ const Education = () => {
         transition-colors duration-300
         bg-transparent
         text-left
-        scroll-mt-14
+        scroll-mt-16
         pb-12
       `}
       id="education"
