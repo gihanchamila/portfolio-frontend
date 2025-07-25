@@ -22,7 +22,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
  
   return (
     <motion.div 
-      className="lg:w-[25rem] lg:h-[30rem] sm:w-auto sm:h-[30rem] xs:h-[20rem] bg-white border border-gray-300 dark:border-none rounded-2xl relative overflow-hidden group"
+      className="lg:w-[25rem] lg:h-[30rem] sm:w-auto sm:h-[30rem] xs:h-[25rem] bg-white border border-gray-300 dark:border-none rounded-2xl relative overflow-hidden group"
       ref={ref}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
