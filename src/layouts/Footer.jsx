@@ -14,12 +14,8 @@ const Footer = () => {
   };
 
   const childVariant = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { ease: "easeInOut" } },
   };
 
   return (
@@ -29,7 +25,7 @@ const Footer = () => {
         variants={containerVariant}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
+        viewport={{ once: true}}
       >
         <motion.h2 className="sm:text-lg xs:text-base font-semibold" variants={childVariant}>
           Gihan Chamila
