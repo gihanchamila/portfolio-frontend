@@ -28,7 +28,7 @@ const MySkill = ({ skillsList = skills }) => {
   return (
     <>
       <motion.h2
-        className="sm:text-4xl xs:text-3xl font-bold font-primary pb-8"
+        className="sm:text-4xl xs:text-3xl font-bold font-primary pb-8 z-10"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -60,7 +60,7 @@ const MySkill = ({ skillsList = skills }) => {
                 bg-white dark:bg-transparent dark:inset-52
                 text-gray-900 dark:text-gray-100
                 transition-colors duration-300
-                xs:text-xs sm:text-base lg:text-lg z-50
+                xs:text-xs sm:text-base lg:text-lg
               `}
             >
                 {skill}
