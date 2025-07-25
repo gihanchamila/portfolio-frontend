@@ -38,6 +38,15 @@ const ContactForm = () => {
       visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: 'easeOut' } }
     };
 
+    const cardVariants = {
+      offscreen: { opacity: 0, y: 80 },
+      onscreen: {
+        opacity: 1,
+        y: 0,
+        transition: { type: "spring", bounce: 0.3, duration: 0.9 },
+      },
+    };
+
     useEffect(() => {
       let interval;
       if (isEmailVerified && count > 0) {
@@ -157,10 +166,10 @@ const ContactForm = () => {
         {({ isSubmitting, values }) => (
           <motion.div
             className="lg:w-1/2 sm:w-full "
-            variants={containerVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            variants={cardVariants}
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ once: true, amount: 0.5 }}
           >
             <Form>
               <motion.div className="mb-4" variants={childVariant}>
