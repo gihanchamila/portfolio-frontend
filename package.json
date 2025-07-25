@@ -12,9 +12,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@react-spring/web": "^9.7.5",
-    "@react-three/drei": "^10.1.2",
-    "@react-three/fiber": "^9.1.2",
+    "@react-spring/web": "^10.0.1",
     "@tailwindcss/vite": "^4.0.17",
     "axios": "^1.8.4",
     "clsx": "^2.1.1",
