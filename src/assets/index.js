@@ -1,3 +1,3 @@
-import profileImage from "../assets/profileImage.jpg"
+import profileImage from "../assets/profileImage.webp"
 
 export {profileImage}
