@@ -172,7 +172,13 @@ const ContactForm = () => {
             viewport={{ once: true, amount: 0.5 }}
           >
             <Form>
-              <motion.div className="mb-4" variants={childVariant}>
+              <motion.div 
+                className="mb-4" 
+                variants={childVariant}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+              >
                 <label htmlFor="fullName" className="formLable">
                   Full Name <Asterisk className="text-red-500 inline-block align-super" size={10} />
                 </label>
@@ -195,7 +201,13 @@ const ContactForm = () => {
                 />
               </motion.div>
 
-              <motion.div className="mb-4 relative" variants={childVariant}>
+              <motion.div 
+                className="mb-4 relative" 
+                variants={childVariant}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+              >
                 <label htmlFor="email" className="formLable">
                   Email <Asterisk className="text-red-500 inline-block align-super" size={10} />
                 </label>
@@ -241,7 +253,13 @@ const ContactForm = () => {
                 </div>
               </motion.div>
 
-              <motion.div className="mb-4" variants={childVariant}>
+              <motion.div 
+                className="mb-4" 
+                variants={childVariant}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+              >
                 <label htmlFor="message" className="formLable">
                   Message <Asterisk className="text-red-500 inline-block align-super" size={10} />
                 </label>
@@ -261,7 +279,13 @@ const ContactForm = () => {
                 />
               </motion.div>
 
-              <motion.div className="flex justify-end" variants={childVariant}>
+              <motion.div 
+                className="flex justify-end" 
+                variants={childVariant}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+              >
                 <Button variant={'primary'} type="submit" disabled={isSubmitting || !isEmailVerified}>
                   {isSubmitting ? "Submitting..." : "Submit"}
                 </Button>
