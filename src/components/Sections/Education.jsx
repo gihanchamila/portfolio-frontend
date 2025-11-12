@@ -149,7 +149,6 @@ const Education = () => {
       </div>
       <div className="relative flex flex-col items-start">
 
-        {/* Timeline vertical line */}
         <motion.div
           style={{
             height: timelineHeight,

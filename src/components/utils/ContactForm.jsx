@@ -24,22 +24,13 @@ const ContactForm = () => {
     const [count, setCount] = useState(null)
     useDisableBackgroundScroll(isPopupOpen)
 
-    const containerVariant = {
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: 0.2
-        }
-      }
-    };
-
     const childVariant = {
-      hidden: { opacity: 0, y: 30, scale: 0.95 },
+      hidden: { opacity: 0, y: 20, scale: 1 },
       visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: 'easeOut' } }
     };
 
     const cardVariants = {
-      offscreen: { opacity: 0, y: 80 },
+      offscreen: { opacity: 0, y: 20 },
       onscreen: {
         opacity: 1,
         y: 0,
