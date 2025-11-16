@@ -1,27 +1,24 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
-import React from 'react';
 import CertificateCard from '../utils/CertificateCard';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
-import { motion, useAnimation, useInView} from 'framer-motion';
+import {useInView} from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import Button from '../utils/Button';
-import CircleLoader from '../utils/CircleLoader';
+import { motion } from 'framer-motion';
 
 const AnimatedCertificate = ({ certificate, index }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px'});
 
-
   const variants = {
-    hidden: { opacity: 0, y: 50, scale: 0.8 },
+    hidden: { opacity: 0, y: 20, scale: 1 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
         delay: index * 0.1,
-        duration: 0.5,
+        duration: 0.6,
         ease: 'easeOut',
       },
     },
@@ -47,6 +44,7 @@ const AnimatedCertificate = ({ certificate, index }) => {
 const Certificate = () => {
 
   const { toast } = useToast();
+  const showToast = useCallback(toast, []); 
   const navigate = useNavigate()
 
   const [certificates, setCertificates] = useState([]);
@@ -59,13 +57,13 @@ const getCertificateDetails = useCallback(async () => {
     const total = response.data.data.total;
     setTotalCount(total);
     setCertificates(data);
-    toast(`${response.data.message}`);
+    showToast(`${response.data.message}`);
   } catch (error) {
     const response = error?.response;
     const data = response?.data;
-    toast(`${data?.message || "Failed to load certificates"}`, "error");
+    showToast(`${data?.message || "Failed to load certificates"}`, "error");
   }
-}, [toast]);
+},[showToast]);
 
 useEffect(() => {
   getCertificateDetails();

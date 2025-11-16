@@ -16,7 +16,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
     visible: {
       opacity: 1,
       y: 0,
-      transition: { delay: index * 0.1, duration: 0.5, ease: 'easeOut' },
+      transition: { delay: index * 0.1, duration: 0.6, ease: 'easeOut' },
     },
   };
  
