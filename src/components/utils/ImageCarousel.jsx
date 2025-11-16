@@ -1,46 +1,46 @@
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const variants = {
-  enter: (direction) => ({
+  enter: direction => ({
     x: direction > 0 ? '110%' : '-110%',
-    opacity: 0,
+    opacity: 0
   }),
   center: {
     zIndex: 1,
     x: 0,
-    opacity: 1,
+    opacity: 1
   },
-  exit: (direction) => ({
+  exit: direction => ({
     zIndex: 0,
     x: direction < 0 ? '110%' : '-110%',
-    opacity: 0,
-  }),
-}
+    opacity: 0
+  })
+};
 
-const AUTO_SWIPE_INTERVAL = 10000
+const AUTO_SWIPE_INTERVAL = 10000;
 
 const ImageCarousel = ({ images }) => {
-  if (!images || images.length === 0) return null
+  if (!images || images.length === 0) return null;
 
-  const [[page, direction], setPage] = useState([0, 0])
-  const [isHovering, setIsHovering] = useState(false)
+  const [[page, direction], setPage] = useState([0, 0]);
+  const [isHovering, setIsHovering] = useState(false);
 
-  const imageIndex = ((page % images.length) + images.length) % images.length
+  const imageIndex = ((page % images.length) + images.length) % images.length;
 
-  const paginate = (newDirection) => {
-    setPage([page + newDirection, newDirection])
-  }
+  const paginate = newDirection => {
+    setPage([page + newDirection, newDirection]);
+  };
 
   useEffect(() => {
-    if (isHovering || images.length <= 1) return
-    const intervalId = setInterval(() => paginate(1), AUTO_SWIPE_INTERVAL)
-    return () => clearInterval(intervalId)
-  }, [page, isHovering, images.length])
+    if (isHovering || images.length <= 1) return;
+    const intervalId = setInterval(() => paginate(1), AUTO_SWIPE_INTERVAL);
+    return () => clearInterval(intervalId);
+  }, [page, isHovering, images.length]);
 
   // Threshold and power calculation for the swipe gesture
-  const swipeConfidenceThreshold = 10000
-  const swipePower = (offset, velocity) => Math.abs(offset) * velocity
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset, velocity) => Math.abs(offset) * velocity;
 
   return (
     <div
@@ -61,24 +61,24 @@ const ImageCarousel = ({ images }) => {
           role="image"
           transition={{
             x: { type: 'spring', stiffness: 500, damping: 50 },
-            opacity: { duration: 0.5 },
+            opacity: { duration: 0.5 }
           }}
           className="absolute h-full w-full object-cover"
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={2}
           onDragEnd={(e, { offset, velocity }) => {
-            const swipe = swipePower(offset.x, velocity.x)
+            const swipe = swipePower(offset.x, velocity.x);
             if (swipe < -swipeConfidenceThreshold) {
-              paginate(1)
+              paginate(1);
             } else if (swipe > swipeConfidenceThreshold) {
-              paginate(-1)
+              paginate(-1);
             }
           }}
         />
       </AnimatePresence>
     </div>
-  )
-}
+  );
+};
 
-export default ImageCarousel
+export default ImageCarousel;

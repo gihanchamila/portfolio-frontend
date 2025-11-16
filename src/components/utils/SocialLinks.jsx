@@ -1,20 +1,20 @@
-import { motion } from 'framer-motion' // Note: It's "framer-motion", not "motion/react"
-import { Github, Linkedin, Instagram } from 'lucide-react'
+import { motion } from 'framer-motion'; // Note: It's "framer-motion", not "motion/react"
+import { Github, Linkedin, Instagram } from 'lucide-react';
 
 const socialLinks = [
   {
     icon: <Github className="footerIconSize" />,
-    to: 'https://github.com/gihanchamila',
+    to: 'https://github.com/gihanchamila'
   },
   {
     icon: <Linkedin className="footerIconSize" />,
-    to: 'https://www.linkedin.com/in/algihanchamila',
+    to: 'https://www.linkedin.com/in/algihanchamila'
   },
   {
     icon: <Instagram className="footerIconSize" />,
-    to: 'https://www.instagram.com/zander_xz',
-  },
-]
+    to: 'https://www.instagram.com/zander_xz'
+  }
+];
 
 const SocialLinks = ({ variant }) => {
   return (
@@ -34,7 +34,7 @@ const SocialLinks = ({ variant }) => {
         </motion.a>
       ))}
     </motion.div>
-  )
-}
+  );
+};
 
-export default SocialLinks
+export default SocialLinks;

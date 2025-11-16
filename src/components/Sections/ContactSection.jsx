@@ -1,8 +1,8 @@
-import React from 'react'
-import ContactForm from '../utils/ContactForm'
-import { Mail, Phone } from 'lucide-react'
-import SectionLabel from '../utils/SectionLabel'
-import { motion } from 'motion/react'
+import React from 'react';
+import ContactForm from '../utils/ContactForm';
+import { Mail, Phone } from 'lucide-react';
+import SectionLabel from '../utils/SectionLabel';
+import { motion } from 'motion/react';
 
 const ContactDetailCard = React.memo(({ icon: Icon, text }) => {
   return (
@@ -12,8 +12,8 @@ const ContactDetailCard = React.memo(({ icon: Icon, text }) => {
       </a>
       <span className="xs:text-sm font-primary font-medium sm:text-lg">{text}</span>
     </div>
-  )
-})
+  );
+});
 
 const ContactSection = () => {
   return (
@@ -36,14 +36,14 @@ const ContactSection = () => {
         viewport={{ once: true, amount: 0.3 }}
         variants={{
           hidden: {},
-          visible: { transition: { staggerChildren: 0.3 } },
+          visible: { transition: { staggerChildren: 0.3 } }
         }}
       >
         <motion.div
           className="xs:space-y-6 xs:mb-5 sm:text sm:mb-0 sm:text-lg"
           variants={{
             hidden: { opacity: 0, y: 30 }, // start 30px below
-            visible: { opacity: 1, y: 0, transition: { duration: 0.7 } }, // animate up to y=0
+            visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } // animate up to y=0
           }}
         >
           <p className="xs:text-center xs:text-base xs:font-primary max-w-sm font-bold text-gray-800 sm:text-xl lg:text-left dark:text-gray-50">
@@ -55,7 +55,7 @@ const ContactSection = () => {
               className="inline-block"
               whileHover={{
                 rotate: [0, 10, -10, 10, -10, 0],
-                transition: { duration: 0.6, ease: 'easeInOut' },
+                transition: { duration: 0.6, ease: 'easeInOut' }
               }}
             >
               👋
@@ -68,7 +68,7 @@ const ContactSection = () => {
         <ContactForm />
       </motion.main>
     </section>
-  )
-}
+  );
+};
 
-export default ContactSection
+export default ContactSection;

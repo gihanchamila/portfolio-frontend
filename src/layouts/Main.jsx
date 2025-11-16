@@ -1,5 +1,5 @@
-import GridContainer from '../components/GridContainer'
-import { Outlet } from 'react-router-dom'
+import GridContainer from '../components/GridContainer';
+import { Outlet } from 'react-router-dom';
 
 const Main = ({ children }) => {
   return (
@@ -8,7 +8,7 @@ const Main = ({ children }) => {
         {children || <Outlet />}
       </main>
     </GridContainer>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;

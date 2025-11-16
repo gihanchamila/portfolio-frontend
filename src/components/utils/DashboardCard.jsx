@@ -1,6 +1,6 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import Button from './Button'
+import React from 'react';
+import { motion } from 'framer-motion';
+import Button from './Button';
 
 export const DashboardCard = ({
   icon,
@@ -11,7 +11,7 @@ export const DashboardCard = ({
   className,
   animateProps,
   secondaryActionLabel,
-  onSecondaryClick,
+  onSecondaryClick
 }) => (
   <motion.div
     layout
@@ -44,4 +44,4 @@ export const DashboardCard = ({
       )}
     </div>
   </motion.div>
-)
+);

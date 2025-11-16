@@ -1,53 +1,53 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Formik, Field, Form, ErrorMessage } from 'formik'
-import DOMPurify from 'dompurify'
-import * as Yup from 'yup'
-import Button from './Button'
-import { Asterisk } from 'lucide-react'
-import Popup from './Popup'
-import useDisableBackgroundScroll from '../../hooks/useDisableBackgroundScroll'
-import axios from '../../axios/axios'
-import debounce from 'lodash.debounce'
-import { useToast } from '../../context/ToastContext'
-import { motion } from 'motion/react'
-import { div } from 'motion/react-client'
+import React, { useState, useEffect, useRef } from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import DOMPurify from 'dompurify';
+import * as Yup from 'yup';
+import Button from './Button';
+import { Asterisk } from 'lucide-react';
+import Popup from './Popup';
+import useDisableBackgroundScroll from '../../hooks/useDisableBackgroundScroll';
+import axios from '../../axios/axios';
+import debounce from 'lodash.debounce';
+import { useToast } from '../../context/ToastContext';
+import { motion } from 'motion/react';
+import { div } from 'motion/react-client';
 
 const ContactForm = () => {
-  const fullnameRef = useRef()
-  const emailRef = useRef()
-  const messageRef = useRef()
-  const { toast } = useToast()
-  const [isEmailVerified, setIsEmailVerified] = useState(false)
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
-  const [lastCodeSentTime, setLastCodeSentTime] = useState(null)
-  const [verificationCode, setVerificationCode] = useState(null)
-  const [count, setCount] = useState(null)
-  useDisableBackgroundScroll(isPopupOpen)
+  const fullnameRef = useRef();
+  const emailRef = useRef();
+  const messageRef = useRef();
+  const { toast } = useToast();
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [lastCodeSentTime, setLastCodeSentTime] = useState(null);
+  const [verificationCode, setVerificationCode] = useState(null);
+  const [count, setCount] = useState(null);
+  useDisableBackgroundScroll(isPopupOpen);
 
   const childVariant = {
     hidden: { opacity: 0, y: 20, scale: 1 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: 'easeOut' } },
-  }
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: 'easeOut' } }
+  };
 
   const cardVariants = {
     offscreen: { opacity: 0, y: 20 },
     onscreen: {
       opacity: 1,
       y: 0,
-      transition: { type: 'spring', bounce: 0.3, duration: 0.9 },
-    },
-  }
+      transition: { type: 'spring', bounce: 0.3, duration: 0.9 }
+    }
+  };
 
   useEffect(() => {
-    let interval
+    let interval;
     if (isEmailVerified && count > 0) {
       interval = setInterval(() => {
-        setCount((prev) => prev - 1)
-      }, 60000)
+        setCount(prev => prev - 1);
+      }, 60000);
     }
 
-    return () => clearInterval(interval)
-  }, [isEmailVerified, count])
+    return () => clearInterval(interval);
+  }, [isEmailVerified, count]);
 
   const validationSchema = Yup.object({
     fullName: Yup.string()
@@ -56,77 +56,77 @@ const ContactForm = () => {
     email: Yup.string().required('Email is required').email('Please enter a valid email address'),
     message: Yup.string()
       .required('Message is required')
-      .min(10, 'Message must be at least 10 characters long'),
-  })
+      .min(10, 'Message must be at least 10 characters long')
+  });
 
   const handleVerifyEmail = debounce(async (email, name) => {
-    const now = new Date().getTime()
-    const cooldownPeriod = 10 * 60 * 1000
+    const now = new Date().getTime();
+    const cooldownPeriod = 10 * 60 * 1000;
 
     if (lastCodeSentTime && now - lastCodeSentTime < cooldownPeriod) {
-      const minutesLeft = Math.ceil((cooldownPeriod - (now - lastCodeSentTime)) / 60000)
-      toast(`Please wait ${minutesLeft} minute(s) before requesting another code.`, 'error', 3000)
-      return
+      const minutesLeft = Math.ceil((cooldownPeriod - (now - lastCodeSentTime)) / 60000);
+      toast(`Please wait ${minutesLeft} minute(s) before requesting another code.`, 'error', 3000);
+      return;
     }
 
     try {
-      setIsPopupOpen(true)
-      const response = await axios.post('/user/send-verification-code', { email, name })
-      const data = response.data
-      toast(data.message, 'success', 3000, 'bottom-right')
-      setCount(10)
+      setIsPopupOpen(true);
+      const response = await axios.post('/user/send-verification-code', { email, name });
+      const data = response.data;
+      toast(data.message, 'success', 3000, 'bottom-right');
+      setCount(10);
     } catch (error) {
-      const response = error.response
-      const data = response?.data?.message || 'An error occurred'
-      toast(data, 'bottom-right')
+      const response = error.response;
+      const data = response?.data?.message || 'An error occurred';
+      toast(data, 'bottom-right');
     }
-  }, 500)
+  }, 500);
 
   const handleVerifyCode = async (email, verificationCode) => {
     try {
       const response = await axios.post('/user/verify-user', {
         code: verificationCode,
-        email,
-      })
-      const data = response.data
+        email
+      });
+      const data = response.data;
       if (data.success == true) {
-        setIsEmailVerified(true)
-        setIsPopupOpen(false)
+        setIsEmailVerified(true);
+        setIsPopupOpen(false);
       }
-      toast(data.message, 'success', 3000, 'bottom-right')
+      toast(data.message, 'success', 3000, 'bottom-right');
     } catch (error) {
-      const response = error.response
-      const data = response.data
-      console.error(data.message)
-      toast(data.message, 'error', 3000, 'bottom-right')
+      const response = error.response;
+      const data = response.data;
+      console.error(data.message);
+      toast(data.message, 'error', 3000, 'bottom-right');
     }
-  }
+  };
 
   const handleClosePopup = () => {
-    setIsPopupOpen(false)
-    setVerificationCode(null)
-  }
+    setIsPopupOpen(false);
+    setVerificationCode(null);
+  };
 
-  const handleInputChange = (e) => {
-    const { value } = e.target
-    setVerificationCode(value)
-  }
+  const handleInputChange = e => {
+    const { value } = e.target;
+    setVerificationCode(value);
+  };
 
   const handleChangeEmail = () => {
-    setIsEmailVerified(false)
-    setVerificationCode(null)
-    setLastCodeSentTime(null)
-    setCount(null)
-  }
+    setIsEmailVerified(false);
+    setVerificationCode(null);
+    setLastCodeSentTime(null);
+    setCount(null);
+  };
 
   const handleKeyDown = (e, value, nextRef) => {
     if (e.key === 'Enter') {
-      e.preventDefault()
+      e.preventDefault();
       if (value.trim() !== '' && nextRef?.current) {
-        nextRef.current.focus()
+        nextRef.current.focus();
       }
     }
-  }
+  };
 
   return (
     <>
@@ -138,16 +138,16 @@ const ContactForm = () => {
             const contactData = {
               name: DOMPurify.sanitize(values.fullName),
               email: DOMPurify.sanitize(values.email),
-              message: DOMPurify.sanitize(values.message),
-            }
-            const response = await axios.post('/connect/make-connection', contactData)
-            const data = response.data
-            toast(data.message)
-            resetForm()
+              message: DOMPurify.sanitize(values.message)
+            };
+            const response = await axios.post('/connect/make-connection', contactData);
+            const data = response.data;
+            toast(data.message);
+            resetForm();
           } catch (error) {
-            const response = error.response
-            const data = response.data.message
-            toast(data)
+            const response = error.response;
+            const data = response.data.message;
+            toast(data);
           }
         }}
       >
@@ -177,7 +177,7 @@ const ContactForm = () => {
                   className="formInput"
                   placeholder="e.g., Jane Doe"
                   innerRef={fullnameRef}
-                  onKeyDown={(e) => handleKeyDown(e, e.target.value, emailRef)}
+                  onKeyDown={e => handleKeyDown(e, e.target.value, emailRef)}
                 />
                 <ErrorMessage name="fullName" component="div" className="formError" />
               </motion.div>
@@ -200,11 +200,11 @@ const ContactForm = () => {
                   className="formInput"
                   placeholder="e.g., jane.doe@example.com"
                   innerRef={emailRef}
-                  onKeyDown={(e) => {
+                  onKeyDown={e => {
                     if (!isEmailVerified && values.email) {
-                      handleVerifyEmail(values.email, values.fullName)
+                      handleVerifyEmail(values.email, values.fullName);
                     } else {
-                      handleKeyDown(e, e.target.value, messageRef)
+                      handleKeyDown(e, e.target.value, messageRef);
                     }
                   }}
                 />
@@ -282,7 +282,7 @@ const ContactForm = () => {
                     type="text"
                     maxLength="6"
                     value={verificationCode}
-                    onChange={(e) => handleInputChange(e)}
+                    onChange={e => handleInputChange(e)}
                     className="rounded-lg border-2 border-gray-500 py-2 pl-4 text-left text-lg sm:w-full"
                     placeholder="Enter verification code"
                   />
@@ -302,7 +302,7 @@ const ContactForm = () => {
         )}
       </Formik>
     </>
-  )
-}
+  );
+};
 
-export default ContactForm
+export default ContactForm;

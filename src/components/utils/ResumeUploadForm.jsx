@@ -1,6 +1,6 @@
-import { Formik, Form, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
-import Button from './Button'
+import { Formik, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import Button from './Button';
 
 const ResumeUploadForm = ({ onSubmit, onCancel }) => (
   <Formik
@@ -11,8 +11,8 @@ const ResumeUploadForm = ({ onSubmit, onCancel }) => (
         .test(
           'fileFormat',
           'Only PDF files are allowed',
-          (value) => value && value.type === 'application/pdf',
-        ),
+          value => value && value.type === 'application/pdf'
+        )
     })}
     onSubmit={onSubmit}
   >
@@ -25,7 +25,7 @@ const ResumeUploadForm = ({ onSubmit, onCancel }) => (
             type="file"
             accept="application/pdf"
             className="formInput"
-            onChange={(e) => setFieldValue('file', e.currentTarget.files[0])}
+            onChange={e => setFieldValue('file', e.currentTarget.files[0])}
           />
           <ErrorMessage name="file" component="div" className="formError" />
         </div>
@@ -40,6 +40,6 @@ const ResumeUploadForm = ({ onSubmit, onCancel }) => (
       </Form>
     )}
   </Formik>
-)
+);
 
-export default ResumeUploadForm
+export default ResumeUploadForm;

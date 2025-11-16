@@ -1,16 +1,16 @@
-import React, {useCallback} from 'react'
-import { Link } from 'react-router-dom'
-import { profileImage } from '../../assets'
-import AnimatedButton from './AnimatedButton'
-import { motion, useInView } from 'motion/react'
-import { useNavigate } from 'react-router-dom'
-import { useRef } from 'react'
+import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
+import { profileImage } from '../../assets';
+import AnimatedButton from './AnimatedButton';
+import { motion, useInView } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 
 const ProjectCard = ({ projectName, description, imageUrl, github, live, projectId, index }) => {
-  const defaultImage = profileImage
-  const navigate = useNavigate()
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px' })
+  const defaultImage = profileImage;
+  const navigate = useNavigate();
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px' });
 
   const handleNavigate = useCallback(() => {
     navigate(`/project/get-project/${projectId}`);
@@ -21,9 +21,9 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
     visible: {
       opacity: 1,
       y: 0,
-      transition: { delay: index * 0.1, duration: 0.6, ease: 'easeOut' },
-    },
-  }
+      transition: { delay: index * 0.1, duration: 0.6, ease: 'easeOut' }
+    }
+  };
 
   return (
     <motion.div
@@ -63,7 +63,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
         <AnimatedButton live={live} github={github} />
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default ProjectCard
+export default ProjectCard;

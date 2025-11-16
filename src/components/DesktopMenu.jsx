@@ -1,11 +1,11 @@
-import GridContainer from './GridContainer'
-import NavLinks from './NavLinks'
-import ResumeDownload from './utils/ResumeDownload'
-import { useAuth } from '../context/AuthContext'
-import { LogOut } from 'lucide-react'
+import GridContainer from './GridContainer';
+import NavLinks from './NavLinks';
+import ResumeDownload from './utils/ResumeDownload';
+import { useAuth } from '../context/AuthContext';
+import { LogOut } from 'lucide-react';
 
 const DesktopMenu = ({ navLinks }) => {
-  const { admin, signOut } = useAuth()
+  const { admin, signOut } = useAuth();
   return (
     <GridContainer>
       <header
@@ -29,7 +29,7 @@ const DesktopMenu = ({ navLinks }) => {
         </div>
       </header>
     </GridContainer>
-  )
-}
+  );
+};
 
-export default DesktopMenu
+export default DesktopMenu;

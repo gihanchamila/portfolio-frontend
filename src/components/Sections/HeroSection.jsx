@@ -1,11 +1,11 @@
-import React from 'react'
-import { useState } from 'react'
-import SplitText from '../utils/SplitText'
-import { profileImage } from '../../assets'
-import Skills from './Skills'
-import { motion } from 'motion/react'
-import CustomCursor from '../utils/CustomCursor'
-import SocialLinks from '../utils/SocialLinks'
+import React from 'react';
+import { useState } from 'react';
+import SplitText from '../utils/SplitText';
+import { profileImage } from '../../assets';
+import Skills from './Skills';
+import { motion } from 'motion/react';
+import CustomCursor from '../utils/CustomCursor';
+import SocialLinks from '../utils/SocialLinks';
 
 export const HoverReveal = () => {
   return (
@@ -19,7 +19,7 @@ export const HoverReveal = () => {
         className="block bg-transparent px-4 py-2 text-xs dark:text-white"
         variants={{
           rest: { y: 0, opacity: 1 },
-          hover: { y: -30, opacity: 0 },
+          hover: { y: -30, opacity: 0 }
         }}
         transition={{ duration: 0.4, ease: 'easeInOut' }}
       >
@@ -30,18 +30,18 @@ export const HoverReveal = () => {
         className="absolute top-7.5 left-0 w-full px-2 py-2 text-center text-xs dark:text-white"
         variants={{
           rest: { y: 30, opacity: 0 },
-          hover: { y: -30, opacity: 1 },
+          hover: { y: -30, opacity: 1 }
         }}
         transition={{ duration: 0.4, ease: 'easeInOut' }}
       >
         Let's connect 🤝
       </motion.span>
     </motion.div>
-  )
-}
+  );
+};
 
 const HeroSection = () => {
-  const [cursorVisible, setCursorVisible] = useState(false)
+  const [cursorVisible, setCursorVisible] = useState(false);
 
   return (
     <div className="relative">
@@ -107,7 +107,7 @@ const HeroSection = () => {
       </section>
       <Skills />
     </div>
-  )
-}
+  );
+};
 
-export default HeroSection
+export default HeroSection;

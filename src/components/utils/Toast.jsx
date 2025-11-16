@@ -1,28 +1,28 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { CheckCircle, AlertTriangle, Info, XCircle } from 'lucide-react'
+import React from 'react';
+import { motion } from 'framer-motion';
+import { CheckCircle, AlertTriangle, Info, XCircle } from 'lucide-react';
 
 const typeStyles = {
   success: {
     icon: <CheckCircle className="xs:text-teal-500 toastIcon" />,
-    color: 'border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700',
+    color: 'border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700'
   },
   error: {
     icon: <XCircle className="xs:text-red-500 toastIcon" />,
-    color: 'border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700',
+    color: 'border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700'
   },
   warning: {
     icon: <AlertTriangle className="xs:text-yellow-500 toastIcon" />,
-    color: 'border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700',
+    color: 'border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700'
   },
   info: {
     icon: <Info className="xs:text-blue-500 toastIcon" />,
-    color: 'border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700',
-  },
-}
+    color: 'border border-gray-200 bg-white dark:bg-neutral-800 dark:border-neutral-700'
+  }
+};
 
 const Toast = ({ message, type = 'info' }) => {
-  const { icon, color } = typeStyles[type] || typeStyles.info
+  const { icon, color } = typeStyles[type] || typeStyles.info;
 
   return (
     <div className={`fixed z-50`}>
@@ -44,7 +44,7 @@ const Toast = ({ message, type = 'info' }) => {
         </div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default Toast
+export default Toast;

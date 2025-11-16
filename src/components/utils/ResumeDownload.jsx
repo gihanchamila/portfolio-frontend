@@ -1,26 +1,26 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import DOMPurify from 'dompurify'
-import Button from './Button'
-import axios from '../../axios/axios'
-import { useToast } from '../../context/ToastContext'
-import Popup from '../utils/Popup'
-import { Formik, Field, Form, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
-import { Asterisk } from 'lucide-react'
-import useDisableBackgroundScroll from '../../hooks/useDisableBackgroundScroll'
+import React, { useCallback, useEffect, useState } from 'react';
+import DOMPurify from 'dompurify';
+import Button from './Button';
+import axios from '../../axios/axios';
+import { useToast } from '../../context/ToastContext';
+import Popup from '../utils/Popup';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { Asterisk } from 'lucide-react';
+import useDisableBackgroundScroll from '../../hooks/useDisableBackgroundScroll';
 
 const ResumeDownload = () => {
-  const { toast } = useToast()
-  const [showPopUp, setShowPopUp] = useState(false)
-  useDisableBackgroundScroll(showPopUp)
+  const { toast } = useToast();
+  const [showPopUp, setShowPopUp] = useState(false);
+  useDisableBackgroundScroll(showPopUp);
 
   const validationSchema = Yup.object({
-    email: Yup.string().required('Email is required').email('Please enter a valid email address'),
-  })
+    email: Yup.string().required('Email is required').email('Please enter a valid email address')
+  });
 
   const handlePopUp = () => {
-    setShowPopUp(!showPopUp)
-  }
+    setShowPopUp(!showPopUp);
+  };
 
   return (
     <>
@@ -44,16 +44,16 @@ const ResumeDownload = () => {
               validationSchema={validationSchema}
               onSubmit={async (values, { resetForm }) => {
                 try {
-                  const email = DOMPurify.sanitize(values.email)
-                  const response = await axios.post('/resume/request', { email })
-                  const data = response.data
-                  toast(data.message)
-                  resetForm()
-                  handlePopUp()
+                  const email = DOMPurify.sanitize(values.email);
+                  const response = await axios.post('/resume/request', { email });
+                  const data = response.data;
+                  toast(data.message);
+                  resetForm();
+                  handlePopUp();
                 } catch (error) {
-                  const response = error.response
-                  const data = response.data.message
-                  toast(data)
+                  const response = error.response;
+                  const data = response.data.message;
+                  toast(data);
                 }
               }}
             >
@@ -82,7 +82,7 @@ const ResumeDownload = () => {
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default ResumeDownload
+export default ResumeDownload;

@@ -1,67 +1,67 @@
-import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import axios from '../../axios/axios'
-import { useToast } from '../../context/ToastContext'
-import CircleLoader from '../utils/CircleLoader'
+import React, { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import axios from '../../axios/axios';
+import { useToast } from '../../context/ToastContext';
+import CircleLoader from '../utils/CircleLoader';
 
-import AnimatedButton from './AnimatedButton'
-import ImageCarousel from './ImageCarousel'
+import AnimatedButton from './AnimatedButton';
+import ImageCarousel from './ImageCarousel';
 
 const Project = () => {
-  const { id: projectID } = useParams()
-  const { toast } = useToast()
+  const { id: projectID } = useParams();
+  const { toast } = useToast();
 
-  const [project, setProject] = useState(null)
-  const [imageUrls, setImageUrls] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [project, setProject] = useState(null);
+  const [imageUrls, setImageUrls] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Fallback images in case fetched images fail or don't exist
   const dummyImages = [
     'https://picsum.photos/seed/projectA/1280/720',
     'https://picsum.photos/seed/projectB/1280/720',
-    'https://picsum.photos/seed/projectC/1280/720',
-  ]
+    'https://picsum.photos/seed/projectC/1280/720'
+  ];
 
   useEffect(() => {
     const fetchProjectData = async () => {
-      if (!projectID) return
+      if (!projectID) return;
 
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const response = await axios.get(`/project/get-project/${projectID}`)
-        const projectData = response.data.data
-        console.log(projectData)
-        setProject(projectData)
+        const response = await axios.get(`/project/get-project/${projectID}`);
+        const projectData = response.data.data;
+        console.log(projectData);
+        setProject(projectData);
 
         if (projectData.images && projectData.images.length > 0) {
           try {
             const urls = await Promise.all(
-              projectData.images.map(async (image) => {
-                if (!image.key) return null
-                const res = await axios.get(`/file/signed-url?key=${image.key}`)
-                return res.data.data.url
-              }),
-            )
-            setImageUrls(urls.filter(Boolean))
+              projectData.images.map(async image => {
+                if (!image.key) return null;
+                const res = await axios.get(`/file/signed-url?key=${image.key}`);
+                return res.data.data.url;
+              })
+            );
+            setImageUrls(urls.filter(Boolean));
           } catch (err) {
-            console.error('Error fetching image URLs', err)
-            toast('Failed to load project images', 'error')
+            console.error('Error fetching image URLs', err);
+            toast('Failed to load project images', 'error');
           }
         }
       } catch (error) {
-        const errorMessage = error.response?.data?.message || 'Failed to fetch project details.'
-        toast(errorMessage, 'error')
+        const errorMessage = error.response?.data?.message || 'Failed to fetch project details.';
+        toast(errorMessage, 'error');
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchProjectData()
-  }, [projectID, toast])
+    fetchProjectData();
+  }, [projectID, toast]);
 
   if (isLoading) {
-    return <CircleLoader />
+    return <CircleLoader />;
   }
 
   if (!project) {
@@ -75,7 +75,7 @@ const Project = () => {
           <AnimatedButton className="mt-6">Back to Projects</AnimatedButton>
         </Link>
       </div>
-    )
+    );
   }
 
   return (
@@ -107,7 +107,7 @@ const Project = () => {
 
           {project.techStack && project.techStack.length > 0 && (
             <div className="mt-6 flex flex-wrap gap-2">
-              {project.techStack.map((tag) => (
+              {project.techStack.map(tag => (
                 <span
                   key={tag}
                   className="rounded-full bg-sky-100 px-3 py-1 text-sm font-medium text-sky-800 dark:bg-sky-900/50 dark:text-sky-300"
@@ -133,7 +133,7 @@ const Project = () => {
         </div>
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default Project
+export default Project;

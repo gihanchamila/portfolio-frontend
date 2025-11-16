@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { motion } from 'motion/react'
+import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 
 const AnimatedButton = ({ github, live }) => {
   return (
@@ -25,7 +25,7 @@ const AnimatedButton = ({ github, live }) => {
         </Link>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default AnimatedButton
+export default AnimatedButton;

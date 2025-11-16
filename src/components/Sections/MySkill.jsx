@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import GlareHover from '../utils/GlareHover'
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import GlareHover from '../utils/GlareHover';
 
 const skills = [
   'JavaScript',
@@ -26,18 +26,18 @@ const skills = [
   'Figma',
   'VSCode',
   'Visual Studio',
-  'AWS',
-]
+  'AWS'
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.08,
-    },
-  },
-}
+      staggerChildren: 0.08
+    }
+  }
+};
 
 const skillVariants = {
   hidden: { opacity: 0, y: 30, scale: 0.8 },
@@ -45,9 +45,9 @@ const skillVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { type: 'spring', stiffness: 300, damping: 20 },
-  },
-}
+    transition: { type: 'spring', stiffness: 300, damping: 20 }
+  }
+};
 
 const MySkill = ({ skillsList = skills }) => {
   return (
@@ -68,7 +68,7 @@ const MySkill = ({ skillsList = skills }) => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        {skillsList.map((skill) => (
+        {skillsList.map(skill => (
           <GlareHover
             glareColor="#ffffff"
             glareOpacity={0.3}
@@ -88,7 +88,7 @@ const MySkill = ({ skillsList = skills }) => {
         ))}
       </motion.div>
     </>
-  )
-}
+  );
+};
 
-export default MySkill
+export default MySkill;

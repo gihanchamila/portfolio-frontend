@@ -1,27 +1,27 @@
-import React, { useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { MousePointer2 } from 'lucide-react'
+import React, { useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MousePointer2 } from 'lucide-react';
 
 const cursorVariants = {
   hidden: { opacity: 0, scale: 0.5, transition: { duration: 0.2 } },
-  visible: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 300, damping: 20 } },
-}
+  visible: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 300, damping: 20 } }
+};
 
 const CustomCursor = ({ show, text }) => {
-  const cursorRef = useRef(null)
+  const cursorRef = useRef(null);
 
   useEffect(() => {
-    const moveCursor = (e) => {
+    const moveCursor = e => {
       if (cursorRef.current) {
-        cursorRef.current.style.left = `${e.clientX}px`
-        cursorRef.current.style.top = `${e.clientY}px`
+        cursorRef.current.style.left = `${e.clientX}px`;
+        cursorRef.current.style.top = `${e.clientY}px`;
       }
-    }
+    };
     if (show) {
-      document.addEventListener('mousemove', moveCursor)
+      document.addEventListener('mousemove', moveCursor);
     }
-    return () => document.removeEventListener('mousemove', moveCursor)
-  }, [show])
+    return () => document.removeEventListener('mousemove', moveCursor);
+  }, [show]);
 
   return (
     <AnimatePresence>
@@ -41,7 +41,7 @@ const CustomCursor = ({ show, text }) => {
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default CustomCursor
+export default CustomCursor;

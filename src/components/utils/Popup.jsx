@@ -1,6 +1,6 @@
-import React from 'react'
-import { X } from 'lucide-react'
-import { motion, AnimatePresence } from 'motion/react'
+import React from 'react';
+import { X } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 const Popup = ({ isOpen, onClose, children }) => {
   return (
@@ -20,7 +20,7 @@ const Popup = ({ isOpen, onClose, children }) => {
             exit={{ opacity: 0, scale: 0.8, y: -20 }}
             transition={{ duration: 0.1, ease: 'easeOut' }}
             className="dark:bg-on-surface xs:px-5 xs:py-8 xs:w-full xs:mx-5 relative rounded-lg bg-white sm:p-10 lg:mx-0 lg:w-1/3"
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             <X onClick={onClose} className="absolute top-5 right-5 cursor-pointer" size={20} />
             {children}
@@ -28,7 +28,7 @@ const Popup = ({ isOpen, onClose, children }) => {
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default Popup
+export default Popup;

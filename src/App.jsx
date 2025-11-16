@@ -1,18 +1,18 @@
-import React, { lazy, Suspense } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import PublicLayout from './layouts/PublicLayout'
-import PrivateLayout from './layouts/PrivateLayout'
-import AnimatedSuspenseWrapper from './components/utils/AnimatedSuspenseWrapper'
-import CircleLoader from './components/utils/CircleLoader'
-import Login from './components/Login'
-import { AuthProvider } from './context/AuthContext'
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PublicLayout from './layouts/PublicLayout';
+import PrivateLayout from './layouts/PrivateLayout';
+import AnimatedSuspenseWrapper from './components/utils/AnimatedSuspenseWrapper';
+import CircleLoader from './components/utils/CircleLoader';
+import Login from './components/Login';
+import { AuthProvider } from './context/AuthContext';
 
-const LandingPage = lazy(() => import('./pages/LandingPage'))
-const ProjectsView = lazy(() => import('./components/utils/ProjectsView'))
-const CertificatesView = lazy(() => import('./components/utils/CertificatesView'))
-const Project = lazy(() => import('./components/utils/Project'))
+const LandingPage = lazy(() => import('./pages/LandingPage'));
+const ProjectsView = lazy(() => import('./components/utils/ProjectsView'));
+const CertificatesView = lazy(() => import('./components/utils/CertificatesView'));
+const Project = lazy(() => import('./components/utils/Project'));
 
-const DashBoard = lazy(() => import('./components/DashBoard'))
+const DashBoard = lazy(() => import('./components/DashBoard'));
 
 function App() {
   return (
@@ -36,7 +36,7 @@ function App() {
         </AnimatedSuspenseWrapper>
       </AuthProvider>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

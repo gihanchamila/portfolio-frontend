@@ -1,32 +1,32 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { useState, useRef, useEffect } from 'react'
-import GridContainer from './GridContainer'
-import { Menu, X } from 'lucide-react'
-import { profileImage } from '../assets/index'
-import NavLinks from './NavLinks'
-import { motion } from 'motion/react'
-import { AnimatePresence } from 'motion/react'
-import ResumeDownload from './utils/ResumeDownload'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import GridContainer from './GridContainer';
+import { Menu, X } from 'lucide-react';
+import { profileImage } from '../assets/index';
+import NavLinks from './NavLinks';
+import { motion } from 'motion/react';
+import { AnimatePresence } from 'motion/react';
+import ResumeDownload from './utils/ResumeDownload';
 
 const MobileMenu = ({ navLinks }) => {
-  const ref = useRef(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const ref = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden'
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'visible'
+      document.body.style.overflow = 'visible';
     }
     return () => {
-      document.body.style.overflow = 'auto'
-    }
-  }, [isOpen])
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
 
   return (
     <GridContainer>
@@ -75,7 +75,7 @@ const MobileMenu = ({ navLinks }) => {
         </AnimatePresence>
       </header>
     </GridContainer>
-  )
-}
+  );
+};
 
-export default MobileMenu
+export default MobileMenu;

@@ -1,6 +1,6 @@
-import React from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
 
 const AdminPopUp = ({ open, onClose, title, children }) => (
   <AnimatePresence>
@@ -24,6 +24,6 @@ const AdminPopUp = ({ open, onClose, title, children }) => (
       </motion.div>
     )}
   </AnimatePresence>
-)
+);
 
-export default AdminPopUp
+export default AdminPopUp;

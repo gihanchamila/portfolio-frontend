@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import Button from './Button'
-import Pagination from './Pagination'
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Button from './Button';
+import Pagination from './Pagination';
 
 export const ItemsList = ({ items, onEdit, onDelete, type }) => {
   return (
@@ -25,12 +25,12 @@ export const ItemsList = ({ items, onEdit, onDelete, type }) => {
                 hidden: {},
                 visible: {
                   transition: {
-                    staggerChildren: 0.08,
-                  },
-                },
+                    staggerChildren: 0.08
+                  }
+                }
               }}
             >
-              {items.map((item) => (
+              {items.map(item => (
                 <motion.div
                   key={item._id}
                   className="group relative rounded-xl border border-neutral-200 bg-white p-8 shadow-md transition-shadow hover:shadow-2xl dark:border-neutral-700 dark:bg-neutral-800"
@@ -41,7 +41,7 @@ export const ItemsList = ({ items, onEdit, onDelete, type }) => {
                   whileHover={{
                     scale: 1.025,
                     boxShadow: '0 12px 32px rgba(0,0,0,0.14)',
-                    y: -4,
+                    y: -4
                   }}
                 >
                   <div>
@@ -67,5 +67,5 @@ export const ItemsList = ({ items, onEdit, onDelete, type }) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};

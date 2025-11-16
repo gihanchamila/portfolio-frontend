@@ -1,22 +1,22 @@
-import GridContainer from '../components/GridContainer'
+import GridContainer from '../components/GridContainer';
 
-import { motion } from 'framer-motion' // corrected here too
-import SocialLinks from '../components/utils/SocialLinks'
+import { motion } from 'framer-motion'; // corrected here too
+import SocialLinks from '../components/utils/SocialLinks';
 
 const Footer = () => {
   const containerVariant = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  }
+        staggerChildren: 0.2
+      }
+    }
+  };
 
   const childVariant = {
     hidden: { opacity: 0, y: 20, scale: 1 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: 'easeInOut' } },
-  }
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: 'easeInOut' } }
+  };
 
   return (
     <GridContainer>
@@ -36,7 +36,7 @@ const Footer = () => {
         <SocialLinks variant={childVariant} />
       </motion.footer>
     </GridContainer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

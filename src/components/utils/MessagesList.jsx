@@ -1,5 +1,5 @@
-import React from 'react'
-import Button from './Button'
+import React from 'react';
+import Button from './Button';
 
 const MessagesList = ({ contacts = [], onClose }) => (
   <div className="space-y-4">
@@ -25,6 +25,6 @@ const MessagesList = ({ contacts = [], onClose }) => (
       </Button>
     </div>
   </div>
-)
+);
 
-export default MessagesList
+export default MessagesList;

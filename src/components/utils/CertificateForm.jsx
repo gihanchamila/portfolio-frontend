@@ -1,14 +1,14 @@
-import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
-import Button from './Button'
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import Button from './Button';
 
 const validationSchema = Yup.object({
   title: Yup.string().required('Title is required'),
   organization: Yup.string().required('Organization is required'),
   issueDate: Yup.string().required('Issue Date is required'),
-  credentialURL: Yup.string().required('Credential URL is required').url('Invalid Credential URL'),
-})
+  credentialURL: Yup.string().required('Credential URL is required').url('Invalid Credential URL')
+});
 
 const CertificateForm = ({ onSubmit, onCancel, isUpdate, initialValues }) => (
   <Formik
@@ -18,7 +18,7 @@ const CertificateForm = ({ onSubmit, onCancel, isUpdate, initialValues }) => (
         title: '',
         organization: '',
         issueDate: '',
-        credentialURL: '',
+        credentialURL: ''
       }
     }
     validationSchema={validationSchema}
@@ -63,6 +63,6 @@ const CertificateForm = ({ onSubmit, onCancel, isUpdate, initialValues }) => (
       </Form>
     )}
   </Formik>
-)
+);
 
-export default CertificateForm
+export default CertificateForm;

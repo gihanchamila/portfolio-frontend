@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const SectionLabel = ({ icon, label, className = '' }) => {
   return (
@@ -8,7 +8,7 @@ const SectionLabel = ({ icon, label, className = '' }) => {
       <span className="">{icon}</span>
       <span>{label}</span>
     </div>
-  )
-}
+  );
+};
 
-export default SectionLabel
+export default SectionLabel;

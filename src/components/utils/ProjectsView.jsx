@@ -1,99 +1,99 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import axios from '../../axios/axios'
-import { useToast } from '../../context/ToastContext'
-import { useAuth } from '../../context/AuthContext'
-import ProjectForm from './ProjectForm'
-import Button from './Button'
-import Pagination from './Pagination'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Label } from '../Sections/Education'
-import { useNavigate } from 'react-router-dom'
+import React, { useCallback, useEffect, useState } from 'react';
+import axios from '../../axios/axios';
+import { useToast } from '../../context/ToastContext';
+import { useAuth } from '../../context/AuthContext';
+import ProjectForm from './ProjectForm';
+import Button from './Button';
+import Pagination from './Pagination';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Label } from '../Sections/Education';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectsView = () => {
-  const { admin, setAdmin } = useAuth()
-  const { toast } = useToast()
-  const navigate = useNavigate()
-  const [projects, setProjects] = useState([])
-  const [showForm, setShowForm] = useState(false)
-  const [editProject, setEditProject] = useState(null)
+  const { admin, setAdmin } = useAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [projects, setProjects] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [editProject, setEditProject] = useState(null);
 
-  const [totalPage, setTotalPage] = useState(1)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pageCount, setPageCount] = useState([])
+  const [totalPage, setTotalPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageCount, setPageCount] = useState([]);
 
   useEffect(() => {
-    const storedAdmin = localStorage.getItem('admin')
-    const token = localStorage.getItem('apiKey')
+    const storedAdmin = localStorage.getItem('admin');
+    const token = localStorage.getItem('apiKey');
     if (storedAdmin && token) {
-      setAdmin(JSON.parse(storedAdmin))
+      setAdmin(JSON.parse(storedAdmin));
     }
-  }, [setAdmin])
+  }, [setAdmin]);
 
   const fetchProjects = useCallback(
     async (page = 1) => {
       try {
-        const response = await axios.get(`/project/get-projects?page=${page}`)
-        const data = response.data
-        setProjects(data.data.projects)
-        setTotalPage(data.data.pages)
-        setPageCount(Array.from({ length: data.data.pages }, (_, i) => i + 1))
+        const response = await axios.get(`/project/get-projects?page=${page}`);
+        const data = response.data;
+        setProjects(data.data.projects);
+        setTotalPage(data.data.pages);
+        setPageCount(Array.from({ length: data.data.pages }, (_, i) => i + 1));
       } catch (error) {
-        const response = error.response
-        const data = response.data
-        toast(data.message, 'error', 3000, 'bottom-right')
+        const response = error.response;
+        const data = response.data;
+        toast(data.message, 'error', 3000, 'bottom-right');
       }
     },
-    [toast],
-  )
+    [toast]
+  );
 
   useEffect(() => {
-    fetchProjects(currentPage)
-  }, [fetchProjects, currentPage])
+    fetchProjects(currentPage);
+  }, [fetchProjects, currentPage]);
 
   const handleUpdateProject = async (values, { setSubmitting }) => {
-    let newlyUploadedIds = []
+    let newlyUploadedIds = [];
     try {
-      setSubmitting(true)
+      setSubmitting(true);
 
-      const filesToUpload = []
+      const filesToUpload = [];
       // Check if the main 'file' is a new upload
       if (values.file instanceof File) {
         // CORRECTED: Changed type to 'file' for consistency
-        filesToUpload.push({ type: 'file', file: values.file })
+        filesToUpload.push({ type: 'file', file: values.file });
       }
       // Check which of the additional 'images' are new uploads
       if (values.images && values.images.length > 0) {
-        values.images.forEach((img) => {
+        values.images.forEach(img => {
           if (img instanceof File) {
-            filesToUpload.push({ type: 'image', file: img })
+            filesToUpload.push({ type: 'image', file: img });
           }
-        })
+        });
       }
 
       // CORRECTED: Renamed 'newCoverPhotoId' to 'newFileId'
-      let newFileId = values.file // Default to existing ID string
-      const finalImageIds = values.images || []
+      let newFileId = values.file; // Default to existing ID string
+      const finalImageIds = values.images || [];
 
       if (filesToUpload.length > 0) {
-        const uploadPromises = filesToUpload.map((item) => {
-          const formData = new FormData()
-          formData.append('image', item.file)
-          return axios.post('/file/upload', formData)
-        })
+        const uploadPromises = filesToUpload.map(item => {
+          const formData = new FormData();
+          formData.append('image', item.file);
+          return axios.post('/file/upload', formData);
+        });
 
-        const uploadResponses = await Promise.all(uploadPromises)
-        newlyUploadedIds = uploadResponses.map((res) => res.data.data.id)
+        const uploadResponses = await Promise.all(uploadPromises);
+        newlyUploadedIds = uploadResponses.map(res => res.data.data.id);
 
         filesToUpload.forEach((item, index) => {
-          const newId = newlyUploadedIds[index]
+          const newId = newlyUploadedIds[index];
           // CORRECTED: Check for 'file' type and assign to 'newFileId'
           if (item.type === 'file') {
-            newFileId = newId
+            newFileId = newId;
           } else {
-            const originalFileIndex = values.images.findIndex((img) => img === item.file)
-            finalImageIds[originalFileIndex] = newId
+            const originalFileIndex = values.images.findIndex(img => img === item.file);
+            finalImageIds[originalFileIndex] = newId;
           }
-        })
+        });
       }
 
       const projectPayload = {
@@ -105,33 +105,34 @@ const ProjectsView = () => {
         techStack: values.techStack,
         // CORRECTED: Use 'newFileId' for the 'file' field
         file: newFileId,
-        images: finalImageIds,
-      }
+        images: finalImageIds
+      };
 
-      const response = await axios.put(`/project/update-project/${editProject._id}`, projectPayload)
+      const response = await axios.put(
+        `/project/update-project/${editProject._id}`,
+        projectPayload
+      );
 
-      toast(response.data.message, 'success')
-      setShowForm(false)
-      setEditProject(null)
-      fetchProjects(currentPage)
+      toast(response.data.message, 'success');
+      setShowForm(false);
+      setEditProject(null);
+      fetchProjects(currentPage);
     } catch (error) {
       if (newlyUploadedIds.length > 0) {
         // This rollback logic is still valid
-        console.error('Project update failed. Rolling back uploaded files...')
+        console.error('Project update failed. Rolling back uploaded files...');
         // Make sure you have the 'delete-by-id/:id' endpoint from the previous step
-        const deletePromises = newlyUploadedIds.map((id) =>
-          axios.delete(`/file/delete-by-id/${id}`),
-        )
-        await Promise.all(deletePromises)
-        toast('Update failed. Uploaded files were rolled back.', 'error')
+        const deletePromises = newlyUploadedIds.map(id => axios.delete(`/file/delete-by-id/${id}`));
+        await Promise.all(deletePromises);
+        toast('Update failed. Uploaded files were rolled back.', 'error');
       } else {
-        toast(error?.response?.data?.message || 'Update failed', 'error')
+        toast(error?.response?.data?.message || 'Update failed', 'error');
       }
-      console.error('Update Error:', error?.response?.data || error)
+      console.error('Update Error:', error?.response?.data || error);
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="container mx-auto pb-20">
@@ -146,7 +147,7 @@ const ProjectsView = () => {
           className="divide-y divide-neutral-200 rounded-lg bg-white shadow dark:divide-neutral-700 dark:bg-neutral-800"
         >
           {projects.length > 0 &&
-            projects.map((project) => (
+            projects.map(project => (
               <li
                 key={project._id}
                 className="flex items-center justify-between px-6 py-4 transition hover:bg-neutral-50 dark:hover:bg-neutral-900"
@@ -160,8 +161,8 @@ const ProjectsView = () => {
                       <Button
                         variant="primary"
                         onClick={() => {
-                          setEditProject(project)
-                          setShowForm(true)
+                          setEditProject(project);
+                          setShowForm(true);
                         }}
                         className="rounded bg-blue-500 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-blue-600"
                       >
@@ -172,15 +173,15 @@ const ProjectsView = () => {
                         onClick={async () => {
                           try {
                             const response = await axios.delete(
-                              `/project/delete-project/${project._id}`,
-                            )
-                            const data = response.data
-                            fetchProjects()
-                            toast(data.message, 'success', 3000, 'bottom-right')
+                              `/project/delete-project/${project._id}`
+                            );
+                            const data = response.data;
+                            fetchProjects();
+                            toast(data.message, 'success', 3000, 'bottom-right');
                           } catch (error) {
-                            const response = error.response
-                            const data = response.data
-                            toast(data.message, 'error', 3000, 'bottom-right')
+                            const response = error.response;
+                            const data = response.data;
+                            toast(data.message, 'error', 3000, 'bottom-right');
                           }
                         }}
                         className="rounded bg-red-500 px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:bg-red-600"
@@ -212,8 +213,8 @@ const ProjectsView = () => {
             <ProjectForm
               onSubmit={handleUpdateProject}
               onCancel={() => {
-                setShowForm(false)
-                setEditProject(null)
+                setShowForm(false);
+                setEditProject(null);
               }}
               initialValues={{
                 title: editProject.title || '',
@@ -223,7 +224,7 @@ const ProjectsView = () => {
                 githubUrl: editProject.githubUrl || '',
                 techStack: editProject.techStack ? editProject.techStack.join(', ') : '',
                 file: editProject.file,
-                images: editProject.images || [],
+                images: editProject.images || []
               }}
               isUpdate
             />
@@ -231,7 +232,7 @@ const ProjectsView = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ProjectsView
+export default ProjectsView;

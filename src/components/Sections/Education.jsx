@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
-import axios from '../../axios/axios'
+import React, { useCallback, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import axios from '../../axios/axios';
 
 const educationData = [
   {
@@ -9,56 +9,56 @@ const educationData = [
     year: '2025 - 2029',
     grade: 'Pending',
     degree: 'B.Sc.(Hons) in Information Technology',
-    location: 'Matara Center, Sri Lanka',
+    location: 'Matara Center, Sri Lanka'
   },
   {
     institute: 'Esoft Metro Campus',
     year: '2023 - 2024',
     grade: 'Distinction',
     degree: 'Diploma in Information Technology',
-    location: 'Matara Center, Sri Lanka',
+    location: 'Matara Center, Sri Lanka'
   },
   {
     institute: 'Mahinda Rajapaksa college',
     year: '2018 - 2020',
     degree: 'Physical Stream',
-    location: 'Matara, Sri Lanka',
-  },
-]
+    location: 'Matara, Sri Lanka'
+  }
+];
 
 const cardVariants = {
   offscreen: { opacity: 0, y: 80 },
   onscreen: {
     opacity: 1,
     y: 0,
-    transition: { type: 'spring', bounce: 0.3, duration: 0.9 },
-  },
-}
+    transition: { type: 'spring', bounce: 0.3, duration: 0.9 }
+  }
+};
 
 export const Label = ({ children, link }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleClick = () => {
-    if (!link) return
+    if (!link) return;
     if (link.startsWith('http')) {
-      window.open(link, '_blank')
+      window.open(link, '_blank');
     } else {
-      navigate(link)
+      navigate(link);
     }
-  }
+  };
 
   return (
     <span
       className="inline-block cursor-pointer rounded px-2 py-1 text-xs font-semibold"
       style={{
         background: 'color-mix(in srgb, var(--color-primary) 15%, transparent)',
-        color: 'var(--color-primary)',
+        color: 'var(--color-primary)'
       }}
       onClick={handleClick}
     >
       {children}
     </span>
-  )
-}
+  );
+};
 
 const EducationCard = ({ edu, index }) => (
   <motion.div
@@ -89,12 +89,12 @@ const EducationCard = ({ edu, index }) => (
       </ul>
     )}
   </motion.div>
-)
+);
 
 const Education = () => {
-  const ref = React.useRef(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const timelineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
+  const ref = React.useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const timelineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
   return (
     <section
@@ -121,7 +121,7 @@ const Education = () => {
             width: '2px',
             borderRadius: '1px',
             left: '8px',
-            background: 'linear-gradient(to bottom, var(--color-primary), transparent 90%)',
+            background: 'linear-gradient(to bottom, var(--color-primary), transparent 90%)'
           }}
           className="absolute z-0 hidden sm:top-5 sm:block"
         />
@@ -133,7 +133,7 @@ const Education = () => {
         <div className="hidden flex-shrink-0 lg:block"></div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Education
+export default Education;

@@ -1,5 +1,5 @@
-import React from 'react'
-import ScrollVelocity from '../utils/ScrollVelocity'
+import React from 'react';
+import ScrollVelocity from '../utils/ScrollVelocity';
 
 const Skills = () => {
   return (
@@ -9,7 +9,7 @@ const Skills = () => {
         className="font-primary xs:mt-25 text-blue-500 sm:mt-0 lg:mt-20 dark:text-blue-300"
       />
     </section>
-  )
-}
+  );
+};
 
-export default Skills
+export default Skills;

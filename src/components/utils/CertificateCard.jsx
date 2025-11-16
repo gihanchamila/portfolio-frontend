@@ -1,7 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Button from './Button'
-import { motion } from 'motion/react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Button from './Button';
+import { motion } from 'motion/react';
 
 const CertificateCard = ({ certificate, certificateName, organization, credentialUrl }) => {
   return (
@@ -24,7 +24,7 @@ const CertificateCard = ({ certificate, certificateName, organization, credentia
         )}
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default CertificateCard
+export default CertificateCard;

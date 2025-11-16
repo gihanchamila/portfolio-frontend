@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 const Circle = () => (
   <div className="relative mr-4 h-5 w-5">
@@ -10,13 +10,13 @@ const Circle = () => (
       transition={{ repeat: Infinity, ease: 'linear', duration: 1 }}
     />
   </div>
-)
+);
 
 const CircleLoader = () => (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-neutral-900">
     <Circle />
     <p className="font-primary text-lg font-medium text-sky-500 dark:text-sky-300">Just a moment</p>
   </div>
-)
+);
 
-export default CircleLoader
+export default CircleLoader;

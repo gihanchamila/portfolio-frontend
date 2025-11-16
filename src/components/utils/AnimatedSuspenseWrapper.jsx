@@ -1,6 +1,6 @@
 // components/AnimatedSuspenseWrapper.jsx
-import React, { Suspense } from 'react'
-import { motion } from 'framer-motion'
+import React, { Suspense } from 'react';
+import { motion } from 'framer-motion';
 
 const defaultFallback = (
   <motion.div
@@ -12,7 +12,7 @@ const defaultFallback = (
   >
     Loading...
   </motion.div>
-)
+);
 
 const AnimatedSuspenseWrapper = ({ children, fallback = defaultFallback }) => {
   return (
@@ -27,7 +27,7 @@ const AnimatedSuspenseWrapper = ({ children, fallback = defaultFallback }) => {
         {children}
       </motion.div>
     </Suspense>
-  )
-}
+  );
+};
 
-export default AnimatedSuspenseWrapper
+export default AnimatedSuspenseWrapper;
