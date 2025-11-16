@@ -1,30 +1,30 @@
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import Button from "./Button";
+import React from 'react'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import Button from './Button'
 
 const validationSchema = Yup.object({
-  title: Yup.string().required("Title is required"),
-  organization: Yup.string().required("Organization is required"),
-  issueDate: Yup.string().required("Issue Date is required"),
-  credentialURL: Yup.string()
-    .required("Credential URL is required")
-    .url("Invalid Credential URL"),
-});
+  title: Yup.string().required('Title is required'),
+  organization: Yup.string().required('Organization is required'),
+  issueDate: Yup.string().required('Issue Date is required'),
+  credentialURL: Yup.string().required('Credential URL is required').url('Invalid Credential URL'),
+})
 
 const CertificateForm = ({ onSubmit, onCancel, isUpdate, initialValues }) => (
   <Formik
     enableReinitialize={true}
-    initialValues={ initialValues || {
-      title: "",
-      organization: "",
-      issueDate: "",
-      credentialURL: "",
-    }}
+    initialValues={
+      initialValues || {
+        title: '',
+        organization: '',
+        issueDate: '',
+        credentialURL: '',
+      }
+    }
     validationSchema={validationSchema}
     onSubmit={onSubmit}
   >
-    {({isSubmitting }) => (
+    {({ isSubmitting }) => (
       <Form className="space-y-4">
         <div>
           <label className="formLable">Title</label>
@@ -49,8 +49,12 @@ const CertificateForm = ({ onSubmit, onCancel, isUpdate, initialValues }) => (
         <div className="flex gap-2">
           <Button type="submit" variant="primary" disabled={isSubmitting}>
             {isSubmitting
-              ? (isUpdate ? "Updating..." : "Adding...")
-              : isUpdate ? "Update Certificate" : "Add Certificate"}
+              ? isUpdate
+                ? 'Updating...'
+                : 'Adding...'
+              : isUpdate
+                ? 'Update Certificate'
+                : 'Add Certificate'}
           </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
@@ -59,6 +63,6 @@ const CertificateForm = ({ onSubmit, onCancel, isUpdate, initialValues }) => (
       </Form>
     )}
   </Formik>
-);
+)
 
-export default CertificateForm;
+export default CertificateForm

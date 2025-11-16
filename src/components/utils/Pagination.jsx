@@ -1,18 +1,20 @@
-import React from 'react';
+import React from 'react'
 
 const Pagination = ({ currentPage, totalPage, pageCount, onPageChange }) => {
-  
   const handlePrev = () => {
-    if (currentPage > 1) onPageChange(currentPage - 1);
-  };
+    if (currentPage > 1) onPageChange(currentPage - 1)
+  }
 
   const handleNext = () => {
-    if (currentPage < totalPage) onPageChange(currentPage + 1);
-  };
+    if (currentPage < totalPage) onPageChange(currentPage + 1)
+  }
 
   return (
     pageCount.length > 0 && (
-      <nav className="flex items-center justify-center pb-10 mt-5" aria-label="Page navigation example">
+      <nav
+        className="mt-5 flex items-center justify-center pb-10"
+        aria-label="Page navigation example"
+      >
         <ul className="inline-flex -space-x-px text-sm">
           <li>
             <button
@@ -35,7 +37,7 @@ const Pagination = ({ currentPage, totalPage, pageCount, onPageChange }) => {
           ))}
           <li>
             <button
-              className="pageButton rounded-r-lg rounded-l-none"
+              className="pageButton rounded-l-none rounded-r-lg"
               onClick={handleNext}
               disabled={currentPage === totalPage}
             >
@@ -45,7 +47,7 @@ const Pagination = ({ currentPage, totalPage, pageCount, onPageChange }) => {
         </ul>
       </nav>
     )
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination

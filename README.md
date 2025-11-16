@@ -37,17 +37,20 @@ Your portfolio website is a full stack application, with the frontend built usin
 ### **Getting Started**
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/gihanchamila/portfolio-frontend.git
    cd portfolio-frontend
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Run the development server:**
+
    ```bash
    npm run dev
    ```
@@ -80,12 +83,14 @@ Your portfolio website is a full stack application, with the frontend built usin
 ### **Getting Started**
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/gihanchamila/portfolio-backend.git
    cd portfolio-backend
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```

@@ -1,17 +1,17 @@
-import { Formik, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import Button from "./Button";
+import { Formik, Form, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import Button from './Button'
 
 const ResumeUploadForm = ({ onSubmit, onCancel }) => (
   <Formik
     initialValues={{ file: null }}
     validationSchema={Yup.object({
       file: Yup.mixed()
-        .required("Resume is required")
+        .required('Resume is required')
         .test(
-          "fileFormat",
-          "Only PDF files are allowed",
-          value => value && value.type === "application/pdf"
+          'fileFormat',
+          'Only PDF files are allowed',
+          (value) => value && value.type === 'application/pdf',
         ),
     })}
     onSubmit={onSubmit}
@@ -25,13 +25,13 @@ const ResumeUploadForm = ({ onSubmit, onCancel }) => (
             type="file"
             accept="application/pdf"
             className="formInput"
-            onChange={e => setFieldValue("file", e.currentTarget.files[0])}
+            onChange={(e) => setFieldValue('file', e.currentTarget.files[0])}
           />
           <ErrorMessage name="file" component="div" className="formError" />
         </div>
         <div className="flex gap-2">
           <Button type="submit" variant="primary" disabled={isSubmitting}>
-            {isSubmitting ? "Uploading..." : "Upload"}
+            {isSubmitting ? 'Uploading...' : 'Upload'}
           </Button>
           <Button type="button" variant="secondary" onClick={onCancel}>
             Cancel
@@ -40,6 +40,6 @@ const ResumeUploadForm = ({ onSubmit, onCancel }) => (
       </Form>
     )}
   </Formik>
-);
+)
 
-export default ResumeUploadForm;
+export default ResumeUploadForm

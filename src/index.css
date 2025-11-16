@@ -1,91 +1,88 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-    --color-on-surface: #171D1E;
-    --color-on-background: #181C1F;
-    --color-primary: oklch(0.685 0.169 237.323);
-    --color-on-secondary-fixed: #0A1528;
-    --color-text-default: #0A1528;
-    --color-surface-dim: #D5DBDC;
-    --color-surface: #1D1616;
+  --color-on-surface: #171d1e;
+  --color-on-background: #181c1f;
+  --color-primary: oklch(0.685 0.169 237.323);
+  --color-on-secondary-fixed: #0a1528;
+  --color-text-default: #0a1528;
+  --color-surface-dim: #d5dbdc;
+  --color-surface: #1d1616;
 
-    --breakpoint-sm: 25.75rem;
-    --breakpoint-xs: 20rem;
+  --breakpoint-sm: 25.75rem;
+  --breakpoint-xs: 20rem;
 
-    --font-primary: 'Space Grotesk', sans-serif;
-        
+  --font-primary: 'Space Grotesk', sans-serif;
 }
 
 @layer base {
+  html {
+    @apply dark:bg-surface bg-white;
+  }
 
-    html {
-        @apply bg-white dark:bg-surface ;
-    }
+  body {
+    @apply font-primary text-gray-800 dark:text-gray-200;
+  }
 
-    body {
-        @apply font-primary text-gray-800 dark:text-gray-200;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-primary;
+  }
 
-    h1, h2, h3, h4, h5, h6 {
-        @apply font-primary;
-    }
-
-    a {
-        @apply text-gray-800 dark:text-gray-200;
-    }
-    
+  a {
+    @apply text-gray-800 dark:text-gray-200;
+  }
 }
 
 ::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
 
 .button {
-    @apply w-auto text-center lg:px-4 lg:py-2 xs:py-2 xs:px-3 lg:text-base xs:text-xs rounded-lg font-primary flex items-center space-x-2 disabled:hover:cursor-not-allowed hover:cursor-pointer
+  @apply xs:py-2 xs:px-3 xs:text-xs font-primary flex w-auto items-center space-x-2 rounded-lg text-center hover:cursor-pointer disabled:hover:cursor-not-allowed lg:px-4 lg:py-2 lg:text-base;
 }
 
 .pageButton {
-    @apply flex items-center justify-center px-3 h-8 leading-tight 
-        text-gray-500 bg-white border border-gray-300
-        hover:bg-gray-100 hover:text-gray-700
-        dark:bg-neutral-800 dark:text-gray-200 dark:border-neutral-700
-        dark:hover:bg-neutral-700 dark:hover:text-white
-        transition-colors duration-150;
+  @apply flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 transition-colors duration-150 hover:bg-gray-100 hover:text-gray-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-gray-200 dark:hover:bg-neutral-700 dark:hover:text-white;
 }
 
 .navLink {
-    @apply xs:text-gray-700 hover:text-gray-800 dark:text-gray-100 dark:hover:text-white
+  @apply xs:text-gray-700 hover:text-gray-800 dark:text-gray-100 dark:hover:text-white;
 }
 
 .cardTitle {
-    @apply sm:text-2xl xs:text-xl xs:font-bold line-clamp-2 min-h-[2.5rem] xs:font-primary;
+  @apply xs:text-xl xs:font-bold xs:font-primary line-clamp-2 min-h-[2.5rem] sm:text-2xl;
 }
 
 .cardSubTitle {
-    @apply sm:text-base xs:text-sm xs:font-primary line-clamp-3 min-h-[4rem];
+  @apply xs:text-sm xs:font-primary line-clamp-3 min-h-[4rem] sm:text-base;
 }
 
 .formInput {
-    @apply w-full py-2 px-4 xs:pl-2 sm:pl-4 border border-gray-300 rounded-lg focus:outline-gray-300 focus:outline-1 xs:font-primary sm:text-sm xs:text-xs
+  @apply xs:pl-2 xs:font-primary xs:text-xs w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-1 focus:outline-gray-300 sm:pl-4 sm:text-sm;
 }
 
 .formLable {
-    @apply block sm:text-sm xs:text-sm xs:font-semibold lg:text-base text-gray-700 mb-2 font-primary dark:text-gray-50
+  @apply xs:text-sm xs:font-semibold font-primary mb-2 block text-gray-700 sm:text-sm lg:text-base dark:text-gray-50;
 }
 
 .formError {
-    @apply text-red-500 text-sm mt-1 font-primary dark:text-red-300
+  @apply font-primary mt-1 text-sm text-red-500 dark:text-red-300;
 }
 
 .icon {
-    @apply w-6 h-6 cursor-pointer hover:text-gray-700
+  @apply h-6 w-6 cursor-pointer hover:text-gray-700;
 }
 
 .footerIconSize {
-    @apply lg:size-6 sm:size-5 xs:size-4
+  @apply xs:size-4 sm:size-5 lg:size-6;
 }
 
 .toastIcon {
-    @apply sm:size-4 xs:size-3 mt-0.5
+  @apply xs:size-3 mt-0.5 sm:size-4;
 }
