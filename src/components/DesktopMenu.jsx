@@ -3,6 +3,7 @@ import NavLinks from './NavLinks';
 import ResumeDownload from './utils/ResumeDownload';
 import { useAuth } from '../context/AuthContext';
 import { LogOut } from 'lucide-react';
+import Button from './Button';
 
 const DesktopMenu = ({ navLinks }) => {
   const { admin, signOut } = useAuth();
@@ -13,16 +14,19 @@ const DesktopMenu = ({ navLinks }) => {
       >
         <div className="lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-5">
           <NavLinks links={navLinks} />
-          <ResumeDownload />
+          {/* <ResumeDownload /> */}
           {admin && (
             <div className="hidden lg:flex lg:gap-5">
               <span
                 variant="primary"
-                className="rounded-full bg-neutral-800 p-3"
+                className="rounded-lg bg-neutral-800 p-3"
                 size="small"
                 onClick={() => signOut()}
               >
-                <LogOut size={15} />
+                <Button className="flex items-center gap-2 whitespace-nowrap">
+                  Log Out
+                  <LogOut size={16} />
+                </Button>
               </span>
             </div>
           )}
