@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import SplitText from '../utils/SplitText';
 import { profileImage } from '../../assets';
 import Skills from './Skills'
 import { motion } from 'motion/react';
 import CustomCursor from '../utils/CustomCursor';
-import Button from '../utils/Button';
-import { useNavigate } from 'react-router-dom';
 import SocialLinks from '../utils/SocialLinks';
 
 
