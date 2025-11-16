@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import Toast from "../components/utils/Toast";
+import useMemo from "react";
 
 const ToastContext = createContext();
 
@@ -37,8 +38,10 @@ export const ToastProvider = ({ children }) => {
     return acc;
   }, {});
 
+  const value = useMemo(() => ({ toast }), [toast]);
+
   return(
-    <ToastContext.Provider value={{ toast }}>
+    <ToastContext.Provider value={value}>
       {children}
       {Object.entries(groupedToasts).map(([position, toasts]) => (
         <div
