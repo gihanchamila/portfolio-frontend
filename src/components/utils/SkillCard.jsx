@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const SkillCard = ({text}) => {
+const SkillCard = ({ text }) => {
   return (
-    <span className='p-2 text-sm rounded-lg dark:text-white dark:border-2 dark:border-white'>{text}</span>
-  )
-}
+    <span className="rounded-lg p-2 text-sm dark:border-2 dark:border-white dark:text-white">
+      {text}
+    </span>
+  );
+};
 
-export default SkillCard
+export default SkillCard;

@@ -12,11 +12,12 @@ const PrivateLayout = () => {
 
   if (location.pathname === '/admin') {
     return (
-    <>
-      <Header />
-      <Outlet />
-      <Footer />
-    </>)
+      <>
+        <Header />
+        <Outlet />
+        <Footer />
+      </>
+    );
   }
 
   if (!token || !admin) {
@@ -25,7 +26,7 @@ const PrivateLayout = () => {
 
   return (
     <>
-      <BaseLayout/>
+      <BaseLayout />
     </>
   );
 };

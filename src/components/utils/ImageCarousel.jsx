@@ -2,21 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const variants = {
-  enter: (direction) => ({
+  enter: direction => ({
     x: direction > 0 ? '110%' : '-110%',
-    opacity: 0,
+    opacity: 0
   }),
   center: {
     zIndex: 1,
     x: 0,
-    opacity: 1,
-    
+    opacity: 1
   },
-  exit: (direction) => ({
+  exit: direction => ({
     zIndex: 0,
-    x: direction < 0 ? '110%' : '-110%', 
-    opacity: 0,
-  }),
+    x: direction < 0 ? '110%' : '-110%',
+    opacity: 0
+  })
 };
 
 const AUTO_SWIPE_INTERVAL = 10000;
@@ -29,7 +28,7 @@ const ImageCarousel = ({ images }) => {
 
   const imageIndex = ((page % images.length) + images.length) % images.length;
 
-  const paginate = (newDirection) => {
+  const paginate = newDirection => {
     setPage([page + newDirection, newDirection]);
   };
 
@@ -45,7 +44,7 @@ const ImageCarousel = ({ images }) => {
 
   return (
     <div
-      className="relative w-full aspect-video rounded-lg overflow-hidden cursor-grab active:cursor-grabbing"
+      className="relative aspect-video w-full cursor-grab overflow-hidden rounded-lg active:cursor-grabbing"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -59,12 +58,12 @@ const ImageCarousel = ({ images }) => {
           initial="enter"
           animate="center"
           exit="exit"
-          role='image'
+          role="image"
           transition={{
             x: { type: 'spring', stiffness: 500, damping: 50 },
-            opacity: { duration: 0.5 },
+            opacity: { duration: 0.5 }
           }}
-          className="absolute w-full h-full object-cover"
+          className="absolute h-full w-full object-cover"
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={2}

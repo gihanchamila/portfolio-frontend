@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useDisableBackgroundScroll = (isPopupOpen) => {
+const useDisableBackgroundScroll = isPopupOpen => {
   useEffect(() => {
     if (isPopupOpen) {
       document.body.style.overflow = 'hidden';

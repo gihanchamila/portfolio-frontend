@@ -3,24 +3,33 @@ import { motion } from 'framer-motion';
 import Button from './Button';
 
 export const DashboardCard = ({
-  icon, title, description, onClick, actionLabel, className, animateProps, secondaryActionLabel,
-  onSecondaryClick,
+  icon,
+  title,
+  description,
+  onClick,
+  actionLabel,
+  className,
+  animateProps,
+  secondaryActionLabel,
+  onSecondaryClick
 }) => (
   <motion.div
     layout
     whileTap={{ scale: 0.97 }}
     animate={animateProps}
-    transition={{ type: "spring", stiffness: 300, damping: 25 }}
-    className={`bg-white dark:bg-neutral-800 rounded-2xl shadow-md p-6 flex flex-col items-center justify-between hover:shadow-2xl mb-4 transition-shadow min-h-auto cursor-pointer p-4 ${className}`}
-    
+    transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+    className={`mb-4 flex min-h-auto cursor-pointer flex-col items-center justify-between rounded-2xl bg-white p-4 p-6 shadow-md transition-shadow hover:shadow-2xl dark:bg-neutral-800 ${className}`}
   >
-    <div className="mb-4 text-sky-500 dark:text-sky-300 xs:text-sm lg:text-base">{icon}</div>
-    <h3 className="text-lg font-semibold mb-2 text-center">{title}</h3>
-    <p className="text-gray-600 dark:text-gray-300 text-center mb-4 xs:text-sm lg:text-base">{description}</p>
-    <div className="flex gap-2 pb-2 mt-auto">
+    <div className="xs:text-sm mb-4 text-sky-500 lg:text-base dark:text-sky-300">{icon}</div>
+    <h3 className="mb-2 text-center text-lg font-semibold">{title}</h3>
+    <p className="xs:text-sm mb-4 text-center text-gray-600 lg:text-base dark:text-gray-300">
+      {description}
+    </p>
+    <div className="mt-auto flex gap-2 pb-2">
       {actionLabel && (
-        <Button onClick={onClick}
-          className="mt-auto px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-600 transition-colors text-sm"
+        <Button
+          onClick={onClick}
+          className="mt-auto rounded bg-sky-500 px-4 py-2 text-sm text-white transition-colors hover:bg-sky-600"
         >
           {actionLabel}
         </Button>
@@ -28,7 +37,7 @@ export const DashboardCard = ({
       {secondaryActionLabel && (
         <Button
           onClick={onSecondaryClick}
-          className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors text-sm"
+          className="rounded bg-gray-100 px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-200"
         >
           {secondaryActionLabel}
         </Button>

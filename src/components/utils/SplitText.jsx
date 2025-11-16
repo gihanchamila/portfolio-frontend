@@ -10,8 +10,8 @@ const SplitText = ({
   easing = 'easeOutCubic',
   threshold = 0.1,
   rootMargin = '-100px',
-  onLetterAnimationComplete,
-  }) => {
+  onLetterAnimationComplete
+}) => {
   const words = text.split(' ').map(word => word.split(''));
   const letters = words.flat();
   const [inView, setInView] = useState(false);
@@ -39,31 +39,30 @@ const SplitText = ({
     letters.map((_, i) => ({
       from: animationFrom,
       to: inView
-        ? async (next) => {
-          await next(animationTo);
-          animatedCount.current += 1;
-          if (animatedCount.current === letters.length && onLetterAnimationComplete) {
-            onLetterAnimationComplete();
+        ? async next => {
+            await next(animationTo);
+            animatedCount.current += 1;
+            if (animatedCount.current === letters.length && onLetterAnimationComplete) {
+              onLetterAnimationComplete();
+            }
           }
-        }
         : animationFrom,
       delay: i * delay,
-      config: { easing },
+      config: { easing }
     }))
   );
 
   return (
     <p
       ref={ref}
-      className={`split-parent overflow-hidden inline ${className}`}
-      style={{  whiteSpace: 'normal', wordWrap: 'break-word' }}
+      className={`split-parent inline overflow-hidden ${className}`}
+      style={{ whiteSpace: 'normal', wordWrap: 'break-word' }}
     >
       {words.map((word, wordIndex) => (
         <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
           {word.map((letter, letterIndex) => {
-            const index = words
-              .slice(0, wordIndex)
-              .reduce((acc, w) => acc + w.length, 0) + letterIndex;
+            const index =
+              words.slice(0, wordIndex).reduce((acc, w) => acc + w.length, 0) + letterIndex;
 
             return (
               <animated.span

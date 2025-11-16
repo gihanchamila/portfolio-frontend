@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
-import { AnimatePresence } from "framer-motion";
-import Toast from "../components/utils/Toast";
+import React, { createContext, useContext, useState, useCallback } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import Toast from '../components/utils/Toast';
+import { useMemo } from 'react';
 
 const ToastContext = createContext();
 
@@ -9,27 +10,30 @@ export const useToast = () => useContext(ToastContext);
 let toastId = 0;
 
 const positionClasses = {
-  "top-right": "top-4 right-4 items-end",
-  "top-left": "top-4 left-4 items-start",
-  "bottom-right": "bottom-12 right-5 items-end",
-  "bottom-left": "bottom-4 left-4 items-start",
-  "top-center": "top-4 left-1/2 -translate-x-1/2 items-center",
-  "bottom-center": "bottom-4 left-1/2 -translate-x-1/2 items-center",
+  'top-right': 'top-4 right-4 items-end',
+  'top-left': 'top-4 left-4 items-start',
+  'bottom-right': 'bottom-12 right-5 items-end',
+  'bottom-left': 'bottom-4 left-4 items-start',
+  'top-center': 'top-4 left-1/2 -translate-x-1/2 items-center',
+  'bottom-center': 'bottom-4 left-1/2 -translate-x-1/2 items-center'
 };
 
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  const toast = useCallback((message, type = "info", duration = 3000, position = "bottom-right") => {
-    const id = toastId++;
-    const newToast = { id, message, type, position };
+  const toast = useCallback(
+    (message, type = 'info', duration = 3000, position = 'bottom-right') => {
+      const id = toastId++;
+      const newToast = { id, message, type, position };
 
-    setToasts((prev) => [...prev, newToast]);
+      setToasts(prev => [...prev, newToast]);
 
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, duration);
-  }, []);
+      setTimeout(() => {
+        setToasts(prev => prev.filter(t => t.id !== id));
+      }, duration);
+    },
+    []
+  );
 
   const groupedToasts = toasts.reduce((acc, toast) => {
     acc[toast.position] = acc[toast.position] || [];
@@ -37,16 +41,18 @@ export const ToastProvider = ({ children }) => {
     return acc;
   }, {});
 
-  return(
-    <ToastContext.Provider value={{ toast }}>
+  const value = useMemo(() => ({ toast }), [toast]);
+
+  return (
+    <ToastContext.Provider value={value}>
       {children}
       {Object.entries(groupedToasts).map(([position, toasts]) => (
         <div
           key={position}
-          className={`fixed z-50 pointer-events-none flex flex-col space-y-4 ${positionClasses[position] || positionClasses["bottom-right"]}`}
+          className={`pointer-events-none fixed z-50 flex flex-col space-y-4 ${positionClasses[position] || positionClasses['bottom-right']}`}
         >
           <AnimatePresence>
-            {toasts.map((toast) => (
+            {toasts.map(toast => (
               <Toast
                 key={toast.id}
                 message={toast.message}

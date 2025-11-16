@@ -1,20 +1,20 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
 const GlareHover = ({
-  width = "auto",
-  height = "auto",
-  borderRadius = "12px",
+  width = 'auto',
+  height = 'auto',
+  borderRadius = '12px',
   children,
-  glareColor = "#ffffff",
+  glareColor = '#ffffff',
   glareOpacity = 0.5,
   glareAngle = -45,
   glareSize = 250,
   transitionDuration = 650,
   playOnce = false,
-  className = "",
-  style = {},
+  className = '',
+  style = {}
 }) => {
-  const hex = glareColor.replace("#", "");
+  const hex = glareColor.replace('#', '');
   let rgba = glareColor;
   if (/^[\dA-Fa-f]{6}$/.test(hex)) {
     const r = parseInt(hex.slice(0, 2), 16);
@@ -34,11 +34,11 @@ const GlareHover = ({
     const el = overlayRef.current;
     if (!el) return;
 
-    el.style.transition = "none";
-    el.style.backgroundPosition = "-100% -100%, 0 0";
+    el.style.transition = 'none';
+    el.style.backgroundPosition = '-100% -100%, 0 0';
     el.offsetHeight;
     el.style.transition = `${transitionDuration}ms ease`;
-    el.style.backgroundPosition = "100% 100%, 0 0";
+    el.style.backgroundPosition = '100% 100%, 0 0';
   };
 
   const animateOut = () => {
@@ -46,35 +46,35 @@ const GlareHover = ({
     if (!el) return;
 
     if (playOnce) {
-      el.style.transition = "none";
-      el.style.backgroundPosition = "-100% -100%, 0 0";
+      el.style.transition = 'none';
+      el.style.backgroundPosition = '-100% -100%, 0 0';
     } else {
       el.style.transition = `${transitionDuration}ms ease`;
-      el.style.backgroundPosition = "-100% -100%, 0 0";
+      el.style.backgroundPosition = '-100% -100%, 0 0';
     }
   };
 
   const overlayStyle = {
-    position: "absolute",
+    position: 'absolute',
     inset: 0,
     background: `linear-gradient(${glareAngle}deg,
         hsla(0,0%,0%,0) 60%,
         ${rgba} 70%,
         hsla(0,0%,0%,0) 100%)`,
     backgroundSize: `${glareSize}% ${glareSize}%, 100% 100%`,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "-100% -100%, 0 0",
-    pointerEvents: "none",
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: '-100% -100%, 0 0',
+    pointerEvents: 'none'
   };
 
   return (
     <div
-      className={`relative grid place-items-center overflow-hidden  cursor-pointer ${className}`}
+      className={`relative grid cursor-pointer place-items-center overflow-hidden ${className}`}
       style={{
         width,
         height,
         borderRadius,
-        ...style,
+        ...style
       }}
       onMouseEnter={animateIn}
       onMouseLeave={animateOut}
