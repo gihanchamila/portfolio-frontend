@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { profileImage } from '../../assets';
+import Reveal from '../utils/Reveal';
 import AnimatedButton from './AnimatedButton';
 
 const ProjectCard = ({ projectName, description, imageUrl, github, live, projectId }) => {

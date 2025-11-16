@@ -5,6 +5,7 @@ import { Sparkle } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 import axios from '../../axios/axios.js';
 import { useNavigate } from 'react-router-dom';
+import Reveal from '../utils/Reveal';
 
 const FeaturedProjects = () => {
   const ref = useRef(null);
@@ -78,23 +79,26 @@ const FeaturedProjects = () => {
     >
       <header className="pb-8">
         <SectionLabel icon={<Sparkle size={14} />} label="Highlight" />
-        <h2 className="xs:text-3xl font-primary font-bold sm:text-4xl">
-          Featured <span>Projects</span>
-        </h2>
+        <Reveal>
+          <h2 className="xs:text-3xl font-primary font-bold sm:text-4xl">
+            Featured <span>Projects</span>
+          </h2>
+        </Reveal>
       </header>
 
       <div className="xs:gap-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, index) => (
-          <ProjectCard
-            key={project._id}
-            projectName={project.title}
-            description={project.description}
-            github={project.githubUrl}
-            live={project.projectUrl}
-            imageUrl={projectFiles[project._id]}
-            projectId={project._id}
-            index={index}
-          />
+          <Reveal delay={index * 0.2} key={project._id}>
+            <ProjectCard
+              projectName={project.title}
+              description={project.description}
+              github={project.githubUrl}
+              live={project.projectUrl}
+              imageUrl={projectFiles[project._id]}
+              projectId={project._id}
+              index={index}
+            />
+          </Reveal>
         ))}
 
         {totalCount > 3 && (

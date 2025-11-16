@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Reveal from '../utils/Reveal';
+import { motion } from 'framer-motion';
 
 const educationData = [
   {
@@ -90,24 +92,33 @@ const Education = () => {
       aria-label="Education Section"
     >
       <div className="mx-auto mb-12 max-w-3xl lg:mx-0 lg:mb-16 lg:max-w-5xl">
-        <h2 className="text-3xl font-extrabold sm:text-4xl">Education</h2>
+        <Reveal>
+          <h2 className="text-3xl font-extrabold sm:text-4xl">Education</h2>
+        </Reveal>
       </div>
 
       <div className="relative flex flex-col items-start">
-        <div
+        <motion.div
           className="absolute z-0 hidden sm:top-5 sm:block"
           style={{
-            height: '100%',
             width: '2px',
+            height: '100%',
             borderRadius: '1px',
             left: '8px',
-            background: 'linear-gradient(to bottom, var(--color-primary), transparent 90%)'
+            background: 'linear-gradient(to bottom, var(--color-primary), transparent 90%)',
+            transformOrigin: 'top'
           }}
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
         />
 
         <div className="gap-auto flex w-full flex-col lg:pl-12">
           {educationData.map((edu, idx) => (
-            <EducationCard edu={edu} key={idx} />
+            <Reveal delay={idx * 0.1} key={idx}>
+              <EducationCard edu={edu} />
+            </Reveal>
           ))}
         </div>
 
