@@ -9,8 +9,6 @@ import useDisableBackgroundScroll from '../../hooks/useDisableBackgroundScroll';
 import axios from '../../axios/axios';
 import debounce from 'lodash.debounce';
 import { useToast } from '../../context/ToastContext';
-import { motion } from 'motion/react';
-import { div } from 'motion/react-client';
 
 const ContactForm = () => {
   const fullnameRef = useRef();
@@ -23,20 +21,6 @@ const ContactForm = () => {
   const [verificationCode, setVerificationCode] = useState(null);
   const [count, setCount] = useState(null);
   useDisableBackgroundScroll(isPopupOpen);
-
-  const childVariant = {
-    hidden: { opacity: 0, y: 20, scale: 1 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: 'easeOut' } }
-  };
-
-  const cardVariants = {
-    offscreen: { opacity: 0, y: 20 },
-    onscreen: {
-      opacity: 1,
-      y: 0,
-      transition: { type: 'spring', bounce: 0.3, duration: 0.9 }
-    }
-  };
 
   useEffect(() => {
     let interval;
@@ -152,21 +136,9 @@ const ContactForm = () => {
         }}
       >
         {({ isSubmitting, values }) => (
-          <motion.div
-            className="sm:w-full lg:w-1/2"
-            variants={cardVariants}
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ once: true, amount: 0.5 }}
-          >
+          <div className="sm:w-full lg:w-1/2">
             <Form>
-              <motion.div
-                className="mb-4"
-                variants={childVariant}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-              >
+              <div className="mb-4">
                 <label htmlFor="fullName" className="formLable">
                   Full Name <Asterisk className="inline-block align-super text-red-500" size={10} />
                 </label>
@@ -180,15 +152,9 @@ const ContactForm = () => {
                   onKeyDown={e => handleKeyDown(e, e.target.value, emailRef)}
                 />
                 <ErrorMessage name="fullName" component="div" className="formError" />
-              </motion.div>
+              </div>
 
-              <motion.div
-                className="relative mb-4"
-                variants={childVariant}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-              >
+              <div className="relative mb-4">
                 <label htmlFor="email" className="formLable">
                   Email <Asterisk className="inline-block align-super text-red-500" size={10} />
                 </label>
@@ -209,19 +175,19 @@ const ContactForm = () => {
                   }}
                 />
                 <ErrorMessage name="email" component="div" className="formError" />
+
                 <div className="absolute -top-2 right-0 mt-2">
                   {!isEmailVerified && values.email && (
                     <span
-                      type="pop-up"
                       onClick={() => handleVerifyEmail(values.email, values.fullName)}
                       className="font-primary cursor-pointer text-sm text-sky-500 hover:underline"
                     >
                       Verify Email
                     </span>
                   )}
+
                   {isEmailVerified && (
                     <span
-                      type="button"
                       onClick={count === 0 ? handleChangeEmail : null}
                       className={`font-primary cursor-pointer text-sm hover:underline ${
                         count > 0 ? 'cursor-not-allowed text-gray-400' : 'text-red-500'
@@ -231,15 +197,9 @@ const ContactForm = () => {
                     </span>
                   )}
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                className="mb-4"
-                variants={childVariant}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-              >
+              <div className="mb-4">
                 <label htmlFor="message" className="formLable">
                   Message <Asterisk className="inline-block align-super text-red-500" size={10} />
                 </label>
@@ -253,23 +213,13 @@ const ContactForm = () => {
                   innerRef={messageRef}
                 />
                 <ErrorMessage name="message" component="div" className="formError" />
-              </motion.div>
+              </div>
 
-              <motion.div
-                className="flex justify-end"
-                variants={childVariant}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-              >
-                <Button
-                  variant={'primary'}
-                  type="submit"
-                  disabled={isSubmitting || !isEmailVerified}
-                >
+              <div className="flex justify-end">
+                <Button variant="primary" type="submit" disabled={isSubmitting || !isEmailVerified}>
                   {isSubmitting ? 'Submitting...' : 'Submit'}
                 </Button>
-              </motion.div>
+              </div>
 
               <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
                 <h2 className="cardTitle pb-5 drop-shadow-none">Verify Your Email</h2>
@@ -298,7 +248,7 @@ const ContactForm = () => {
                 </Button>
               </Popup>
             </Form>
-          </motion.div>
+          </div>
         )}
       </Formik>
     </>

@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../axios/axios';
 
 const educationData = [
   {
@@ -25,15 +23,6 @@ const educationData = [
     location: 'Matara, Sri Lanka'
   }
 ];
-
-const cardVariants = {
-  offscreen: { opacity: 0, y: 80 },
-  onscreen: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring', bounce: 0.3, duration: 0.9 }
-  }
-};
 
 export const Label = ({ children, link }) => {
   const navigate = useNavigate();
@@ -60,13 +49,9 @@ export const Label = ({ children, link }) => {
   );
 };
 
-const EducationCard = ({ edu, index }) => (
-  <motion.div
-    className={`relative mx-0 mb-8 flex w-full max-w-2xl flex-col gap-3 rounded-2xl border border-neutral-200 bg-transparent p-6 transition-colors duration-300 dark:border-neutral-800`}
-    initial="offscreen"
-    whileInView="onscreen"
-    viewport={{ once: true, amount: 0.5 }}
-    variants={cardVariants}
+const EducationCard = ({ edu }) => (
+  <div
+    className="relative mx-0 mb-8 flex w-full max-w-2xl flex-col gap-3 rounded-2xl border border-neutral-200 bg-transparent p-6 transition-colors duration-300 dark:border-neutral-800"
     tabIndex={0}
     aria-label={`Education at ${edu.institute}`}
   >
@@ -76,11 +61,14 @@ const EducationCard = ({ edu, index }) => (
         {edu.year}
       </span>
     </div>
+
     <div className="flex flex-col items-start gap-2 sm:flex-row sm:justify-between">
       {edu.degree && <span className="text-sm font-semibold">{edu.degree}</span>}
       <span className="text-xs text-neutral-400 dark:text-neutral-500">{edu.location}</span>
     </div>
+
     <div className="flex items-center gap-2">{edu.grade && <Label>{edu.grade}</Label>}</div>
+
     {edu.highlights && (
       <ul className="mt-2 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
         {edu.highlights.map((h, i) => (
@@ -88,48 +76,41 @@ const EducationCard = ({ edu, index }) => (
         ))}
       </ul>
     )}
-  </motion.div>
+  </div>
 );
 
 const Education = () => {
   const ref = React.useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const timelineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
   return (
     <section
       ref={ref}
-      className={`relative scroll-mt-16 bg-transparent pb-12 text-left transition-colors duration-300`}
+      className="relative scroll-mt-16 bg-transparent pb-12 text-left transition-colors duration-300"
       id="education"
       aria-label="Education Section"
     >
       <div className="mx-auto mb-12 max-w-3xl lg:mx-0 lg:mb-16 lg:max-w-5xl">
-        <motion.h2
-          className="text-3xl font-extrabold sm:text-4xl"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          viewport={{ once: true }}
-        >
-          Education
-        </motion.h2>
+        <h2 className="text-3xl font-extrabold sm:text-4xl">Education</h2>
       </div>
+
       <div className="relative flex flex-col items-start">
-        <motion.div
+        <div
+          className="absolute z-0 hidden sm:top-5 sm:block"
           style={{
-            height: timelineHeight,
+            height: '100%',
             width: '2px',
             borderRadius: '1px',
             left: '8px',
             background: 'linear-gradient(to bottom, var(--color-primary), transparent 90%)'
           }}
-          className="absolute z-0 hidden sm:top-5 sm:block"
         />
+
         <div className="gap-auto flex w-full flex-col lg:pl-12">
           {educationData.map((edu, idx) => (
-            <EducationCard edu={edu} key={idx} index={idx} />
+            <EducationCard edu={edu} key={idx} />
           ))}
         </div>
+
         <div className="hidden flex-shrink-0 lg:block"></div>
       </div>
     </section>

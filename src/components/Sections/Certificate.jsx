@@ -1,43 +1,19 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import CertificateCard from '../utils/CertificateCard';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
-import { useInView } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
-const AnimatedCertificate = ({ certificate, index }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px' });
-
-  const variants = {
-    hidden: { opacity: 0, y: 20, scale: 1 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        delay: index * 0.1,
-        duration: 0.6,
-        ease: 'easeOut'
-      }
-    }
-  };
-
+const StaticCertificate = ({ certificate }) => {
   return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-      variants={variants}
-    >
+    <div>
       <CertificateCard
         certificate={certificate}
         certificateName={certificate.title}
         organization={certificate.organization}
         credentialUrl={certificate.credentialURL}
       />
-    </motion.div>
+    </div>
   );
 };
 
@@ -74,22 +50,15 @@ const Certificate = () => {
       className="sm-col-span-4 scroll-mt-14 pb-20 sm:col-start-1 sm:col-end-5"
     >
       <header className="pb-8">
-        <motion.h2
-          className="xs:text-3xl font-primary font-bold sm:text-4xl"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
+        <h2 className="xs:text-3xl font-primary font-bold sm:text-4xl">
           <span className="">Certifications</span> and Achievements
-        </motion.h2>
+        </h2>
       </header>
 
       <div className="xs:gap-6 xs:flex xs:flex-col sm:col-span-2 sm:grid sm:grid-cols-2">
         {certificates.length > 0 &&
-          certificates.map((cert, index) => (
-            <AnimatedCertificate key={cert._id} certificate={cert} index={index} />
-          ))}
+          certificates.map(cert => <StaticCertificate key={cert._id} certificate={cert} />)}
+
         {totalCount > 3 && (
           <span className="cursor-pointer" onClick={() => navigate('certificates')}>
             Show more

@@ -5,7 +5,6 @@ import { Sparkle } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 import axios from '../../axios/axios.js';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'motion/react';
 
 const FeaturedProjects = () => {
   const ref = useRef(null);
@@ -51,10 +50,12 @@ const FeaturedProjects = () => {
           };
         })
       );
+
       const fileUrlMap = fileUrls.reduce((acc, item) => {
         acc[item.id] = item.fileUrl;
         return acc;
       }, {});
+
       setProjectFiles(fileUrlMap);
       toast('Fetched signed file URLs successfully');
     } catch (error) {
@@ -77,15 +78,9 @@ const FeaturedProjects = () => {
     >
       <header className="pb-8">
         <SectionLabel icon={<Sparkle size={14} />} label="Highlight" />
-        <motion.h2
-          className="xs:text-3xl font-primary font-bold sm:text-4xl"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          Featured <span className="">Projects</span>
-        </motion.h2>
+        <h2 className="xs:text-3xl font-primary font-bold sm:text-4xl">
+          Featured <span>Projects</span>
+        </h2>
       </header>
 
       <div className="xs:gap-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -101,6 +96,7 @@ const FeaturedProjects = () => {
             index={index}
           />
         ))}
+
         {totalCount > 3 && (
           <span className="cursor-pointer" onClick={() => navigate('projects')}>
             Show more
