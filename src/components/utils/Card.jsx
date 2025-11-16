@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import { Link } from 'react-router-dom'
 import { profileImage } from '../../assets'
 import AnimatedButton from './AnimatedButton'
@@ -11,6 +11,10 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
   const navigate = useNavigate()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.5, rootMargin: '0px 0px -100px 0px' })
+
+  const handleNavigate = useCallback(() => {
+    navigate(`/project/get-project/${projectId}`);
+  }, [navigate, projectId]);
 
   const variants = {
     hidden: { opacity: 0, y: 50 + index * 25 },
@@ -51,9 +55,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
       <div className="xs:space-y-2 absolute bottom-0 flex w-full flex-col p-4 text-white sm:space-y-3">
         <h2
           className="cardTitle cursor-pointer drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]"
-          onClick={() => {
-            navigate(`/project/get-project/${projectId}`)
-          }}
+          onClick={handleNavigate}
         >
           {projectName}
         </h2>
