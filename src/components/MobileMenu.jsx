@@ -8,6 +8,7 @@ import NavLinks from './NavLinks';
 import { motion } from 'motion/react';
 import { AnimatePresence } from 'motion/react';
 import ResumeDownload from './utils/ResumeDownload';
+import ThemeToggle from './utils/ThemeToggle';
 
 const MobileMenu = ({ navLinks }) => {
   const ref = useRef(null);
@@ -61,10 +62,20 @@ const MobileMenu = ({ navLinks }) => {
               ref={ref}
               className="xs:w-1-2 dark:bg-surface fixed top-0 right-0 z-50 flex h-screen flex-col overflow-hidden rounded-l-2xl bg-white px-10 py-5 sm:w-[20rem]"
             >
-              <div className="absolute top-8 right-7">
+              <div className="absolute top-8 right-7 left-7 flex items-center justify-between">
+                <motion.div
+                  className="ml-1"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.15, duration: 0.3 }}
+                >
+                  <ThemeToggle />
+                </motion.div>
+
                 <X onClick={toggleMenu} className="cursor-pointer" />
               </div>
-              <div className="xs:flex xs:flex-col xs:space-y-6 xs:w-auto mt-20 md:block">
+
+              <div className="xs:flex xs:flex-col xs:space-y-4 xs:w-auto mt-20 md:block">
                 <NavLinks links={navLinks} />
                 <div className="mt-5">
                   <ResumeDownload />
