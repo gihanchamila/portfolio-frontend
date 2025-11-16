@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import Toast from "../components/utils/Toast";
-import useMemo from "react";
+import {useMemo} from "react";
 
 const ToastContext = createContext();
 
