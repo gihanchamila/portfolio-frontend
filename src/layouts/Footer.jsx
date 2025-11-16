@@ -5,15 +5,6 @@ import SocialLinks from '../components/utils/SocialLinks';
 
 const Footer = () => {
   const containerVariant = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const childVariant = {
     hidden: { opacity: 0, y: 20, scale: 1 },
     visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: 'easeInOut' } }
   };
@@ -27,13 +18,9 @@ const Footer = () => {
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <motion.h2 className="xs:text-base font-semibold sm:text-lg" variants={childVariant}>
-          Gihan Chamila
-        </motion.h2>
-        <motion.p className="xs:text-xs" variants={childVariant}>
-          algihanchamila@gmail.com
-        </motion.p>
-        <SocialLinks variant={childVariant} />
+        <h2 className="xs:text-base font-semibold sm:text-lg">Gihan Chamila</h2>
+        <p className="xs:text-xs">algihanchamila@gmail.com</p>
+        <SocialLinks />
       </motion.footer>
     </GridContainer>
   );
