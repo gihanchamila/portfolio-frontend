@@ -18,13 +18,8 @@ const DesktopMenu = ({ navLinks }) => {
           <ResumeDownload />
           {admin && (
             <div className="hidden lg:flex lg:gap-5">
-              <span
-                variant="primary"
-                className="rounded-lg bg-neutral-800 p-3"
-                size="small"
-                onClick={() => signOut()}
-              >
-                <Button className="flex items-center gap-2 whitespace-nowrap">
+              <span variant="primary" className="" size="small" onClick={() => signOut()}>
+                <Button variant="outline" className="flex items-center gap-2 whitespace-nowrap">
                   Log Out
                   <LogOut size={16} />
                 </Button>
