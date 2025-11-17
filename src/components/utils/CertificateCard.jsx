@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 
 const CertificateCard = ({ certificate, certificateName, organization, credentialUrl }) => {
   return (
-    <motion.div className="xs:p-4 flex flex-col justify-between rounded-xl border border-gray-300 transition-all duration-100 sm:h-[200px] lg:h-[250px] lg:p-10 dark:border-gray-50">
+    <motion.div className="xs:p-4 flex flex-col justify-between rounded-xl border border-gray-200 transition-all duration-100 sm:h-[200px] lg:h-[250px] lg:p-10 dark:border-gray-50 hover:border-sky-500">
       <div className="">
         <h2 className="xs:text-sm xs:font-semibold font-primary text-gray-800 drop-shadow-[0_0_10px_rgba(255,255,255,0.5] sm:text-base lg:text-2xl dark:text-white">
           {certificateName}
