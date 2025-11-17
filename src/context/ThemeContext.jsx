@@ -1,4 +1,3 @@
-// ...existing code...
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext();
@@ -16,7 +15,6 @@ export const ThemeProvider = ({ children }) => {
 
     const activeTheme = savedTheme || (systemDark ? 'dark' : 'light');
     setTheme(activeTheme);
-    console.log('activeTheme:', activeTheme);
     document.documentElement.classList.toggle('dark', activeTheme === 'dark');
   }, []);
 
@@ -33,4 +31,3 @@ export const ThemeProvider = ({ children }) => {
 };
 
 export const useTheme = () => useContext(ThemeContext);
-// ...existing code...
