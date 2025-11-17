@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './Button';
+import FormattedDate from './FormattedDate';
 
 const MessagesList = ({ contacts = [], onClose }) => (
   <div className="space-y-4">
@@ -15,7 +16,9 @@ const MessagesList = ({ contacts = [], onClose }) => (
           <div className="font-semibold text-gray-800 dark:text-white">{contact.name}</div>
           <div className="font-semibold text-gray-800 dark:text-white">{contact.email}</div>
           <div className="text-gray-600 dark:text-gray-300">{contact.message}</div>
-          <div className="mt-2 text-xs text-gray-400">{contact.createdAt}</div>
+          <div className="mt-2 text-xs text-gray-400">
+            {<FormattedDate date={contact.createdAt} format="short" />}
+          </div>
         </div>
       ))
     )}
