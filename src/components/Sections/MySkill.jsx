@@ -70,6 +70,7 @@ const MySkill = ({ skillsList = skills }) => {
       >
         {skillsList.map(skill => (
           <GlareHover
+            key={skill}
             glareColor="#ffffff"
             glareOpacity={0.3}
             glareAngle={-30}
@@ -78,7 +79,6 @@ const MySkill = ({ skillsList = skills }) => {
             playOnce={false}
           >
             <motion.div
-              key={skill}
               variants={skillVariants}
               className={`xs:text-xs rounded-xl border border-gray-300 bg-white px-5 py-2 text-sm font-semibold text-gray-900 transition-colors duration-300 sm:text-base lg:text-lg dark:inset-52 dark:border-gray-600 dark:bg-transparent dark:text-gray-100`}
             >
