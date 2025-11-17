@@ -44,7 +44,7 @@ const HeroSection = () => {
   const [cursorVisible, setCursorVisible] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative mb-25">
       <CustomCursor show={cursorVisible} text="Gihan Chamila" />
       <section className="xs:pb-2 gap-5 sm:col-span-4 sm:col-start-1 sm:col-end-5 sm:grid sm:grid-cols-4 sm:items-center lg:grid-cols-12 lg:pb-12">
         {/* Image and HoverReveal for xs/sm screens */}
