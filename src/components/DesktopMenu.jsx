@@ -4,6 +4,7 @@ import ResumeDownload from './utils/ResumeDownload';
 import { useAuth } from '../context/AuthContext';
 import { LogOut } from 'lucide-react';
 import ThemeToggle from './utils/ThemeToggle';
+import Button from './utils/Button';
 const DesktopMenu = ({ navLinks }) => {
   const { admin, signOut } = useAuth();
   return (
