@@ -67,9 +67,11 @@ const Certificate = () => {
           ))}
 
         {totalCount > 3 && (
-          <span className="cursor-pointer" onClick={() => navigate('certificates')}>
-            Show more
-          </span>
+          <Reveal>
+            <span className="cursor-pointer" onClick={() => navigate('certificates')}>
+              Show more
+            </span>
+          </Reveal>
         )}
       </div>
     </section>
