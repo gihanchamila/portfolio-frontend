@@ -121,7 +121,7 @@ const Education = () => {
           <img
             src={educationImage}
             alt="Education Illustration"
-            className="rounded-2xl w-full h-full object-cover"
+            className="rounded-2xl w-full h-[584px] object-fill"
           />
         </div>
       </div>
