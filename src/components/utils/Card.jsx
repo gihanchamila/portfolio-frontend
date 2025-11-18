@@ -20,7 +20,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
     >
       <div className="relative h-full w-full overflow-hidden">
         <img
-          src={imageUrl || defaultImage}
+          src={imageUrl}
           alt={projectName}
           className="absolute inset-0 h-full w-full object-cover"
           loading="lazy"

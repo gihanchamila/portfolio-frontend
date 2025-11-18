@@ -16,7 +16,6 @@ const Project = () => {
   const [imageUrls, setImageUrls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fallback images in case fetched images fail or don't exist
   const dummyImages = [
     'https://picsum.photos/seed/projectA/1280/720',
     'https://picsum.photos/seed/projectB/1280/720',
