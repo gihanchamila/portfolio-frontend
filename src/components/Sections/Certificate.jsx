@@ -53,7 +53,7 @@ const Certificate = () => {
     >
       <Title text="Certifications and Achievements" />
 
-      <div className="xs:gap-6 xs:flex xs:flex-col sm:col-span-2 sm:grid sm:grid-cols-2">
+      <div className="xs:gap-6 lg:gap-12 xs:flex xs:flex-col sm:col-span-2 sm:grid sm:grid-cols-2">
         {certificates.length > 0 &&
           certificates.map((cert, index) => (
             <Reveal delay={index * 0.1} key={cert._id}>

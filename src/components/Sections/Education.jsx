@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Reveal from '../utils/Reveal';
 import { motion } from 'framer-motion';
 import Title from '../utils/Title';
+import { educationImage } from '../../assets';
 
 const educationData = [
   {
@@ -107,24 +108,8 @@ const Education = () => {
     >
       <Title text="Education" />
 
-      <div className="relative flex flex-col items-start">
-        {/* <motion.div
-          className="absolute z-0 hidden sm:top-5 sm:block"
-          style={{
-            width: '2px',
-            height: '100%',
-            borderRadius: '1px',
-            left: '8px',
-            background: 'linear-gradient(to bottom, var(--color-primary), transparent 90%)',
-            transformOrigin: 'top'
-          }}
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-        /> */}
-
-        <div className="gap-auto flex w-full flex-col">
+      <div className="relative flex flex-col lg:flex-row lg:items-stretch gap-0 lg:gap-12 w-full">
+        <div className="flex flex-col flex-1 w-full h-full last:mb-0">
           {educationData.map((edu, idx) => (
             <Reveal delay={idx * 0.1} key={idx}>
               <EducationCard edu={edu} />
@@ -132,7 +117,13 @@ const Education = () => {
           ))}
         </div>
 
-        <div className="hidden flex-shrink-0 lg:block"></div>
+        <div className="hidden lg:flex flex-1 h-full justify-end items-stretch">
+          <img
+            src={educationImage}
+            alt="Education Illustration"
+            className="rounded-2xl w-full h-full object-cover"
+          />
+        </div>
       </div>
     </section>
   );
