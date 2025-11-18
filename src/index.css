@@ -44,6 +44,19 @@
   display: none;
 }
 
+@layer utilities {
+  .border-sky-pattern {
+    @apply lg:h-8 xs:h-0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      #0ea5e9,
+      /* sky-500 */ #0ea5e9 10px,
+      #38bdf8 10px,
+      /* sky-400 */ #38bdf8 20px
+    );
+  }
+}
+
 .button {
   @apply xs:py-2 xs:px-3 xs:text-xs font-primary flex w-auto items-center space-x-2 rounded-lg text-center hover:cursor-pointer disabled:hover:cursor-not-allowed lg:px-4 lg:py-2 lg:text-base;
 }

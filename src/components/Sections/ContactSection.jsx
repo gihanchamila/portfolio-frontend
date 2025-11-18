@@ -17,10 +17,10 @@ const ContactDetailCard = React.memo(({ icon: Icon, text }) => {
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="pb-20">
+    <section id="contact" className="pb-12">
       <header className="pb-8">
         <Reveal>
-          <h2 className="xs:xs:text-3xl font-primary text-center font-bold sm:text-4xl">
+          <h2 className="xs:text-3xl font-primary text-center font-bold">
             Let's connect and explore how we can work together.
           </h2>
         </Reveal>
