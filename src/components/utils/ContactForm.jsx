@@ -207,7 +207,7 @@ const ContactForm = () => {
                   as="textarea"
                   id="message"
                   name="message"
-                  className="formInput"
+                  className="formInput caret-gray-200"
                   placeholder="Tell me a bit about your project or how I can help…"
                   rows="5"
                   innerRef={messageRef}
