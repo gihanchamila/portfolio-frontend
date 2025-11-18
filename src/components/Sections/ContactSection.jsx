@@ -3,6 +3,7 @@ import ContactForm from '../utils/ContactForm';
 import { Mail, Phone } from 'lucide-react';
 import SectionLabel from '../utils/SectionLabel';
 import Reveal from '../utils/Reveal';
+import Title from '../utils/Title';
 
 const ContactDetailCard = React.memo(({ icon: Icon, text }) => {
   return (
@@ -18,12 +19,7 @@ const ContactDetailCard = React.memo(({ icon: Icon, text }) => {
 const ContactSection = () => {
   return (
     <section id="contact" className="pb-12">
-      <header className="pb-8">
-        <Reveal>
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Let's connect</h2>
-        </Reveal>
-      </header>
-
+      <Title text={`Let's Connect`} />
       <Reveal>
         <main className="lg:flex lg:items-center lg:justify-between">
           <div className="xs:space-y-6 xs:mb-5 sm:text sm:mb-0 sm:text-lg">

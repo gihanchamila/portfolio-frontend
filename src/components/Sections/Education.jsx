@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Reveal from '../utils/Reveal';
 import { motion } from 'framer-motion';
+import Title from '../utils/Title';
 
 const educationData = [
   {
@@ -104,11 +105,7 @@ const Education = () => {
       id="education"
       aria-label="Education Section"
     >
-      <div className="mx-auto mb-12 max-w-3xl lg:mx-0 lg:mb-16 lg:max-w-5xl">
-        <Reveal>
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Education</h2>
-        </Reveal>
-      </div>
+      <Title text="Education" />
 
       <div className="relative flex flex-col items-start">
         {/* <motion.div

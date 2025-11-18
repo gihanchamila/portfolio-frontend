@@ -6,6 +6,7 @@ import { useToast } from '../../context/ToastContext';
 import axios from '../../axios/axios.js';
 import { useNavigate } from 'react-router-dom';
 import Reveal from '../utils/Reveal';
+import Title from '../utils/Title.jsx';
 
 const FeaturedProjects = () => {
   const ref = useRef(null);
@@ -77,13 +78,9 @@ const FeaturedProjects = () => {
       ref={ref}
       className="sm-col-span-4 scroll-mt-26 pb-20 sm:col-start-1 sm:col-end-5"
     >
-      <header className="pb-8">
+      <header>
         <SectionLabel icon={<Sparkle size={14} />} label="Highlight" />
-        <Reveal>
-          <h2 className="xs:text-3xl font-primary font-bold sm:text-4xl">
-            Featured <span>Projects</span>
-          </h2>
-        </Reveal>
+        <Title text={`Featured Project`} />
       </header>
 
       <div className="xs:gap-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
