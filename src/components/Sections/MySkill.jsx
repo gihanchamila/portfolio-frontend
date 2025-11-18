@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import GlareHover from '../utils/GlareHover';
+import Title from '../utils/Title';
 
 const skills = [
   'JavaScript',
@@ -52,15 +53,7 @@ const skillVariants = {
 const MySkill = ({ skillsList = skills }) => {
   return (
     <>
-      <motion.h2
-        className="xs:text-3xl font-primary z-10 pb-8 font-bold sm:text-4xl"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
-        <span className="">My Skills</span>
-      </motion.h2>
+      <Title text={`My Skills`} />
       <motion.div
         className="flex flex-wrap justify-center gap-3 mb-20 lg:justify-start"
         variants={containerVariants}
