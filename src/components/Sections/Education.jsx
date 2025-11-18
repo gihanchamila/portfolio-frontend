@@ -53,26 +53,39 @@ export const Label = ({ children, link }) => {
 
 const EducationCard = ({ edu }) => (
   <div
-    className="relative mx-0 mb-8 flex w-full max-w-2xl flex-col gap-3 rounded-2xl border border-neutral-200 bg-transparent p-6 transition-colors duration-300 dark:border-neutral-800"
+    className="relative mx-0 mb-8 flex w-full max-w-154 flex-col gap-3 rounded-xl border border-gray-200 bg-transparent p-6 transition-colors duration-300 dark:border-gray-200 hover:border-sky-500"
     tabIndex={0}
     aria-label={`Education at ${edu.institute}`}
   >
-    <div className="flex flex-col items-start gap-2 sm:flex-row sm:justify-between">
-      <h3 className="text-lg font-bold sm:text-xl">{edu.institute}</h3>
-      <span className="text-xs font-medium text-neutral-500 sm:text-sm dark:text-neutral-400">
-        {edu.year}
-      </span>
+    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
+      <div className="flex flex-col gap-1">
+        <h3 className="text-lg font-bold sm:text-xl max-w-sm">{edu.institute}</h3>
+
+        {edu.location && (
+          <span className="text-xs text-neutral-500 dark:text-neutral-400">{edu.location}</span>
+        )}
+      </div>
+      {edu.year && (
+        <span className="text-xs sm:text-sm whitespace-nowrap text-neutral-500 dark:text-neutral-400 mt-1 sm:mt-0">
+          {edu.year}
+        </span>
+      )}
     </div>
 
-    <div className="flex flex-col items-start gap-2 sm:flex-row sm:justify-between">
-      {edu.degree && <span className="text-sm font-semibold">{edu.degree}</span>}
-      <span className="text-xs text-neutral-400 dark:text-neutral-500">{edu.location}</span>
-    </div>
+    {edu.degree && (
+      <div className="mt-1">
+        <span className="text-sm font-semibold">{edu.degree}</span>
+      </div>
+    )}
 
-    <div className="flex items-center gap-2">{edu.grade && <Label>{edu.grade}</Label>}</div>
+    {edu.grade && (
+      <div className="flex items-center gap-2 mt-1">
+        <Label>{edu.grade}</Label>
+      </div>
+    )}
 
     {edu.highlights && (
-      <ul className="mt-2 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
+      <ul className="mt-3 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
         {edu.highlights.map((h, i) => (
           <li key={i}>{h}</li>
         ))}
@@ -98,7 +111,7 @@ const Education = () => {
       </div>
 
       <div className="relative flex flex-col items-start">
-        <motion.div
+        {/* <motion.div
           className="absolute z-0 hidden sm:top-5 sm:block"
           style={{
             width: '2px',
@@ -112,9 +125,9 @@ const Education = () => {
           whileInView={{ scaleY: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-        />
+        /> */}
 
-        <div className="gap-auto flex w-full flex-col lg:pl-12">
+        <div className="gap-auto flex w-full flex-col">
           {educationData.map((edu, idx) => (
             <Reveal delay={idx * 0.1} key={idx}>
               <EducationCard edu={edu} />

@@ -62,7 +62,7 @@ const MySkill = ({ skillsList = skills }) => {
         <span className="">My Skills</span>
       </motion.h2>
       <motion.div
-        className="flex flex-wrap justify-center gap-3 pb-20 lg:justify-start"
+        className="flex flex-wrap justify-center gap-3 mb-20 lg:justify-start"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"

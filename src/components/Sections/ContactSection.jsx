@@ -20,9 +20,7 @@ const ContactSection = () => {
     <section id="contact" className="pb-12">
       <header className="pb-8">
         <Reveal>
-          <h2 className="xs:text-3xl font-primary text-center font-bold">
-            Let's connect and explore how we can work together.
-          </h2>
+          <h2 className="text-3xl font-extrabold sm:text-4xl">Let's connect</h2>
         </Reveal>
       </header>
 
@@ -42,7 +40,6 @@ const ContactSection = () => {
 
             <ContactDetailCard icon={Mail} text={'algihanchamila@gmail.com'} />
           </div>
-
           <ContactForm />
         </main>
       </Reveal>
