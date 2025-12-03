@@ -45,7 +45,7 @@ const ContactForm = () => {
 
   const handleVerifyEmail = debounce(async (email, name) => {
     const now = new Date().getTime();
-    const cooldownPeriod = 10 * 60 * 1000;
+    const cooldownPeriod = 5 * 60 * 1000;
 
     if (lastCodeSentTime && now - lastCodeSentTime < cooldownPeriod) {
       const minutesLeft = Math.ceil((cooldownPeriod - (now - lastCodeSentTime)) / 60000);
@@ -166,13 +166,6 @@ const ContactForm = () => {
                   className="formInput"
                   placeholder="e.g., jane.doe@example.com"
                   innerRef={emailRef}
-                  onKeyDown={e => {
-                    if (!isEmailVerified && values.email) {
-                      handleVerifyEmail(values.email, values.fullName);
-                    } else {
-                      handleKeyDown(e, e.target.value, messageRef);
-                    }
-                  }}
                 />
                 <ErrorMessage name="email" component="div" className="formError" />
 
