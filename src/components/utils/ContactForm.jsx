@@ -166,13 +166,6 @@ const ContactForm = () => {
                   className="formInput"
                   placeholder="e.g., jane.doe@example.com"
                   innerRef={emailRef}
-                  onKeyDown={e => {
-                    if (!isEmailVerified && values.email) {
-                      handleVerifyEmail(values.email, values.fullName);
-                    } else {
-                      handleKeyDown(e, e.target.value, messageRef);
-                    }
-                  }}
                 />
                 <ErrorMessage name="email" component="div" className="formError" />
 
