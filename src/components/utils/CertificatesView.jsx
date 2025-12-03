@@ -113,13 +113,16 @@ const CertificatesView = () => {
                 key={certificate._id}
                 className="flex items-center justify-between px-6 py-4 transition hover:bg-neutral-50 dark:hover:bg-neutral-900"
               >
-                <div>
-                  <span className="text-lg font-medium">{certificate.title}</span>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                <div className="flex flex-col flex-1 min-w-0">
+                  <span className="text-lg font-medium  xs:text-sm text-base">
+                    {certificate.title}
+                  </span>
+                  <div className="text-sm text-gray-600 dark:text-gray-300 truncate">
                     {certificate.organization}
                   </div>
                 </div>
-                <div className="flex gap-2">
+
+                <div className="flex gap-2 flex-shrink-0">
                   {admin ? (
                     <>
                       <Button
@@ -139,7 +142,10 @@ const CertificatesView = () => {
                       </Button>
                     </>
                   ) : (
-                    <Label link={certificate.credentialURL}>View certificate</Label>
+                    <Label link={certificate.credentialURL}>
+                      <span className="block sm:hidden">View</span>
+                      <span className="hidden sm:block">View certificate</span>
+                    </Label>
                   )}
                 </div>
               </li>
