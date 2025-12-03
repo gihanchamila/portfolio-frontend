@@ -45,7 +45,7 @@ const ContactForm = () => {
 
   const handleVerifyEmail = debounce(async (email, name) => {
     const now = new Date().getTime();
-    const cooldownPeriod = 10 * 60 * 1000;
+    const cooldownPeriod = 5 * 60 * 1000;
 
     if (lastCodeSentTime && now - lastCodeSentTime < cooldownPeriod) {
       const minutesLeft = Math.ceil((cooldownPeriod - (now - lastCodeSentTime)) / 60000);
