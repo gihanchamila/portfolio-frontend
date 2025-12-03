@@ -20,6 +20,7 @@ const CertificatesView = () => {
   const [showForm, setShowForm] = useState(false);
   const [editCertificate, setEditCertificate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [cache, setCache] = useState({});
 
   useEffect(() => {
     const storedAdmin = localStorage.getItem('admin');
@@ -27,26 +28,37 @@ const CertificatesView = () => {
   }, [setAdmin]);
 
   const fetchCertificates = useCallback(
-    async (page = 1) => {
+    async (page = 1, forceRefresh = false) => {
+      if (!forceRefresh && cache[page]) {
+        setCertificates(cache[page].certifications);
+        setTotalPage(cache[page].pages);
+        setPageCount(Array.from({ length: cache[page].pages }, (_, i) => i + 1));
+        return;
+      }
+
       try {
         setIsLoading(true);
         const response = await axios.get(`/certificate/get-certificates?page=${page}`);
         const data = response.data.data;
+        setCache(prev => ({
+          ...prev,
+          [page]: data
+        }));
+
         setCertificates(data.certifications);
         setTotalPage(data.pages);
         setPageCount(Array.from({ length: data.pages }, (_, i) => i + 1));
-        setIsLoading(false);
       } catch (error) {
-        const response = error.response;
-        const data = response.data;
-        toast(data.message, 'error', 3000, 'bottom-right');
+        toast(error.response?.data?.message || 'Error loading certificates', 'error');
+      } finally {
+        setIsLoading(false);
       }
     },
-    [toast]
+    [toast, cache]
   );
 
   useEffect(() => {
-    fetchCertificates(currentPage, 2);
+    fetchCertificates(currentPage, false);
   }, [fetchCertificates, currentPage]);
 
   const handleUpdateCertificate = async (values, { setSubmitting, setFieldError }) => {
@@ -65,7 +77,8 @@ const CertificatesView = () => {
       toast(response.data.message, 'success', 3000, 'bottom-right');
       setShowForm(false);
       setEditCertificate(null);
-      fetchCertificates(currentPage);
+      setCache({});
+      fetchCertificates(currentPage, true);
     } catch (error) {
       const response = error.response;
       const data = response?.data;
@@ -79,7 +92,8 @@ const CertificatesView = () => {
     try {
       const response = await axios.delete(`/certificate/delete-certificate/${id}`);
       const data = response.data;
-      fetchCertificates(currentPage);
+      setCache({});
+      fetchCertificates(currentPage, true);
       toast(data.message, 'success', 3000, 'bottom-right');
     } catch (error) {
       const response = error.response;
