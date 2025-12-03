@@ -3,6 +3,7 @@ import CertificateCard from '../utils/CertificateCard';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
 import { useNavigate } from 'react-router-dom';
+import Title from '../utils/Title';
 import Reveal from '../utils/Reveal';
 
 const StaticCertificate = ({ certificate }) => {
@@ -48,17 +49,11 @@ const Certificate = () => {
   return (
     <section
       id="certification"
-      className="sm-col-span-4 scroll-mt-14 pb-20 sm:col-start-1 sm:col-end-5"
+      className="sm-col-span-4 scroll-mt-26 pb-20 sm:col-start-1 sm:col-end-5"
     >
-      <header className="pb-8">
-        <Reveal>
-          <h2 className="xs:text-3xl font-primary font-bold sm:text-4xl">
-            <span className="">Certifications</span> and Achievements
-          </h2>
-        </Reveal>
-      </header>
+      <Title text="Certifications and Achievements" />
 
-      <div className="xs:gap-6 xs:flex xs:flex-col sm:col-span-2 sm:grid sm:grid-cols-2">
+      <div className="xs:gap-6 lg:gap-12 xs:flex xs:flex-col sm:col-span-2 sm:grid sm:grid-cols-2">
         {certificates.length > 0 &&
           certificates.map((cert, index) => (
             <Reveal delay={index * 0.1} key={cert._id}>

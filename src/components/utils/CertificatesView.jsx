@@ -20,6 +20,7 @@ const CertificatesView = () => {
   const [showForm, setShowForm] = useState(false);
   const [editCertificate, setEditCertificate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [cache, setCache] = useState({});
 
   useEffect(() => {
     const storedAdmin = localStorage.getItem('admin');
@@ -27,26 +28,37 @@ const CertificatesView = () => {
   }, [setAdmin]);
 
   const fetchCertificates = useCallback(
-    async (page = 1) => {
+    async (page = 1, forceRefresh = false) => {
+      if (!forceRefresh && cache[page]) {
+        setCertificates(cache[page].certifications);
+        setTotalPage(cache[page].pages);
+        setPageCount(Array.from({ length: cache[page].pages }, (_, i) => i + 1));
+        return;
+      }
+
       try {
         setIsLoading(true);
         const response = await axios.get(`/certificate/get-certificates?page=${page}`);
         const data = response.data.data;
+        setCache(prev => ({
+          ...prev,
+          [page]: data
+        }));
+
         setCertificates(data.certifications);
         setTotalPage(data.pages);
         setPageCount(Array.from({ length: data.pages }, (_, i) => i + 1));
-        setIsLoading(false);
       } catch (error) {
-        const response = error.response;
-        const data = response.data;
-        toast(data.message, 'error', 3000, 'bottom-right');
+        toast(error.response?.data?.message || 'Error loading certificates', 'error');
+      } finally {
+        setIsLoading(false);
       }
     },
-    [toast]
+    [toast, cache]
   );
 
   useEffect(() => {
-    fetchCertificates(currentPage, 2);
+    fetchCertificates(currentPage, false);
   }, [fetchCertificates, currentPage]);
 
   const handleUpdateCertificate = async (values, { setSubmitting, setFieldError }) => {
@@ -65,7 +77,8 @@ const CertificatesView = () => {
       toast(response.data.message, 'success', 3000, 'bottom-right');
       setShowForm(false);
       setEditCertificate(null);
-      fetchCertificates(currentPage);
+      setCache({});
+      fetchCertificates(currentPage, true);
     } catch (error) {
       const response = error.response;
       const data = response?.data;
@@ -79,7 +92,8 @@ const CertificatesView = () => {
     try {
       const response = await axios.delete(`/certificate/delete-certificate/${id}`);
       const data = response.data;
-      fetchCertificates(currentPage);
+      setCache({});
+      fetchCertificates(currentPage, true);
       toast(data.message, 'success', 3000, 'bottom-right');
     } catch (error) {
       const response = error.response;
@@ -113,13 +127,16 @@ const CertificatesView = () => {
                 key={certificate._id}
                 className="flex items-center justify-between px-6 py-4 transition hover:bg-neutral-50 dark:hover:bg-neutral-900"
               >
-                <div>
-                  <span className="text-lg font-medium">{certificate.title}</span>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                <div className="flex flex-col flex-1 min-w-0">
+                  <span className="text-lg font-medium  xs:text-sm text-base">
+                    {certificate.title}
+                  </span>
+                  <div className="text-sm text-gray-600 dark:text-gray-300 truncate">
                     {certificate.organization}
                   </div>
                 </div>
-                <div className="flex gap-2">
+
+                <div className="flex gap-2 flex-shrink-0">
                   {admin ? (
                     <>
                       <Button
@@ -139,7 +156,10 @@ const CertificatesView = () => {
                       </Button>
                     </>
                   ) : (
-                    <Label link={certificate.credentialURL}>View certificate</Label>
+                    <Label link={certificate.credentialURL}>
+                      <span className="block sm:hidden">View</span>
+                      <span className="hidden sm:block">View certificate</span>
+                    </Label>
                   )}
                 </div>
               </li>

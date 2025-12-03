@@ -10,7 +10,7 @@
   --color-text-default: #0a1528;
   --color-surface-dim: #d5dbdc;
   --color-surface: #1d1616;
-
+  --color-cardBackground: #333537;
   --breakpoint-sm: 25.75rem;
   --breakpoint-xs: 20rem;
 
@@ -42,6 +42,19 @@
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+@layer utilities {
+  .border-sky-pattern {
+    @apply lg:h-8 xs:h-0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      #0ea5e9,
+      /* sky-500 */ #0ea5e9 10px,
+      #38bdf8 10px,
+      /* sky-400 */ #38bdf8 20px
+    );
+  }
 }
 
 .button {

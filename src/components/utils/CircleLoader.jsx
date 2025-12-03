@@ -1,22 +1,35 @@
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const Circle = () => (
-  <div className="relative mr-4 h-5 w-5">
-    <span className="absolute inset-0 rounded-full border-2 border-sky-200 dark:border-neutral-700"></span>
-    <motion.span
-      className="absolute inset-0 rounded-full border-2 border-t-sky-500 border-r-transparent border-b-transparent border-l-transparent"
-      style={{ borderTopColor: '#0ea5e9' }}
-      animate={{ rotate: 360 }}
-      transition={{ repeat: Infinity, ease: 'linear', duration: 1 }}
-    />
-  </div>
-);
+const CircleLoader = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const MIN_DISPLAY_TIME = 300;
 
-const CircleLoader = () => (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-neutral-900">
-    <Circle />
-    <p className="font-primary text-lg font-medium text-sky-500 dark:text-sky-300">Just a moment</p>
-  </div>
-);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, MIN_DISPLAY_TIME);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white/70 dark:bg-neutral-900/90 backdrop-blur-sm"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+        Optimizing your viewing experience...
+      </p>
+    </motion.div>
+  );
+};
 
 export default CircleLoader;
