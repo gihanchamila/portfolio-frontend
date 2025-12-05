@@ -58,7 +58,7 @@ const HeroSection = () => {
               onMouseEnter={() => setCursorVisible(true)}
               onMouseLeave={() => setCursorVisible(false)}
               alt="A personal headshot of Gihan Chamila, the developer."
-              className="xs:mb-6 xs:mt-5 h-[150px] w-[150px] rounded-2xl lg:mt-0"
+              className="xs:mb-6 xs:mt-5 h-[250px] w-[250px] rounded-2xl lg:mt-0"
             />
           </div>
         </div>
