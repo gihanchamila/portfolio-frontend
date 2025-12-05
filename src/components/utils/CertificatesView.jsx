@@ -27,35 +27,42 @@ const CertificatesView = () => {
     if (storedAdmin) setAdmin(JSON.parse(storedAdmin));
   }, [setAdmin]);
 
-  const prefetchNextPage = async (page, totalPages) => {
-    const next = page + 1;
-    if (next > totalPages) return;
-    if (cache[next]) return;
+  const prefetchNextPage = useCallback(
+    async (page, totalPages) => {
+      const next = page + 1;
+      if (next > totalPages) return;
 
-    try {
-      const response = await axios.get(`/certificate/get-certificates?page=${next}`);
-      const data = response.data.data;
+      if (cache[next]) return;
 
-      setCache(prev => ({
-        ...prev,
-        [next]: data
-      }));
-    } catch (error) {
-      console.error('Prefetch failed for page:', next, error.response?.data?.message);
-    }
-  };
+      try {
+        const response = await axios.get(`/certificate/get-certificates?page=${next}`);
+        const data = response.data.data;
+
+        setCache(prev => ({
+          ...prev,
+          [next]: data
+        }));
+      } catch (error) {
+        console.error('Prefetch failed for page:', next, error.response?.data?.message);
+      }
+    },
+    [cache]
+  );
 
   const fetchCertificates = useCallback(
     async (page = 1, forceRefresh = false) => {
-      if (!forceRefresh && cache[page]) {
-        setCertificates(cache[page].certifications);
-        setTotalPage(cache[page].pages);
-        setPageCount(Array.from({ length: cache[page].pages }, (_, i) => i + 1));
+      const cachedPage = cache[page];
+
+      if (!forceRefresh && cachedPage) {
+        setCertificates(cachedPage.certifications);
+        setTotalPage(cachedPage.pages);
+        setPageCount(Array.from({ length: cachedPage.pages }, (_, i) => i + 1));
         return;
       }
 
       try {
         setIsLoading(true);
+
         const response = await axios.get(`/certificate/get-certificates?page=${page}`);
         const data = response.data.data;
         setCache(prev => ({
@@ -66,14 +73,14 @@ const CertificatesView = () => {
         setCertificates(data.certifications);
         setTotalPage(data.pages);
         setPageCount(Array.from({ length: data.pages }, (_, i) => i + 1));
-        await prefetchNextPage(page, data.pages);
+        prefetchNextPage(page, data.pages);
       } catch (error) {
         toast(error.response?.data?.message || 'Error loading certificates', 'error');
       } finally {
         setIsLoading(false);
       }
     },
-    [toast, cache, prefetchNextPage]
+    [toast, prefetchNextPage]
   );
 
   useEffect(() => {

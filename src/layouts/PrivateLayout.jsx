@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Outlet, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import BaseLayout from './BaseLayout';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -26,7 +25,9 @@ const PrivateLayout = () => {
 
   return (
     <>
-      <BaseLayout />
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   );
 };
