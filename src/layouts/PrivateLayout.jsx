@@ -3,6 +3,7 @@ import { Outlet, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Header from './Header';
 import Footer from './Footer';
+import Main from './Main';
 
 const PrivateLayout = () => {
   const { admin } = useAuth();
@@ -13,7 +14,9 @@ const PrivateLayout = () => {
     return (
       <>
         <Header />
-        <Outlet />
+        <Main>
+          <Outlet />
+        </Main>
         <Footer />
       </>
     );
@@ -26,7 +29,9 @@ const PrivateLayout = () => {
   return (
     <>
       <Header />
-      <Outlet />
+      <Main>
+        <Outlet />
+      </Main>
       <Footer />
     </>
   );
