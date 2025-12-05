@@ -245,7 +245,7 @@ const DashBoard = () => {
 
   return (
     <>
-      <div className="pb-10">
+      <div className="pb-10 lg:mt-12">
         <p className="text-4xl">
           Hello {admin?.firstName} {admin?.lastName}
         </p>
