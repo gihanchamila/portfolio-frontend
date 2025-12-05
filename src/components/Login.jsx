@@ -3,7 +3,7 @@ import LoginForm from './utils/LoginForm';
 
 const Login = () => {
   return (
-    <div className="xs:flex xs:justify-center xs:items-center xs:h-[25rem]">
+    <div className="xs:flex xs:justify-center xs:items-center xs:h-[25rem] lg:min-h-[525px] xs:p-4 lg:p-0">
       <LoginForm />
     </div>
   );
