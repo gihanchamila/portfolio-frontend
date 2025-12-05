@@ -7,7 +7,7 @@ import { profileImage } from '../assets/index';
 import NavLinks from './NavLinks';
 import { motion } from 'motion/react';
 import { AnimatePresence } from 'motion/react';
-import ResumeDownload from './utils/ResumeDownload';
+import Button from './utils/Button';
 import ThemeToggle from './utils/ThemeToggle';
 
 const MobileMenu = ({ navLinks }) => {
@@ -75,10 +75,19 @@ const MobileMenu = ({ navLinks }) => {
                 <X onClick={toggleMenu} className="cursor-pointer" />
               </div>
 
-              <div className="xs:flex xs:flex-col xs:space-y-4 xs:w-auto mt-20 md:block">
+              <div className="xs:flex xs:flex-col xs:space-y-4 mt-20 md:block">
                 <NavLinks links={navLinks} />
                 <div className="mt-5">
-                  <ResumeDownload />
+                  <Button
+                    as="a"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=algihanchamila@gmail.com&su=Request%20Resume"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="primary"
+                    className="inline-flex"
+                  >
+                    Request Resume
+                  </Button>
                 </div>
               </div>
             </motion.div>
