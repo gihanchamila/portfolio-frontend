@@ -13,6 +13,7 @@ const PrivateLayout = () => {
   if (location.pathname === '/admin') {
     return (
       <>
+        <div className="lg:h-8 xs:h-0" />
         <Header />
         <Main>
           <Outlet />
@@ -28,6 +29,7 @@ const PrivateLayout = () => {
 
   return (
     <>
+      <div className="lg:h-8 xs:h-0" />
       <Header />
       <Main>
         <Outlet />
