@@ -16,7 +16,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
   return (
     <div
       ref={ref}
-      className="xs:h-[25rem] group relative overflow-hidden rounded-2xl border border-gray-300 bg-white sm:h-[30rem] sm:w-auto lg:h-[30rem] lg:w-[25rem] dark:border-none"
+      className="xs:h-[25rem] group relative overflow-hidden rounded-2xl border border-gray-300 bg-white sm:h-[30rem] sm:w-auto lg:h-[30rem]  dark:border-none"
     >
       <div className="relative h-full w-full overflow-hidden">
         <img
@@ -26,7 +26,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
           loading="lazy"
         />
 
-        <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100"></div>
+        <div className="absolute  opacity-80 transition-opacity duration-300 group-hover:opacity-100"></div>
       </div>
 
       <div className="xs:space-y-2 absolute bottom-0 flex w-full flex-col p-4 text-white sm:space-y-3">

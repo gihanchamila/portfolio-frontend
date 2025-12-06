@@ -6,6 +6,8 @@ import { useAuth } from '../context/AuthContext';
 import { LogOut } from 'lucide-react';
 import ThemeToggle from './utils/ThemeToggle';
 import Button from './utils/Button';
+import { span } from 'framer-motion/client';
+import { Link } from 'react-router-dom';
 
 const DesktopMenu = ({ navLinks, isShrunk }) => {
   const { admin, signOut } = useAuth();
@@ -59,7 +61,7 @@ const DesktopMenu = ({ navLinks, isShrunk }) => {
           </Button>
           {admin && (
             <Button variant="outline" onClick={signOut} className="flex items-center gap-2">
-              Log Out <LogOut size={16} />
+              Log Out
             </Button>
           )}
         </motion.div>

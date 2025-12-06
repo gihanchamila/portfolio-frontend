@@ -83,7 +83,7 @@ const FeaturedProjects = () => {
         <Title text={`Featured Project`} />
       </header>
 
-      <div className="xs:gap-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="xs:gap-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
         {projects.map((project, index) => (
           <Reveal delay={index * 0.2} key={project._id}>
             <ProjectCard
