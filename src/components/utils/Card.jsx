@@ -5,7 +5,6 @@ import Reveal from '../utils/Reveal';
 import AnimatedButton from './AnimatedButton';
 
 const ProjectCard = ({ projectName, description, imageUrl, github, live, projectId }) => {
-  const defaultImage = profileImage;
   const navigate = useNavigate();
   const ref = useRef(null);
 
