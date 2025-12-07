@@ -19,7 +19,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
         <img
           src={imageUrl}
           alt={projectName}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-fill"
           loading="lazy"
         />
 
