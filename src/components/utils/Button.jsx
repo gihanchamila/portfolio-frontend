@@ -3,11 +3,12 @@ import clsx from 'clsx';
 import { motion } from 'motion/react';
 
 const Button = ({
+  as = 'button',
   variant = 'primary',
   className = '',
   disabled = false,
   children,
-  ...buttonProps
+  ...props
 }) => {
   const baseStyles = 'button';
 
@@ -19,16 +20,18 @@ const Button = ({
       'border border-gray-300 text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:text-gray-700'
   };
 
-  const disabledStyles = 'bg-gray-100 text-gray-500';
+  const disabledStyles = 'bg-gray-100 text-gray-500 cursor-not-allowed';
+
+  const MotionTag = motion[as] || motion.button;
 
   return (
-    <motion.button
+    <MotionTag
       className={clsx(baseStyles, disabled ? disabledStyles : variantStyles[variant], className)}
-      disabled={disabled}
-      {...buttonProps}
+      disabled={as === 'button' ? disabled : undefined}
+      {...props}
     >
       {children}
-    </motion.button>
+    </MotionTag>
   );
 };
 

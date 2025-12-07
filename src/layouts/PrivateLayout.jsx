@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Outlet, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import BaseLayout from './BaseLayout';
 import Header from './Header';
 import Footer from './Footer';
+import Main from './Main';
 
 const PrivateLayout = () => {
   const { admin } = useAuth();
@@ -13,8 +13,11 @@ const PrivateLayout = () => {
   if (location.pathname === '/admin') {
     return (
       <>
+        <div className="lg:h-8 xs:h-0" />
         <Header />
-        <Outlet />
+        <Main>
+          <Outlet />
+        </Main>
         <Footer />
       </>
     );
@@ -26,7 +29,12 @@ const PrivateLayout = () => {
 
   return (
     <>
-      <BaseLayout />
+      <div className="lg:h-8 xs:h-0" />
+      <Header />
+      <Main>
+        <Outlet />
+      </Main>
+      <Footer />
     </>
   );
 };

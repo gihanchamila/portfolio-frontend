@@ -15,54 +15,72 @@ const FeaturedProjects = () => {
   const [projects, setProjects] = useState([]);
   const [projectFiles, setProjectFiles] = useState({});
   const [totalCount, setTotalCount] = useState(null);
-  const [hasFetched, setHasFetched] = useState(false);
+
+  const LS_KEY = 'featured_projects';
+  const LS_FILES_KEY = 'featured_project_files';
+
+  useEffect(() => {
+    const cachedProjects = localStorage.getItem(LS_KEY);
+    const cachedFiles = localStorage.getItem(LS_FILES_KEY);
+
+    if (cachedProjects) {
+      setProjects(JSON.parse(cachedProjects));
+    }
+    if (cachedFiles) {
+      setProjectFiles(JSON.parse(cachedFiles));
+    }
+  }, []);
 
   const fetchProjects = useCallback(async () => {
-    if (hasFetched) return;
+    const cachedProjects = localStorage.getItem(LS_KEY);
+    if (cachedProjects) return;
+
     try {
-      const response = await axios.get('/project/get-projects?size=3');
-      const data = response.data.data.projects;
-      const total = response.data.data.total;
-      setTotalCount(total);
+      const res = await axios.get('/project/get-projects?size=3');
+      const data = res.data.data.projects;
+      const total = res.data.data.total;
+
       setProjects(data);
-      setHasFetched(true);
-      toast(`${response.data.message}`);
+      setTotalCount(total);
+
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+
+      toast(res.data.message);
     } catch (error) {
-      const data = error.response?.data || {};
-      toast(data.message || 'Something went wrong', 'error');
+      toast(error.response?.data?.message || 'Something went wrong', 'error');
     }
-  }, [hasFetched, toast]);
+  }, [toast]);
 
   useEffect(() => {
     fetchProjects();
   }, [fetchProjects]);
 
   const fetchProjectFileUrls = useCallback(async () => {
+    const cachedFiles = localStorage.getItem(LS_FILES_KEY);
+    if (cachedFiles) return;
+
     try {
       const fileUrls = await Promise.all(
         projects.map(async project => {
-          if (!project.file || !project.file.key) {
-            return { id: project._id, fileUrl: null };
-          }
+          if (!project.file?.key) return { id: project._id, fileUrl: null };
 
-          const response = await axios.get(`/file/signed-url?key=${project.file.key}`);
-          return {
-            id: project._id,
-            fileUrl: response.data.data.url
-          };
+          const res = await axios.get(`/file/signed-url?key=${project.file.key}`);
+          return { id: project._id, fileUrl: res.data.data.url };
         })
       );
 
-      const fileUrlMap = fileUrls.reduce((acc, item) => {
+      const fileMap = fileUrls.reduce((acc, item) => {
         acc[item.id] = item.fileUrl;
         return acc;
       }, {});
 
-      setProjectFiles(fileUrlMap);
-      toast('Fetched signed file URLs successfully');
-    } catch (error) {
-      console.error('Error fetching signed URLs:', error);
-      toast('Failed to fetch signed file URLs', 'error');
+      setProjectFiles(fileMap);
+      localStorage.setItem(LS_FILES_KEY, JSON.stringify(fileMap));
+
+      toast('Signed URLs loaded');
+    } catch (err) {
+      console.error('Signed URL error:', err);
+      toast('Failed to load signed URLs', 'error');
     }
   }, [projects, toast]);
 
@@ -76,14 +94,14 @@ const FeaturedProjects = () => {
     <section
       id="projects"
       ref={ref}
-      className="sm-col-span-4 scroll-mt-26 pb-20 sm:col-start-1 sm:col-end-5"
+      className="sm-col-span-4 lg:scroll-mt-26 xs:scroll-mt-42 pb-20 sm:col-start-1 sm:col-end-5"
     >
       <header>
         <SectionLabel icon={<Sparkle size={14} />} label="Highlight" />
         <Title text={`Featured Project`} />
       </header>
 
-      <div className="xs:gap-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="xs:gap-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
         {projects.map((project, index) => (
           <Reveal delay={index * 0.2} key={project._id}>
             <ProjectCard

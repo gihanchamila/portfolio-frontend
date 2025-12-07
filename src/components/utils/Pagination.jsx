@@ -18,7 +18,7 @@ const Pagination = ({ currentPage, totalPage, pageCount, onPageChange }) => {
         <ul className="inline-flex -space-x-px text-sm">
           <li>
             <button
-              className="pageButton rounded-l-lg rounded-r-none"
+              className="pageButton rounded-l-lg rounded-r-none disabled:cursor-not-allowed"
               onClick={handlePrev}
               disabled={currentPage === 1}
             >
@@ -37,7 +37,7 @@ const Pagination = ({ currentPage, totalPage, pageCount, onPageChange }) => {
           ))}
           <li>
             <button
-              className="pageButton rounded-l-none rounded-r-lg"
+              className="pageButton rounded-l-none rounded-r-lg disabled:cursor-not-allowed"
               onClick={handleNext}
               disabled={currentPage === totalPage}
             >

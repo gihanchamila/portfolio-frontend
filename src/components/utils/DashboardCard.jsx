@@ -18,7 +18,7 @@ export const DashboardCard = ({
     whileTap={{ scale: 0.97 }}
     animate={animateProps}
     transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-    className={`mb-4 flex min-h-auto cursor-pointer flex-col items-center justify-between rounded-2xl bg-white p-4 p-6 shadow-md transition-shadow hover:shadow-2xl dark:bg-neutral-800 ${className}`}
+    className={`mb-4 flex min-h-auto cursor-pointer flex-col items-center justify-between rounded-2xl bg-white p-4 p-6 border border-gray-200 hover:border-gray-300 dark:border-none dark:hover:bg-neutral-700 dark:transition-colors dark:bg-neutral-800 ${className}`}
   >
     <div className="xs:text-sm mb-4 text-sky-500 lg:text-base dark:text-sky-300">{icon}</div>
     <h3 className="mb-2 text-center text-lg font-semibold">{title}</h3>

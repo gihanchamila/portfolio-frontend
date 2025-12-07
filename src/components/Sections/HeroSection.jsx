@@ -58,7 +58,7 @@ const HeroSection = () => {
               onMouseEnter={() => setCursorVisible(true)}
               onMouseLeave={() => setCursorVisible(false)}
               alt="A personal headshot of Gihan Chamila, the developer."
-              className="xs:mb-6 xs:mt-5 h-[150px] w-[150px] rounded-2xl lg:mt-0"
+              className="xs:mb-6 xs:mt-5 h-[250px] w-[250px] rounded-2xl lg:mt-0"
             />
           </div>
         </div>
@@ -101,7 +101,7 @@ const HeroSection = () => {
             onMouseEnter={() => setCursorVisible(true)}
             onMouseLeave={() => setCursorVisible(false)}
             alt="A personal headshot of Gihan Chamila, the developer."
-            className="xs:w-[200px] xs:h-[200px] xs:mt-5 rounded-2xl lg:mt-0 lg:mb-0 lg:h-[400px] lg:w-[400px]"
+            className="xs:w-[200px] xs:h-[200px] xs:mt-5 rounded-2xl lg:mt-0 lg:mb-0 lg:h-[370px] lg:w-[400px]"
           />
         </div>
       </section>
