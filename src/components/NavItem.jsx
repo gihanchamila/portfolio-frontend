@@ -31,7 +31,12 @@ const NavItem = ({ link, activeHash, onClick }) => {
   ) : (
     <NavLink
       to={link.to}
-      onClick={onClick}
+      onClick={() => {
+        if (link.to === '/') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        if (onClick) onClick();
+      }}
       className={({ isActive: routeActive }) =>
         routeActive && activeHash === '' ? 'text-sky-500 dark:text-sky-300' : 'navLink'
       }

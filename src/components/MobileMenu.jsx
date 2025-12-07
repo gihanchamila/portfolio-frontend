@@ -76,7 +76,7 @@ const MobileMenu = ({ navLinks }) => {
               </div>
 
               <div className="xs:flex xs:flex-col xs:space-y-4 mt-20 md:block">
-                <NavLinks links={navLinks} />
+                <NavLinks links={navLinks} onItemClick={toggleMenu} />
                 <div className="mt-5">
                   <Button
                     as="a"
