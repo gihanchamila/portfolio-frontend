@@ -75,7 +75,7 @@ const MobileMenu = ({ navLinks }) => {
                 <X onClick={toggleMenu} className="cursor-pointer" />
               </div>
 
-              <div className="xs:flex xs:flex-col xs:space-y-4 mt-20 md:block">
+              <div className="xs:flex xs:flex-col xs:space-y-4 mt-20">
                 <NavLinks links={navLinks} onItemClick={toggleMenu} />
                 <div className="mt-5">
                   <Button
