@@ -57,6 +57,10 @@ const Project = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  if (isLoading) {
+    return <CircleLoader />;
+  }
+
   if (!project) {
     return (
       <div className="flex h-96 flex-col items-center justify-center text-center">
