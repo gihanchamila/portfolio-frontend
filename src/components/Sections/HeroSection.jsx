@@ -80,7 +80,7 @@ const HeroSection = () => {
               threshold={0.2}
               rootMargin="-50px"
             />
-            <h2 className="xs:text-sml font-primary xs:mb-0 text-center font-semibold lg:mb-5 lg:text-left lg:text-2xl">
+            <h2 className="xs:text-lg font-primary xs:mb-0 text-center font-semibold xs:pb-2 lg:mb-5 lg:text-left lg:text-2xl">
               A <span className="text-sky-500 dark:text-sky-300">Full Stack Developer</span> with a
               passion for building
               <span className="text-emerald-500 dark:text-emerald-300"> scalable</span>,
