@@ -16,12 +16,6 @@ const Project = () => {
   const [imageUrls, setImageUrls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const dummyImages = [
-    'https://picsum.photos/seed/projectA/1280/720',
-    'https://picsum.photos/seed/projectB/1280/720',
-    'https://picsum.photos/seed/projectC/1280/720'
-  ];
-
   useEffect(() => {
     const fetchProjectData = async () => {
       if (!projectID) return;
@@ -91,7 +85,7 @@ const Project = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <ImageCarousel images={imageUrls.length > 0 ? imageUrls : dummyImages} />
+          <ImageCarousel images={imageUrls} />
         </motion.div>
         <div className="flex flex-col md:col-span-2">
           <h1 className="text-3xl leading-tight font-bold text-gray-900 md:text-4xl dark:text-white">
