@@ -59,9 +59,9 @@ const Project = () => {
     fetchProjectData();
   }, [projectID, toast]);
 
-  if (isLoading) {
-    return <CircleLoader />;
-  }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!project) {
     return (
