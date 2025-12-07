@@ -18,7 +18,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <AnimatedSuspenseWrapper fallback={<CircleLoader />}>
+        <AnimatedSuspenseWrapper>
           <Routes>
             <Route path="/" element={<PublicLayout />}>
               <Route index element={<LandingPage />} />
