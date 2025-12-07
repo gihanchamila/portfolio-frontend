@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const CircleLoader = () => {
+const CircleLoader = ({ text }) => {
   const [isVisible, setIsVisible] = useState(false);
   const MIN_DISPLAY_TIME = 300;
 
@@ -25,9 +25,7 @@ const CircleLoader = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-        Optimizing your viewing experience...
-      </p>
+      <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{text || 'Just a Moment'}</p>
     </motion.div>
   );
 };

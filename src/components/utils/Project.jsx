@@ -58,7 +58,7 @@ const Project = () => {
   }, []);
 
   if (isLoading) {
-    return <CircleLoader />;
+    return <CircleLoader text={'Loading projects'} />;
   }
 
   if (!project) {
