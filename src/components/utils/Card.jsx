@@ -18,7 +18,6 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
       ref={ref}
       className="xs:h-[25rem] group relative overflow-hidden rounded-2xl border border-gray-300 bg-white sm:h-[30rem] lg:h-[30rem] dark:border-none"
     >
-      {/* IMAGE */}
       <div className="relative h-full w-full overflow-hidden">
         <img
           src={imageUrl}
@@ -27,7 +26,6 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
           loading="lazy"
         />
 
-        {/* GRADIENT OVERLAY */}
         <div
           className="
             absolute inset-0 
@@ -43,7 +41,6 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
         ></div>
       </div>
 
-      {/* TEXT CONTENT */}
       <div className="absolute bottom-0 w-full p-4 text-white xs:space-y-2 sm:space-y-3">
         <h2
           className="cardTitle cursor-pointer drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]"
