@@ -53,7 +53,7 @@ const skillVariants = {
 const MySkill = ({ skillsList = skills }) => {
   return (
     <>
-      <Title text={`My Skills`} />
+      <Title align={{ xs: 'center', lg: 'left' }} text={`My Skills`} />
       <motion.div
         className="flex flex-wrap justify-center gap-3 mb-20 lg:justify-start"
         variants={containerVariants}
