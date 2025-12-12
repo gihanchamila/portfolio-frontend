@@ -3,20 +3,19 @@ import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
+import CircleLoader from '../components/utils/CircleLoader';
+import { Suspense } from 'react';
 
 const PublicLayout = () => {
   return (
-    <div className="min-h-screen">
-      <div className="lg:h-8 xs:h-0" />
+    <Suspense fallback={<CircleLoader />}>
       <Header />
-      <div className="lg:h-16 xs:h-0" />
-
+      <div className="lg:h-20 xs:h-0" />
       <Main>
         <Outlet />
       </Main>
-
       <Footer />
-    </div>
+    </Suspense>
   );
 };
 

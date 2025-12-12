@@ -10,14 +10,14 @@ const Education = lazy(() => import('../components/Sections/Education'));
 
 const LandingPage = () => {
   return (
-    <Suspense fallback={<CircleLoader />}>
+    <>
       <HeroSection />
       <MySkill />
       <FeaturedProjects />
       <Education />
       <Certificate />
       <ContactSection />
-    </Suspense>
+    </>
   );
 };
 

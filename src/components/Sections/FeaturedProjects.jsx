@@ -94,7 +94,7 @@ const FeaturedProjects = () => {
     <section
       id="projects"
       ref={ref}
-      className="sm-col-span-4 lg:scroll-mt-26 xs:scroll-mt-42 pb-20 sm:col-start-1 sm:col-end-5"
+      className="sm-col-span-4 lg:scroll-mt-26 xs:scroll-mt-28 pb-20 sm:col-start-1 sm:col-end-5"
     >
       <header>
         <SectionLabel icon={<Sparkle size={14} />} label="Highlight" />

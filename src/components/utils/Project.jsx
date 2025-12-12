@@ -58,7 +58,11 @@ const Project = () => {
   }, []);
 
   if (isLoading) {
-    return <CircleLoader text={'Loading projects'} />;
+    return (
+      <div className="flex h-96 justify-center items-center">
+        <CircleLoader />
+      </div>
+    );
   }
 
   if (!project) {
