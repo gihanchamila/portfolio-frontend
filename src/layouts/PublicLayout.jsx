@@ -10,7 +10,7 @@ const PublicLayout = () => {
   return (
     <Suspense fallback={<CircleLoader />}>
       <Header />
-      <div className="lg:h-20 xs:h-0" />
+      <div className="lg:h-20 xs:h-16" />
       <Main>
         <Outlet />
       </Main>
