@@ -1,21 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from './Header';
-import Footer from './Footer';
-import Main from './Main';
+import BaseLayout from './BaseLayout';
 import CircleLoader from '../components/utils/CircleLoader';
-import { Suspense } from 'react';
 
 const PublicLayout = () => {
   return (
     <Suspense fallback={<CircleLoader />}>
-      <div className="lg:h-6 xs:h-0" />
-      <Header />
-      <div className="lg:h-16 xs:h-12" />
-      <Main>
+      <BaseLayout topSpacing="lg:h-6 xs:h-0" headerSpacing="lg:h-16 xs:h-12">
         <Outlet />
-      </Main>
-      <Footer />
+      </BaseLayout>
     </Suspense>
   );
 };
