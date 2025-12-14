@@ -13,7 +13,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
   return (
     <div
       ref={ref}
-      className="xs:h-[28rem] group relative overflow-hidden rounded-2xl border border-gray-300 sm:h-[32rem] dark:border-none"
+      className="xs:h-[30rem] group relative overflow-hidden rounded-2xl border border-gray-300 sm:h-[32rem] dark:border-none"
     >
       <div className="relative h-full w-full overflow-hidden">
         <img
