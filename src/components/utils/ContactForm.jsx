@@ -110,11 +110,14 @@ const ContactForm = () => {
             message: DOMPurify.sanitize(values.message)
           };
 
+          console.log('Submitting payload:', payload);
           const res = await axios.post('/connect/make-connection', payload);
+          console.log('Response received:', res.data);
           toast(res.data.message, 'success');
           setFieldValue('message', '');
           setCount(null);
         } catch (error) {
+          console.error('Error during form submission:', error);
           handleAxiosError(error);
         }
       }}
