@@ -3,12 +3,12 @@ import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
 
-const BaseLayout = ({ children }) => {
+const BaseLayout = ({ children, topSpacing = 'lg:h-8 xs:h-0', headerSpacing = '' }) => {
   return (
     <div className="min-h-screen">
-      <div className="lg:h-8 xs:h-0"></div>
+      <div className={topSpacing} />
       <Header />
-      <div className="lg:h-16 xs:h-0"></div>
+      {headerSpacing && <div className={headerSpacing} />}
       <Main>{children}</Main>
       <Footer />
     </div>
