@@ -198,7 +198,7 @@ const ContactForm = () => {
 
             <div className="flex justify-end">
               <Button variant="primary" type="submit" disabled={!isEmailVerified || isSubmitting}>
-                {isSubmitting ? 'Sending...' : isEmailVerified ? 'Send Message' : 'Verify Email'}
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
             </div>
 
