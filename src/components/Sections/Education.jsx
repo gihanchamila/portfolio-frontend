@@ -102,7 +102,7 @@ const Education = () => {
   return (
     <section
       ref={ref}
-      className="relative lg:scroll-mt-26 xs:scroll-mt-28 bg-transparent pb-12 text-left transition-colors duration-300"
+      className="relative  bg-transparent pb-12 text-left transition-colors duration-300 scrollMargin"
       id="education"
       aria-label="Education Section"
     >

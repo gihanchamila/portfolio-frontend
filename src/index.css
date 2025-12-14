@@ -100,3 +100,7 @@
 .toastIcon {
   @apply xs:size-3 mt-0.5 sm:size-4;
 }
+
+.scrollMargin {
+  @apply lg:scroll-mt-26 sm:scroll-mt-32 xs:scroll-mt-28;
+}

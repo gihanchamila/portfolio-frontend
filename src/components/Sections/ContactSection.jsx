@@ -18,11 +18,11 @@ const ContactDetailCard = React.memo(({ icon: Icon, text }) => {
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="pb-12 lg:scroll-mt-26 xs:scroll-mt-12">
+    <section id="contact" className="pb-12 scrollMargin">
       <Title align={{ xs: 'center' }} text={`Open to Collaboration`} />
       <Reveal>
         <main className="lg:flex lg:items-center lg:justify-between">
-          <div className="xs:hidden lg:block xs:space-y-6 xs:mb-5 sm:text sm:mb-0 sm:text-lg">
+          <div className="lg:block xs:space-y-6 xs:mb-5 sm:text sm:mb-0 sm:text-lg xs:pb-8 lg:pb-0">
             <p className="xs:text-center xs:text-base xs:font-primary max-w-sm font-bold text-gray-800 sm:text-xl lg:text-left dark:text-gray-50">
               Feel free to reach out to me! Whether it's a
               <span className="text-purple-500 dark:text-purple-300"> project collaboration</span>,
