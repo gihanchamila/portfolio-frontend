@@ -55,6 +55,8 @@ const HeroSection = () => {
               role="image"
               tabIndex="0"
               src={profileImage}
+              fetchpriority="high"
+              decoding="async"
               onMouseEnter={() => setCursorVisible(true)}
               onMouseLeave={() => setCursorVisible(false)}
               alt="A personal headshot of Gihan Chamila, the developer."
@@ -98,6 +100,8 @@ const HeroSection = () => {
             role="image"
             tabIndex="0"
             src={profileImage}
+            fetchpriority="high"
+            decoding="async"
             onMouseEnter={() => setCursorVisible(true)}
             onMouseLeave={() => setCursorVisible(false)}
             alt="A personal headshot of Gihan Chamila, the developer."
