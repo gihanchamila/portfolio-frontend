@@ -55,7 +55,7 @@ const HeroSection = () => {
               role="image"
               tabIndex="0"
               src={profileImage}
-              fetchpriority="high"
+              fetchPriority="high"
               decoding="async"
               onMouseEnter={() => setCursorVisible(true)}
               onMouseLeave={() => setCursorVisible(false)}
@@ -100,7 +100,7 @@ const HeroSection = () => {
             role="image"
             tabIndex="0"
             src={profileImage}
-            fetchpriority="high"
+            fetchPriority="high"
             decoding="async"
             onMouseEnter={() => setCursorVisible(true)}
             onMouseLeave={() => setCursorVisible(false)}
