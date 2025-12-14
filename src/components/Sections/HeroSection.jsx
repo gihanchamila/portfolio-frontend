@@ -88,7 +88,7 @@ const HeroSection = () => {
               <span className="text-orange-500 dark:text-red-300"> user-friendly</span> web
               applications.
             </h2>
-            <SocialLinks />
+            <SocialLinks size="hero" />
           </div>
         </div>
 

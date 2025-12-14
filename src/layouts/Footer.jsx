@@ -16,7 +16,7 @@ const Footer = () => {
         >
           <h2 className="xs:text-base font-semibold sm:text-lg">Gihan Chamila</h2>
           <p className="xs:text-xs">algihanchamila@gmail.com</p>
-          <SocialLinks />
+          <SocialLinks size="footer" />
         </motion.div>
       </footer>
     </GridContainer>
