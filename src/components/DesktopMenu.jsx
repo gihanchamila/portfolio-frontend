@@ -49,7 +49,7 @@ const DesktopMenu = ({ navLinks, isShrunk }) => {
         >
           <ThemeToggle />
           {/* <ResumeDownload /> */}
-          <Button
+          {/*  <Button
             as="a"
             href="https://mail.google.com/mail/?view=cm&fs=1&to=algihanchamila@gmail.com&su=Request%20Resume"
             target="_blank"
@@ -58,7 +58,7 @@ const DesktopMenu = ({ navLinks, isShrunk }) => {
             className="hidden sm:flex"
           >
             Request Resume
-          </Button>
+          </Button> */}
           {admin && (
             <Button variant="outline" onClick={signOut} className="flex items-center gap-2">
               Log Out

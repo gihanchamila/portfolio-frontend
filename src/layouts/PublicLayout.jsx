@@ -9,8 +9,9 @@ import { Suspense } from 'react';
 const PublicLayout = () => {
   return (
     <Suspense fallback={<CircleLoader />}>
+      <div className="lg:h-6 xs:h-0" />
       <Header />
-      <div className="lg:h-20 xs:h-16" />
+      <div className="lg:h-16 xs:h-16" />
       <Main>
         <Outlet />
       </Main>

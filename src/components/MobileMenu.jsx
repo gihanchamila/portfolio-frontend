@@ -77,7 +77,7 @@ const MobileMenu = ({ navLinks }) => {
 
               <div className="xs:flex xs:flex-col xs:space-y-4 mt-20">
                 <NavLinks links={navLinks} onItemClick={toggleMenu} />
-                <div className="mt-5">
+                {/* <div className="mt-5">
                   <Button
                     as="a"
                     href="https://mail.google.com/mail/?view=cm&fs=1&to=algihanchamila@gmail.com&su=Request%20Resume"
@@ -88,7 +88,7 @@ const MobileMenu = ({ navLinks }) => {
                   >
                     Request Resume
                   </Button>
-                </div>
+                </div> */}
               </div>
             </motion.div>
           )}
