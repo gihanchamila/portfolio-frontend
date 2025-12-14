@@ -18,7 +18,7 @@ const ContactDetailCard = React.memo(({ icon: Icon, text }) => {
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="pb-12 lg:scroll-mt-26 xs:scroll-mt-28">
+    <section id="contact" className="pb-12 lg:scroll-mt-26 xs:scroll-mt-12">
       <Title align={{ xs: 'center' }} text={`Open to Collaboration`} />
       <Reveal>
         <main className="lg:flex lg:items-center lg:justify-between">
