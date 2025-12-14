@@ -50,8 +50,6 @@ const Certificate = () => {
 
       localStorage.setItem(LS_CERTS, JSON.stringify(data));
       localStorage.setItem(LS_UPDATED_AT, latestUpdatedAt);
-
-      toast(res.data.message);
     } catch (error) {
       toast(error?.response?.data?.message || 'Failed to load certificates', 'error');
     }
