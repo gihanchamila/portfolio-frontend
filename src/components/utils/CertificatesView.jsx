@@ -128,12 +128,8 @@ const CertificatesView = () => {
     }
   };
 
-  if (isLoading) {
-    return <CircleLoader />;
-  }
-
   return (
-    <div className="container mx-auto pb-20">
+    <div className="mx-auto">
       <h1 className="mb-6 text-2xl font-bold">{admin ? 'Manage Certificates' : 'Certificates '}</h1>
       <div className="flex-1">
         <AnimatePresence mode="wait">
@@ -145,9 +141,6 @@ const CertificatesView = () => {
             transition={{ duration: 0.3 }}
             className="divide-y divide-neutral-200 rounded-lg bg-white shadow dark:divide-neutral-700 dark:bg-neutral-800"
           >
-            {certificates.length === 0 && (
-              <li className="sm:text py-6 text-center text-gray-500">No certificates found</li>
-            )}
             {certificates.map(certificate => (
               <li
                 key={certificate._id}
