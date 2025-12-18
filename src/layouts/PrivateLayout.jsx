@@ -9,22 +9,14 @@ const PrivateLayout = () => {
   const token = localStorage.getItem('apiKey');
 
   if (location.pathname === '/admin') {
-    return (
-      <BaseLayout topSpacing="lg:h-8 xs:h-0">
-        <Outlet />
-      </BaseLayout>
-    );
+    return <BaseLayout topSpacing="lg:h-8 xs:h-0" />;
   }
 
   if (!token || !admin) {
     return <Navigate to="/admin" state={{ from: location }} replace />;
   }
 
-  return (
-    <BaseLayout topSpacing="lg:h-8 xs:h-0">
-      <Outlet />
-    </BaseLayout>
-  );
+  return <BaseLayout topSpacing="lg:h-8 xs:h-0" />;
 };
 
 export default PrivateLayout;

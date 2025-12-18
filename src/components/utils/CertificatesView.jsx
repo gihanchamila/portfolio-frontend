@@ -74,6 +74,7 @@ const CertificatesView = () => {
         setTotalPage(data.pages);
         setPageCount(Array.from({ length: data.pages }, (_, i) => i + 1));
         prefetchNextPage(page, data.pages);
+        setIsLoading(false);
       } catch (error) {
         toast(error.response?.data?.message || 'Error loading certificates', 'error');
       } finally {
@@ -141,48 +142,50 @@ const CertificatesView = () => {
             transition={{ duration: 0.3 }}
             className="divide-y divide-neutral-200 rounded-lg bg-white shadow dark:divide-neutral-700 dark:bg-neutral-800"
           >
-            {certificates.map(certificate => (
-              <li
-                key={certificate._id}
-                className="flex items-center justify-between px-6 py-4 transition hover:bg-neutral-50 dark:hover:bg-neutral-900"
-              >
-                <div className="flex flex-col flex-1 min-w-0">
-                  <span className="text-lg font-medium  xs:text-sm text-base">
-                    {certificate.title}
-                  </span>
-                  <div className="text-sm text-gray-600 dark:text-gray-300 truncate">
-                    {certificate.organization}
+            {!isLoading &&
+              certificates.length > 0 &&
+              certificates.map(certificate => (
+                <li
+                  key={certificate._id}
+                  className="flex items-center justify-between px-6 py-4 transition hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                >
+                  <div className="flex flex-col flex-1 min-w-0">
+                    <span className="text-lg font-medium  xs:text-sm text-base">
+                      {certificate.title}
+                    </span>
+                    <div className="text-sm text-gray-600 dark:text-gray-300 truncate">
+                      {certificate.organization}
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex gap-2 flex-shrink-0">
-                  {admin ? (
-                    <>
-                      <Button
-                        variant="primary"
-                        onClick={() => {
-                          setEditCertificate(certificate);
-                          setShowForm(true);
-                        }}
-                      >
-                        Update
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => handleDeleteCertificate(certificate._id)}
-                      >
-                        Delete
-                      </Button>
-                    </>
-                  ) : (
-                    <Label link={certificate.credentialURL}>
-                      <span className="block sm:hidden">View</span>
-                      <span className="hidden sm:block">View certificate</span>
-                    </Label>
-                  )}
-                </div>
-              </li>
-            ))}
+                  <div className="flex gap-2 flex-shrink-0">
+                    {admin ? (
+                      <>
+                        <Button
+                          variant="primary"
+                          onClick={() => {
+                            setEditCertificate(certificate);
+                            setShowForm(true);
+                          }}
+                        >
+                          Update
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => handleDeleteCertificate(certificate._id)}
+                        >
+                          Delete
+                        </Button>
+                      </>
+                    ) : (
+                      <Label link={certificate.credentialURL}>
+                        <span className="block sm:hidden">View</span>
+                        <span className="hidden sm:block">View certificate</span>
+                      </Label>
+                    )}
+                  </div>
+                </li>
+              ))}
           </motion.ul>
         </AnimatePresence>
       </div>
