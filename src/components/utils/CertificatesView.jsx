@@ -129,7 +129,7 @@ const CertificatesView = () => {
   };
 
   return (
-    <div className="mx-auto">
+    <div className="xs:pb-32 lg:pb-0">
       <h1 className="mb-6 text-2xl font-bold">{admin ? 'Manage Certificates' : 'Certificates '}</h1>
       <div className="flex-1">
         <AnimatePresence mode="wait">
