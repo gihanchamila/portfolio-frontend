@@ -5,18 +5,15 @@ import { useAuth } from '../../context/AuthContext';
 import ProjectForm from './ProjectForm';
 import Button from './Button';
 import Pagination from './Pagination';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { Label } from '../Sections/Education';
-import { useNavigate } from 'react-router-dom';
 
 const ProjectsView = () => {
   const { admin, setAdmin } = useAuth();
   const { toast } = useToast();
-  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editProject, setEditProject] = useState(null);
-
   const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState([]);
@@ -56,12 +53,9 @@ const ProjectsView = () => {
       setSubmitting(true);
 
       const filesToUpload = [];
-      // Check if the main 'file' is a new upload
       if (values.file instanceof File) {
-        // CORRECTED: Changed type to 'file' for consistency
         filesToUpload.push({ type: 'file', file: values.file });
       }
-      // Check which of the additional 'images' are new uploads
       if (values.images && values.images.length > 0) {
         values.images.forEach(img => {
           if (img instanceof File) {
@@ -69,9 +63,7 @@ const ProjectsView = () => {
           }
         });
       }
-
-      // CORRECTED: Renamed 'newCoverPhotoId' to 'newFileId'
-      let newFileId = values.file; // Default to existing ID string
+      let newFileId = values.file;
       const finalImageIds = values.images || [];
 
       if (filesToUpload.length > 0) {
@@ -86,7 +78,6 @@ const ProjectsView = () => {
 
         filesToUpload.forEach((item, index) => {
           const newId = newlyUploadedIds[index];
-          // CORRECTED: Check for 'file' type and assign to 'newFileId'
           if (item.type === 'file') {
             newFileId = newId;
           } else {
@@ -103,7 +94,6 @@ const ProjectsView = () => {
         projectUrl: values.projectUrl,
         githubUrl: values.githubUrl,
         techStack: values.techStack,
-        // CORRECTED: Use 'newFileId' for the 'file' field
         file: newFileId,
         images: finalImageIds
       };
@@ -119,9 +109,7 @@ const ProjectsView = () => {
       fetchProjects(currentPage);
     } catch (error) {
       if (newlyUploadedIds.length > 0) {
-        // This rollback logic is still valid
         console.error('Project update failed. Rolling back uploaded files...');
-        // Make sure you have the 'delete-by-id/:id' endpoint from the previous step
         const deletePromises = newlyUploadedIds.map(id => axios.delete(`/file/delete-by-id/${id}`));
         await Promise.all(deletePromises);
         toast('Update failed. Uploaded files were rolled back.', 'error');

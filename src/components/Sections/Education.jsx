@@ -120,8 +120,9 @@ const Education = () => {
         <div className="hidden lg:flex flex-1 h-full justify-end items-stretch">
           <img
             src={educationImage}
+            fetchPriority="high"
             alt="Education Illustration"
-            className="rounded-2xl w-full h-[584px] object-fill"
+            className="rounded-2xl w-full square-aspect object-fill"
           />
         </div>
       </div>
