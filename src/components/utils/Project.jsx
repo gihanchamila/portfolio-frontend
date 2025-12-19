@@ -3,10 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from '../../axios/axios';
 import { useToast } from '../../context/ToastContext';
-import CircleLoader from '../utils/CircleLoader';
-
 import AnimatedButton from './AnimatedButton';
 import ImageCarousel from './ImageCarousel';
+import CircleLoader from './CircleLoader';
 
 const Project = () => {
   const { id: projectID } = useParams();
@@ -21,28 +20,27 @@ const Project = () => {
       if (!projectID) return;
 
       setIsLoading(true);
+      setProject(null);
+      setImageUrls([]);
+
       try {
         const response = await axios.get(`/project/get-project/${projectID}`);
         const projectData = response.data.data;
-        console.log(projectData);
+
         setProject(projectData);
 
-        if (projectData.images && projectData.images.length > 0) {
-          try {
-            const urls = await Promise.all(
-              projectData.images.map(async image => {
-                if (!image.key) return null;
-                const res = await axios.get(`/file/signed-url?key=${image.key}`);
-                return res.data.data.url;
-              })
-            );
-            setImageUrls(urls.filter(Boolean));
-          } catch (err) {
-            console.error('Error fetching image URLs', err);
-            toast('Failed to load project images', 'error');
-          }
+        if (projectData?.images?.length > 0) {
+          const urls = await Promise.all(
+            projectData.images.map(async image => {
+              if (!image?.key) return null;
+              const res = await axios.get(`/file/signed-url?key=${image.key}`);
+              return res.data.data.url;
+            })
+          );
+          setImageUrls(urls.filter(Boolean));
         }
       } catch (error) {
+        setProject(null);
         const errorMessage = error.response?.data?.message || 'Failed to fetch project details.';
         toast(errorMessage, 'error');
       } finally {
@@ -56,6 +54,14 @@ const Project = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex h-96 items-center justify-center">
+        <CircleLoader />
+      </div>
+    );
+  }
 
   if (!project) {
     return (
@@ -87,18 +93,23 @@ const Project = () => {
         >
           <ImageCarousel images={imageUrls} />
         </motion.div>
+
         <div className="flex flex-col md:col-span-2">
-          <h1 className="text-3xl leading-tight font-bold text-gray-900 md:text-4xl dark:text-white">
+          <h1 className="text-3xl font-bold leading-tight text-gray-900 md:text-4xl dark:text-white">
             {project.title || 'Untitled Project'}
           </h1>
-          <h3 className="my-2 text-xl font-semibold text-sky-600 dark:text-sky-300">
-            {project.subtitle}
-          </h3>
+
+          {project.subtitle && (
+            <h3 className="my-2 text-xl font-semibold text-sky-600 dark:text-sky-300">
+              {project.subtitle}
+            </h3>
+          )}
+
           <p className="mt-4 text-base leading-relaxed text-gray-600 dark:text-gray-300">
             {project.description || 'No description provided.'}
           </p>
 
-          {project.techStack && project.techStack.length > 0 && (
+          {project.techStack?.length > 0 && (
             <div className="mt-6 flex flex-wrap gap-2">
               {project.techStack.map(tag => (
                 <span
@@ -117,6 +128,7 @@ const Project = () => {
                 <AnimatedButton>View Live Site</AnimatedButton>
               </a>
             )}
+
             {project.githubUrl && (
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                 <AnimatedButton variant="secondary">View Source</AnimatedButton>
