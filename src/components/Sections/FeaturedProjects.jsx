@@ -18,6 +18,7 @@ const FeaturedProjects = () => {
 
   const LS_KEY = 'featured_projects';
   const LS_FILES_KEY = 'featured_project_files';
+  const CACHE_TTL = 10 * 60 * 1000;
 
   useEffect(() => {
     const cachedProjects = localStorage.getItem(LS_KEY);
@@ -32,18 +33,34 @@ const FeaturedProjects = () => {
   }, []);
 
   const fetchProjects = useCallback(async () => {
-    const cachedProjects = localStorage.getItem(LS_KEY);
-    if (cachedProjects) return;
+    const cached = localStorage.getItem(LS_KEY);
+
+    if (cached) {
+      const { data, timestamp } = JSON.parse(cached);
+
+      if (Date.now() - timestamp < CACHE_TTL) {
+        setProjects(data);
+        return;
+      } else {
+        localStorage.removeItem(LS_KEY);
+      }
+    }
 
     try {
       const res = await axios.get('/project/get-projects?size=3');
-      const data = res.data.data.projects;
+      const projects = res.data.data.projects;
       const total = res.data.data.total;
 
-      setProjects(data);
+      setProjects(projects);
       setTotalCount(total);
 
-      localStorage.setItem(LS_KEY, JSON.stringify(data));
+      localStorage.setItem(
+        LS_KEY,
+        JSON.stringify({
+          data: projects,
+          timestamp: Date.now()
+        })
+      );
     } catch (error) {
       toast(error.response?.data?.message || 'Something went wrong', 'error');
     }
@@ -54,8 +71,18 @@ const FeaturedProjects = () => {
   }, [fetchProjects]);
 
   const fetchProjectFileUrls = useCallback(async () => {
-    const cachedFiles = localStorage.getItem(LS_FILES_KEY);
-    if (cachedFiles) return;
+    const cached = localStorage.getItem(LS_FILES_KEY);
+
+    if (cached) {
+      const { data, timestamp } = JSON.parse(cached);
+
+      if (Date.now() - timestamp < CACHE_TTL) {
+        setProjectFiles(data);
+        return;
+      } else {
+        localStorage.removeItem(LS_FILES_KEY);
+      }
+    }
 
     try {
       const fileUrls = await Promise.all(
@@ -63,6 +90,7 @@ const FeaturedProjects = () => {
           if (!project.file?.key) return { id: project._id, fileUrl: null };
 
           const res = await axios.get(`/file/signed-url?key=${project.file.key}`);
+
           return { id: project._id, fileUrl: res.data.data.url };
         })
       );
@@ -73,7 +101,14 @@ const FeaturedProjects = () => {
       }, {});
 
       setProjectFiles(fileMap);
-      localStorage.setItem(LS_FILES_KEY, JSON.stringify(fileMap));
+
+      localStorage.setItem(
+        LS_FILES_KEY,
+        JSON.stringify({
+          data: fileMap,
+          timestamp: Date.now()
+        })
+      );
     } catch (err) {
       console.error('Signed URL error:', err);
       toast('Failed to load signed URLs', 'error');
