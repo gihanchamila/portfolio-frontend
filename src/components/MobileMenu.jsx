@@ -31,8 +31,8 @@ const MobileMenu = ({ navLinks }) => {
 
   return (
     <GridContainer>
-      <header className="dark:bg-surface mt-5  sm:col-span-4 sm:col-start-1 sm:col-end-5 sm:grid lg:hidden">
-        <div className="flex w-full items-center justify-between xs:py-4">
+      <header className="dark:bg-surface mt-5 sm:col-span-4 sm:col-start-1 sm:col-end-5 sm:grid lg:hidden">
+        <div className="flex w-full items-center justify-between xs:pb-4">
           <img
             src={profileImage}
             alt="profile"
