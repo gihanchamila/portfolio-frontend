@@ -121,6 +121,8 @@ const Education = () => {
           <img
             src={educationImage}
             fetchPriority="high"
+            loading="lazy"
+            role="img"
             alt="Education Illustration"
             className="rounded-2xl w-full square-aspect object-fill"
           />

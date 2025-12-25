@@ -26,6 +26,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
           src={imageUrl}
           alt={projectName}
           fetchPriority="high"
+          loading="lazy"
           className="
             h-full w-full object-cover
             transition-transform duration-500
