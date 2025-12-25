@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 
 const AnimatedButton = ({ github, live }) => {
   return (
-    <div className="mt-4 flex space-x-3">
+    <div className="mt-2 flex space-x-3">
       {github && (
         <Link
           to={github}

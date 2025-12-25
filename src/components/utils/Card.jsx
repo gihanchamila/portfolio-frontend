@@ -18,7 +18,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
         border border-gray-300 dark:border-white/10
         bg-white dark:bg-neutral-900
         transition-all duration-300
-        xs:h-[30rem]
+        xs:h-[28rem]
       "
     >
       <div className="relative h-1/2 w-full overflow-hidden">
@@ -35,7 +35,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
       </div>
 
       <div className="flex h-1/2 flex-col justify-between p-5">
-        <div className="space-y-3">
+        <div className="space-y-2">
           <h2
             onClick={handleNavigate}
             className="
