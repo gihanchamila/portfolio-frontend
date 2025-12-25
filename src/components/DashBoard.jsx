@@ -36,55 +36,32 @@ const DashBoard = () => {
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             try {
               setSubmitting(true);
-
-              // --- STEP 1: UPLOAD ALL FILES IN PARALLEL ---
-              // This is the key to high performance. We upload the cover photo
-              // and all additional images at the same time.
-
               const allFilesToUpload = [];
-              // Add the cover photo file first. It's guaranteed to exist by Yup validation.
               allFilesToUpload.push(values.file);
-
-              // Add the additional image files, if any exist.
               if (values.images && values.images.length > 0) {
                 allFilesToUpload.push(...values.images);
               }
 
-              // Create an array of upload promises.
               const uploadPromises = allFilesToUpload.map(fileToUpload => {
                 const formData = new FormData();
-                // IMPORTANT: The key 'file' must match what your backend Multer is expecting.
-                // In your FileController, you use `req.file`, so this is likely correct.
                 formData.append('image', fileToUpload);
                 return axios.post('/file/upload', formData);
               });
-
-              // Execute all upload promises at the same time.
               const uploadResponses = await Promise.all(uploadPromises);
-
-              // Extract the file IDs from the responses.
               const allFileIds = uploadResponses.map(response => response.data.data.id);
-
-              // The first ID belongs to the cover photo because we added it first.
               const coverPhotoId = allFileIds[0];
-              // The rest of the IDs belong to the additional images.
               const imageIds = allFileIds.slice(1);
-
-              // --- STEP 2: CREATE THE PROJECT WITH ALL DATA ---
-              // This payload now includes everything: techStack, cover photo ID, and image IDs.
               const projectPayload = {
                 title: values.title,
                 subtitle: values.subtitle,
                 description: values.description,
-                techStack: values.techStack, // Formik has already converted this to an array
+                techStack: values.techStack,
                 projectUrl: values.projectUrl || null,
                 githubUrl: values.githubUrl,
-                file: coverPhotoId, // The ID of the cover photo
-                images: imageIds // The array of IDs for the other images
+                file: coverPhotoId,
+                images: imageIds
               };
-
               const response = await axios.post('/project/create-project', projectPayload);
-
               toast(response.data.message || 'Project created successfully!', 'success');
               console.log('Project Added:', response.data);
               resetForm();
@@ -115,26 +92,19 @@ const DashBoard = () => {
             try {
               setSubmitting(true);
               const formattedDate = values.issueDate;
-
               const certificatePayload = {
                 title: values.title,
                 organization: values.organization,
                 issueDate: formattedDate,
                 credentialURL: values.credentialURL
               };
-
-              console.log('Submitting certificate:', certificatePayload);
-
               const response = await axios.post(
                 '/certificate/create-certificate',
                 certificatePayload
               );
-              console.log('Server response:', response.data);
-
               if (!response.data || response.data.status === false) {
                 throw new Error(response.data?.message || 'Failed to create certificate');
               }
-
               toast(
                 response.data.message || 'Certificate added successfully',
                 'success',
@@ -172,18 +142,14 @@ const DashBoard = () => {
             setSubmitting(true);
             try {
               const resumeRes = await axios.get('/resume/get-resumes');
-              const resumes = resumeRes.data.data; // This is the array of resumes
-
+              const resumes = resumeRes.data.data;
               if (resumes.length > 0) {
-                // If there are resumes, delete the latest one (or all, as needed)
                 const latestResume = resumes[resumes.length - 1];
                 const deleteResume = await axios.delete(`/resume/delete/${latestResume.file}`);
                 if (!deleteResume.data.status) {
                   throw new Error(deleteResume.data.message);
                 }
               }
-
-              // Now upload the new resume
               const filePayload = values.file;
               const formData = new FormData();
               formData.append('resume', filePayload);

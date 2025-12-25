@@ -13,40 +13,42 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
   return (
     <div
       ref={ref}
-      className="xs:h-[30rem] group relative overflow-hidden rounded-2xl border border-gray-300 sm:h-[32rem] dark:border-none"
+      className="
+        group overflow-hidden rounded-2xl
+        border border-gray-300 dark:border-white/10
+        bg-white dark:bg-neutral-900
+        transition-all duration-300
+        xs:h-[30rem]
+      "
     >
-      <div className="relative h-full w-full overflow-hidden">
+      <div className="relative h-1/2 w-full overflow-hidden">
         <img
           src={imageUrl}
           alt={projectName}
-          className="absolute inset-0 h-full w-full object-fill"
-          loading="lazy"
-        />
-
-        <div
+          fetchPriority="high"
           className="
-            absolute inset-0 
-            bg-gradient-to-t 
-            from-black/90 
-            via-black/40 
-            to-transparent 
-            opacity-90 
-            transition-opacity 
-            duration-300 
-            group-hover:opacity-100
+            h-full w-full object-cover
+            transition-transform duration-500
           "
-        ></div>
+        />
       </div>
 
-      <div className="absolute bottom-0 w-full p-4 text-white  sm:space-y-3">
-        <h2
-          className="cardTitle cursor-pointer drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]"
-          onClick={handleNavigate}
-        >
-          {projectName}
-        </h2>
+      <div className="flex h-1/2 flex-col justify-between p-5">
+        <div className="space-y-3">
+          <h2
+            onClick={handleNavigate}
+            className="
+              cardTitle cursor-pointer
+              text-gray-900 dark:text-white
+              hover:text-sky-500
+              transition-colors
+            "
+          >
+            {projectName}
+          </h2>
 
-        <p className="cardSubTitle">{description}</p>
+          <p className="cardSubTitle text-gray-700 dark:text-gray-300">{description}</p>
+        </div>
 
         <AnimatedButton live={live} github={github} />
       </div>

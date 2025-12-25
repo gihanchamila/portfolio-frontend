@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import ProjectForm from './ProjectForm';
 import Button from './Button';
 import Pagination from './Pagination';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Label } from '../Sections/Education';
 
 const ProjectsView = () => {

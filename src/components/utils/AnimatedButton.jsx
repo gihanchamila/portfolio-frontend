@@ -9,7 +9,7 @@ const AnimatedButton = ({ github, live }) => {
           to={github}
           target="_blank"
           rel="noopener noreferrer"
-          className="button bg-white text-black"
+          className="button dark:bg-white bg-sky-600 hover:bg-sky-700 dark:hover:bg-white/95 dark:text-black text-white"
         >
           <motion.span role="link">GitHub Repo</motion.span>
         </Link>
