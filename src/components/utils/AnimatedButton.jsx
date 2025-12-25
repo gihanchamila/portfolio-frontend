@@ -1,28 +1,29 @@
-import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 const AnimatedButton = ({ github, live }) => {
   return (
     <div className="mt-2 flex space-x-3">
       {github && (
-        <Link
-          to={github}
+        <a
+          href={github}
           target="_blank"
           rel="noopener noreferrer"
           className="button dark:bg-white bg-sky-600 hover:bg-sky-700 dark:hover:bg-white/95 dark:text-black text-white"
+          aria-label="Open GitHub repository in a new tab"
         >
-          <motion.span role="link">GitHub Repo</motion.span>
-        </Link>
+          <motion.span>GitHub Repo</motion.span>
+        </a>
       )}
       {live && (
-        <Link
-          to={live}
+        <a
+          href={live}
           target="_blank"
           rel="noopener noreferrer"
           className="button bg-sky-700 text-white"
+          aria-label="Open live demo in a new tab"
         >
-          <span role="link">Live Demo</span>
-        </Link>
+          Live Demo
+        </a>
       )}
     </div>
   );
