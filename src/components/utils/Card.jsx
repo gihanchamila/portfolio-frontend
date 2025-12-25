@@ -18,6 +18,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
         border border-gray-300 dark:border-white/10
         bg-white dark:bg-neutral-900
         transition-all duration-300
+        lg:h-[30rem]
         xs:h-[28rem]
       "
     >
