@@ -45,7 +45,7 @@ const ContactSection = () => {
       <Reveal>
         <main className="lg:flex lg:items-center lg:justify-between lg:gap-8">
           <div className="xs:mb-6 xs:space-y-5 xs:pb-8 sm:mb-0 sm:text-lg lg:pb-0">
-            <p className="xs:text-center max-w-sm text-base font-bold text-gray-800 sm:text-xl lg:text-left dark:text-gray-50">
+            <p className="xs:text-center max-w-sm text-base font-bold xs:text-gray-700  dark:text-gray-100 sm:text-xl lg:text-left">
               Feel free to reach out to me! Whether it's a
               <span className="text-purple-500 dark:text-purple-300"> project collaboration</span>,
               a question, or just a{' '}

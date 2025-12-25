@@ -61,14 +61,16 @@ const EducationCard = ({ edu }) => (
   >
     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
       <div className="flex flex-col gap-1">
-        <h3 className="text-lg font-bold sm:text-xl max-w-sm">{edu.institute}</h3>
+        <h3 className="text-lg font-bold sm:text-xl max-w-sm xs:text-gray-700  dark:text-gray-100">
+          {edu.institute}
+        </h3>
 
         {edu.location && (
           <span className="text-xs text-neutral-500 dark:text-neutral-400">{edu.location}</span>
         )}
       </div>
       {edu.year && (
-        <span className="text-xs sm:text-sm whitespace-nowrap text-neutral-500 dark:text-neutral-400 mt-1 sm:mt-0">
+        <span className="text-xs sm:text-sm whitespace-nowrap xs:text-gray-700  dark:text-gray-100 mt-1 sm:mt-0">
           {edu.year}
         </span>
       )}

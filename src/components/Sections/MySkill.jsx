@@ -73,7 +73,7 @@ const MySkill = ({ skillsList = skills }) => {
           >
             <motion.div
               variants={skillVariants}
-              className={`xs:text-xs rounded-xl border border-gray-300 bg-white px-5 py-2 text-sm font-semibold text-gray-900 transition-colors duration-300 sm:text-base lg:text-lg dark:inset-52 dark:border-gray-600 dark:bg-transparent dark:text-gray-100`}
+              className={`xs:text-xs rounded-xl border border-gray-300 bg-white px-5 py-2 text-sm font-semibold xs:text-gray-700 hover:text-gray-800 dark:text-gray-100 transition-colors duration-300 sm:text-base lg:text-lg dark:inset-52 dark:border-gray-600 dark:bg-transparent`}
             >
               {skill}
             </motion.div>

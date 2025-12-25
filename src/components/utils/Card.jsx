@@ -41,7 +41,7 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
             onClick={handleNavigate}
             className="
               cardTitle cursor-pointer
-              text-gray-900 dark:text-white
+              text-gray-700 dark:text-white
               hover:text-sky-500
               transition-colors
             "
