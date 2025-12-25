@@ -15,7 +15,7 @@ const ContactDetailCard = React.memo(({ icon: Icon, label, text, href, delay = 0
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.5 }}
       transition={{ duration: 0.45, ease: 'easeOut', delay }}
-      className="group flex w-full max-w-sm items-center gap-4 rounded-xl border border-gray-200 p-3 text-sky-700 backdrop-blur-sm hover:border-sky-500 hover:dark:border-white/10 dark:hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 dark:border-white/10 dark:bg-white/5 dark:text-sky-200"
+      className="group flex w-full max-w-sm items-center gap-4 rounded-xl border border-gray-200 p-3 text-sky-700 backdrop-blur-sm hover:border-sky-500 hover:dark:border-white/10 dark:hover:bg-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 dark:border-white/10 dark:divide-neutral-700 dark:bg-neutral-800 dark:text-sky-200"
       aria-label={label}
     >
       <span className="grid h-10 w-10 place-items-center rounded-lg bg-white/80 dark:bg-white/10">
