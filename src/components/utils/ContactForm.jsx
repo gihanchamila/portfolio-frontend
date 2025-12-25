@@ -123,7 +123,7 @@ const ContactForm = () => {
       }}
     >
       {({ values, setFieldValue, isSubmitting }) => (
-        <div className="sm:w-full rounded-xl lg:w-1/2 border border-gray-200 p-5  sm:p-8 dark:border-white/10 dark:bg-white/5">
+        <div className="sm:w-full rounded-xl lg:w-1/2 border-none border-gray-200 p-5 dark:border-white/10">
           <h2 className="cardTitle pb-5">Fill in the form below to get in touch.</h2>
           <Form>
             <div className="mb-4">
