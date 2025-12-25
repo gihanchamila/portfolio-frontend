@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 
 const AnimatedButton = ({ github, live }) => {
   return (
-    <div className="lg:mt-2 xs:mt-0 flex space-x-3">
+    <div className=" xs:mt-0 flex space-x-3">
       {github && (
         <a
           href={github}

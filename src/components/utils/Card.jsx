@@ -16,10 +16,10 @@ const ProjectCard = ({ projectName, description, imageUrl, github, live, project
       className="
         group overflow-hidden rounded-2xl
         border border-gray-300 dark:border-white/10
-        bg-white dark:bg-neutral-900
+        bg-white dark:bg-transparent
         transition-all duration-300 dark:hover:neutral-800
-        lg:h-[30rem]
-        xs:h-[28rem]
+        lg:h-[29rem]
+        xs:h-[27rem]
       "
     >
       <div className="relative h-1/2 w-full overflow-hidden">

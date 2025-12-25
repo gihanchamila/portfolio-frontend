@@ -8,7 +8,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="lg:p-3 xs:p-2 rounded-lg bg-gray-200 dark:bg-gray-700 transition-all flex items-center justify-center"
+      className="lg:p-3 xs:p-2 rounded-lg bg-gray-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 transition-all flex items-center justify-center"
     >
       <AnimatePresence mode="wait" initial={false}>
         {theme === 'dark' ? (

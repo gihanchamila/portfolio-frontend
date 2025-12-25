@@ -7,7 +7,7 @@ const CertificateCard = ({ certificate, certificateName, organization, credentia
   return (
     <motion.div
       whileTap={{ scale: 0.97 }}
-      className="xs:p-4 flex flex-col justify-between rounded-xl border border-gray-200 transition-all duration-100 sm:h-[200px] lg:h-[250px] lg:p-10 dark:border-gray-700 hover:border-sky-500 active:border-sky-700"
+      className="xs:p-4 flex flex-col justify-between rounded-xl border dark:border-white/10 transition-all duration-100 sm:h-[200px] lg:h-[250px] lg:p-10 dark:border-gray-700 hover:border-sky-500 active:border-sky-700"
     >
       <div className="">
         <h2

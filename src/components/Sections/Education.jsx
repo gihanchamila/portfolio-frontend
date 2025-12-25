@@ -55,7 +55,7 @@ export const Label = ({ children, link }) => {
 
 const EducationCard = ({ edu }) => (
   <div
-    className="relative mx-0 mb-8 flex w-full max-w-154 flex-col gap-3 rounded-xl border border-gray-200 bg-transparent p-6 transition-colors duration-300 dark:border-gray-700 hover:border-sky-500"
+    className="relative mx-0 mb-8 flex w-full max-w-154 flex-col gap-3 rounded-xl border border-gray-200 bg-transparent p-6 transition-colors duration-300 dark:border-white/10 hover:border-sky-500"
     tabIndex={0}
     aria-label={`Education at ${edu.institute}`}
   >
