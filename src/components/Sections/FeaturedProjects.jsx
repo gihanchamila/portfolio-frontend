@@ -44,8 +44,6 @@ const FeaturedProjects = () => {
       setTotalCount(total);
 
       localStorage.setItem(LS_KEY, JSON.stringify(data));
-
-      toast(res.data.message);
     } catch (error) {
       toast(error.response?.data?.message || 'Something went wrong', 'error');
     }
@@ -76,8 +74,6 @@ const FeaturedProjects = () => {
 
       setProjectFiles(fileMap);
       localStorage.setItem(LS_FILES_KEY, JSON.stringify(fileMap));
-
-      toast('Signed URLs loaded');
     } catch (err) {
       console.error('Signed URL error:', err);
       toast('Failed to load signed URLs', 'error');
